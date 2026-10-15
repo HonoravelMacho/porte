@@ -1,7 +1,6 @@
 package dev.porte.porte
 
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import io.flutter.embedding.android.FlutterActivity
@@ -23,32 +22,21 @@ class MainActivity : FlutterActivity() {
         }
     }
 
-    private fun isInstalled(pkg: String): Boolean {
-        return try {
-            if (Build.VERSION.SDK_INT >= 33) {
-                packageManager.getPackageInfo(pkg, PackageManager.PackageInfoFlags.of(0))
-            } else {
-                @Suppress("DEPRECATION")
-                packageManager.getPackageInfo(pkg, 0)
-            }
-            true
-        } catch (e: PackageManager.NameNotFoundException) {
-            false
-        }
-    }
-
     /**
      * Abre o Termux na [path] via RUN_COMMAND.
      * Retorna "ok" | "not_installed" | "error" para o Dart dar feedback exato.
+     *
+     * Estratégia: dispara o serviço DIRETO com Intent explícito (não sofre a
+     * restrição de visibilidade de pacotes do Android 11+). Só abre a loja
+     * se o start retornar null (serviço inexistente = Termux ausente) ou
+     * lançar exceção. O getPackageInfo saiu do caminho principal porque
+     * podia dizer "não instalado" com o Termux instalado.
+     *
      * O comando usa ";" (e não "&&"): se o cd falhar (ex.: sem
      * termux-setup-storage), o Termux ainda abre num shell em vez de
      * fechar a sessão na hora e parecer que "nada aconteceu".
      */
     private fun openTermux(path: String): String {
-        if (!isInstalled("com.termux")) {
-            openStore()
-            return "not_installed"
-        }
         return try {
             val intent = Intent("com.termux.action.RUN_COMMAND").apply {
                 setClassName("com.termux", "com.termux.app.RunCommandService")
@@ -57,8 +45,18 @@ class MainActivity : FlutterActivity() {
                 putExtra("com.termux.RUN_COMMAND_WORKDIR", path)
                 putExtra("com.termux.RUN_COMMAND_BACKGROUND", false)
             }
-            if (Build.VERSION.SDK_INT >= 26) startForegroundService(intent) else startService(intent)
-            "ok"
+            val component = if (Build.VERSION.SDK_INT >= 26) {
+                startForegroundService(intent)
+            } else {
+                @Suppress("DEPRECATION")
+                startService(intent)
+            }
+            if (component == null) {
+                openStore()
+                "not_installed"
+            } else {
+                "ok"
+            }
         } catch (e: Exception) {
             openStore()
             "error"
