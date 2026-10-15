@@ -16,6 +16,8 @@ class MainActivity : FlutterActivity() {
             if (call.method == "openTerminal") {
                 val path = call.argument<String>("path") ?: ""
                 result.success(openTermux(path))
+            } else if (call.method == "launchTermux") {
+                result.success(launchTermux())
             } else {
                 result.notImplemented()
             }
@@ -75,5 +77,26 @@ class MainActivity : FlutterActivity() {
         try {
             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://f-droid.org/packages/com.termux/")))
         } catch (_: Exception) {}
+    }
+
+    /**
+     * Plano B sem permissão: abre o app Termux na tela inicial (launch intent).
+     * Não precisa de RUN_COMMAND — sempre funciona com o Termux instalado.
+     * Retorna "ok" ou "missing: ...".
+     */
+    private fun launchTermux(): String {
+        return try {
+            val launch = packageManager.getLaunchIntentForPackage("com.termux")
+            if (launch == null) {
+                openStore()
+                "missing: Termux não encontrado pelo PackageManager"
+            } else {
+                launch.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                startActivity(launch)
+                "ok"
+            }
+        } catch (e: Exception) {
+            "error: ${e.javaClass.simpleName}: ${e.message}"
+        }
     }
 }

@@ -72,6 +72,20 @@ class TerminalService {
     }
   }
 
+  /// Plano B: abre o app Termux (tela inicial) via launch intent.
+  /// Não exige a permissão RUN_COMMAND — funciona sempre que o Termux
+  /// estiver instalado. Retorna true se o Termux foi aberto.
+  Future<bool> launchTermuxApp() async {
+    if (!Platform.isAndroid) return false;
+    try {
+      final raw = await _channel.invokeMethod<String>('launchTermux');
+      return raw == 'ok';
+    } catch (e) {
+      debugPrint('PORTE launchTermux: $e');
+      return false;
+    }
+  }
+
   /// Sem o canal nativo: abre a página do Termux no F-Droid.
   Future<TerminalOutcome> _openStoreFallback() async {
     try {
