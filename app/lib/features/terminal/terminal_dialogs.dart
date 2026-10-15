@@ -4,7 +4,8 @@ import 'terminal_service.dart';
 
 /// Fluxo unificado: dispara, aguarda o veredito do Termux (até 10s) e mostra
 /// sucesso ou o diálogo de falha com o erro exato + copiar. Sem veredito
-/// (timeout), assume sessão interativa aberta = sucesso.
+/// (timeout), mostra o checklist de permissões do Termux em vez de um
+/// falso sucesso.
 Future<void> handleTerminalRequest(BuildContext context, String dir) async {
   final terminal = TerminalService();
   final outcome = await terminal.openTerminal(dir);
@@ -15,13 +16,60 @@ Future<void> handleTerminalRequest(BuildContext context, String dir) async {
   }
   final verdict = await terminal.waitForVerdict();
   if (!context.mounted) return;
-  if (verdict == null || verdict.opened) {
+  if (verdict != null && !verdict.opened) {
+    await showTerminalFailure(context, outcome: verdict, dir: dir);
+    return;
+  }
+  if (verdict != null) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text('Terminal aberto em $dir')),
     );
-  } else {
-    await showTerminalFailure(context, outcome: verdict, dir: dir);
+    return;
   }
+  await showTerminalNoVerdict(context, dir: dir);
+}
+
+/// Sem resposta do Termux em 10s: a sessão provavelmente foi bloqueada por
+/// falta de "Exibir sobre outros apps" ou otimização de bateria.
+Future<void> showTerminalNoVerdict(BuildContext context, {required String dir}) {
+  final terminal = TerminalService();
+  return showDialog(
+    context: context,
+    builder: (d) => AlertDialog(
+      title: const Text('TERMUX NÃO RESPONDEU'),
+      content: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Pasta: $dir'),
+            const SizedBox(height: 8),
+            const SelectableText(
+              'O comando foi enviado, mas o Termux não confirmou em 10s. '
+              'Verifique no Android:\n'
+              '1) Configurações > Apps > Termux > "Exibir sobre outros apps" > Permitir.\n'
+              '2) Configurações > Apps > Termux > Bateria > Irrestrita (sem otimização).\n'
+              '3) Se aparecer notificação do Termux, toque nela.',
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () async {
+            final ok = await terminal.launchTermuxApp();
+            if (d.mounted && !ok) {
+              ScaffoldMessenger.of(d).showSnackBar(
+                const SnackBar(content: Text('Termux não encontrado para abrir.')),
+              );
+            }
+          },
+          child: const Text('ABRIR O TERMUX'),
+        ),
+        TextButton(onPressed: () => Navigator.pop(d), child: const Text('FECHAR')),
+      ],
+    ),
+  );
 }
 
 /// Diálogo de falha do terminal com o detalhe técnico exato + botões:
