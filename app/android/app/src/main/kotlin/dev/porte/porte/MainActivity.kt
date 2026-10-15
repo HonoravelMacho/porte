@@ -61,6 +61,9 @@ class MainActivity : FlutterActivity() {
 
     /**
      * Abre o Termux na [path] via RUN_COMMAND.
+     * Action oficial (wiki do Termux): "com.termux.RUN_COMMAND"
+     * (a antiga "com.termux.action.RUN_COMMAND" é rejeitada com
+     * "Invalid intent action" no Termux >= 0.118).
      * Retorna "ok" ou "CODIGO: detalhe" com a exceção real
      * (classe + mensagem), para o Dart exibir em diálogo com copiar.
      * Códigos: "denied" (Android bloqueou), "null_service" (serviço não
@@ -76,7 +79,7 @@ class MainActivity : FlutterActivity() {
      * fechar a sessão na hora e parecer que "nada aconteceu".
      */
     private fun openTermux(path: String): String {
-        val intent = Intent("com.termux.action.RUN_COMMAND").apply {
+        val intent = Intent("com.termux.RUN_COMMAND").apply {
             setClassName("com.termux", "com.termux.app.RunCommandService")
             putExtra("com.termux.RUN_COMMAND_PATH", "/data/data/com.termux/files/usr/bin/bash")
             putExtra("com.termux.RUN_COMMAND_ARGUMENTS", arrayOf("-lic", "cd \"$path\"; exec bash"))

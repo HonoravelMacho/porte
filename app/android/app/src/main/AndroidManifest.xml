@@ -54,7 +54,7 @@
         <!-- PORTE: visibilidade do Termux (Android 11+) p/ "Abrir Terminal" -->
         <package android:name="com.termux" />
         <intent>
-            <action android:name="com.termux.action.RUN_COMMAND" />
+            <action android:name="com.termux.RUN_COMMAND" />
         </intent>
     </queries>
 </manifest>
