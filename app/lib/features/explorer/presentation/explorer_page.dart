@@ -34,6 +34,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
   final Set<String> _selected = {};
   bool get _selectionMode => _selected.isNotEmpty;
   bool _gridMode = false;
+  String _viewMode = 'todos'; // 'todos' | 'recente' | 'categoria'
 
   @override
   void initState() {
@@ -71,6 +72,10 @@ class _ExplorerPageState extends State<ExplorerPage> {
     });
     try {
       final list = await _files.list(_dir);
+      // Aplica filtro/ordenação baseado no modo de visualização
+      if (_viewMode == 'recente') {
+        list.sort((a, b) => b.modified.compareTo(a.modified));
+      }
       setState(() {
         _entries = list;
         _selected.clear();
@@ -119,6 +124,24 @@ class _ExplorerPageState extends State<ExplorerPage> {
       appBar: PorteAppBar(
         title: 'PORTE // EXPLORER',
         actions: [
+          PopupMenuButton<String>(
+            icon: const Icon(Icons.filter_list, color: PorteColors.cyanNeon),
+            onSelected: (String value) => setState(() => _viewMode = value),
+            itemBuilder: (_) => [
+              const PopupMenuItem(
+                value: 'todos',
+                child: Text('Todos arquivos', style: TextStyle(fontFamily: 'monospace')),
+              ),
+              const PopupMenuItem(
+                value: 'recente',
+                child: Text('Recent', style: TextStyle(fontFamily: 'monospace')),
+              ),
+              const PopupMenuItem(
+                value: 'categoria',
+                child: Text('Por categoria', style: TextStyle(fontFamily: 'monospace')),
+              ),
+            ],
+          ),
           IconButton(
             icon: Icon(_gridMode ? Icons.view_list_rounded : Icons.grid_view_rounded,
                 color: PorteColors.cyanNeon),

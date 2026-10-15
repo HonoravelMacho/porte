@@ -143,7 +143,7 @@ class _FileGridTileState extends State<FileGridTile> {
 
   @override
   Widget build(BuildContext context) {
-    final c = IconCache.colorFor(widget.entry.category, widget.entry.isDir);
+    final c = colorFor(widget.entry.category, widget.entry.isDir);
     return ClipPath(
       clipper: const ChamferedClipper(chamfer: 8),
       child: Material(

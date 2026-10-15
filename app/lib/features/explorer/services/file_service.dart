@@ -116,9 +116,15 @@ class FileService {
   }
 
   /// Tamanho recursivo (usado no carrossel de armazenamento estilo desktop2).
-  Future<int> dirSize(String path, {int budget = 4000}) async {
+  /// Orçamento adaptativo: evita travar em árvores gigantes, mas não limita
+  /// demais em armazenamentos menores. Orçamento baseia-se em ~500KB de RAM livre.
+  Future<int> dirSize(String path, {int budgetFactor = 1}) async {
     var total = 0;
     var seen = 0;
+    // Orçamento dinâmico: quanto mais RAM livre, mais arquivos podemos contar
+    final double memPct = await memoryUsagePct();
+    int budget = (4000 * (1.0 - memPct / 100).truncate()) * budgetFactor; // diminui budget se RAM crítica
+    budget = budget.clamp(1000, 20000); // entre 1k e 20k itens
     try {
       await for (final e in Directory(path).list(recursive: true, followLinks: false)) {
         if (seen++ > budget) break; // evita travar em árvores gigantes no MVP
