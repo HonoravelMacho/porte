@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES"/>
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <!-- PORTE: exigida pelo Termux para aceitar RUN_COMMAND de terceiros.
+         Sem ela o Android nega com SecurityException (visto no Ulefone/Android 15). -->
+    <uses-permission android:name="com.termux.permission.RUN_COMMAND"/>
     <application
         android:label="porte"
         android:name="${applicationName}"
