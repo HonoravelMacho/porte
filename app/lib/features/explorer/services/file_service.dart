@@ -171,4 +171,38 @@ class FileService {
     out.sort();
     return out;
   }
+
+  /// Retorna quantos arquivos de [category] existem sob [root] (até [limit]).
+  Future<int> fileCountByCategory(String root, String category, {int limit = 500}) async {
+    final exts = categoryExtensions[category];
+    if (exts == null) return 0;
+    int c = 0;
+    try {
+      await for (final e in Directory(root).list(recursive: true, followLinks: false)) {
+        if (c >= limit) break;
+        if (e is! File) continue;
+        final name = p.basename(e.path);
+        final dot = name.lastIndexOf('.');
+        if (dot < 0) continue;
+        if (!exts.contains(name.substring(dot + 1).toLowerCase())) continue;
+        c++;
+      }
+    } catch (_) {}
+    return c;
+  }
+
+  /// Percentual de uso da RAM disponível (Android Termux: lê /proc/meminfo).
+  Future<double> memoryUsagePct() async {
+    try {
+      final ps = await Process.run('sh', ['-c', 'cat /proc/meminfo']);
+      final text = ps.stdout.toString();
+      // Extrai valores de MemTotal e MemAvailable (formato: "MemTotal: XX kB")
+      final memTotalStr = text.split('\n').firstWhere((l) => l.startsWith('MemTotal:'))?.split(':')[1]?.trim()?.split(' ')[0]?.replaceAll(',', '.');
+      final memFreeStr = text.split('\n').firstWhere((l) => l.startsWith('MemAvailable:'))?.split(':')[1]?.trim()?.split(' ')[0]?.replaceAll(',', '.');
+      final double memTotal = double.parse(memTotalStr ?? '0');
+      final double memFree = double.parse(memFreeStr ?? '0');
+      if (memTotal > 0) return (memFree / memTotal) * 100;
+    } catch (_) {}
+    return 0.0;
+  }
 }

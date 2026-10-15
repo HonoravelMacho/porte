@@ -1,7 +1,8 @@
+import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
-import '../../../core/widgets/hud_panel.dart';
+import '../../../../core/widgets/hud_panel.dart';
 import '../domain/file_entry.dart';
 import '../services/file_service.dart';
 import 'widgets/file_grid_tile.dart';
@@ -10,7 +11,8 @@ import 'widgets/porte_context_menu.dart';
 
 /// Página de categoria — resultado da grade de categorias:
 /// varredura real por extensão (imagens/áudio/vídeo/docs/pacotes),
-/// com alternância lista/grade e abertura via menu de contexto.
+/// com alternância lista/grade, contagem de arquivos, uso de memória RAM
+/// e preview dos primeiros arquivos encontrados.
 class CategoryPage extends StatefulWidget {
   final String category;
   final String title;
@@ -26,6 +28,9 @@ class _CategoryPageState extends State<CategoryPage> {
   List<FileEntry> _entries = [];
   bool _loading = true;
   bool _grid = true;
+  int _fileCount = 0;
+  double _memPct = 0.0;
+  List<FileEntry> _preview = [];
 
   @override
   void initState() {
@@ -36,19 +41,31 @@ class _CategoryPageState extends State<CategoryPage> {
   Future<void> _load() async {
     setState(() => _loading = true);
     final list = await _files.byCategory(widget.root, widget.category);
+    final count = await _files.fileCountByCategory(widget.root, widget.category);
+    final mem = await _files.memoryUsagePct();
+    // preview: primeiro lote de até 3 arquivos
+    final preview = list.take(3).toList();
     if (mounted) {
       setState(() {
         _entries = list;
+        _fileCount = count;
+        _memPct = mem;
+        _preview = preview;
         _loading = false;
       });
     }
   }
 
+  Future<void> _refresh() async => _load();
+
   @override
   Widget build(BuildContext context) {
+    final title = widget.title.isNotEmpty
+        ? widget.title
+        : widget.category.toUpperCase();
     return Scaffold(
       appBar: PorteAppBar(
-        title: '${widget.title} (${_entries.length})',
+        title: '$title\nArquivos: $_fileCount | RAM: ${_memPct.toStringAsFixed(1)}%',
         actions: [
           IconButton(
             icon: Icon(_grid ? Icons.view_list_rounded : Icons.grid_view_rounded,
@@ -57,7 +74,7 @@ class _CategoryPageState extends State<CategoryPage> {
           ),
           IconButton(
             icon: const Icon(Icons.refresh, color: Color(0xFF22E6FF)),
-            onPressed: _load,
+            onPressed: _refresh,
           ),
         ],
       ),
@@ -92,6 +109,24 @@ class _CategoryPageState extends State<CategoryPage> {
                         onLongPress: () => _menu(_entries[i]),
                       ),
                     ),
+      // Preview dos primeiros arquivos da categoria (chapé no rodapé)
+      bottomSheet: _preview.isNotEmpty
+          ? HudPanel(
+              title: 'Preview (${_preview.length} de $_fileCount)',
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: _preview.length,
+                itemBuilder: (context, i) => ListTile(
+                  title: Text(_preview[i].name,
+                      style: const TextStyle(fontFamily: 'monospace', fontSize: 10)),
+                  trailing: Text(
+                    _preview[i].isDir ? 'PASTA' : formatSize(_preview[i].size),
+                    style: const TextStyle(color: Color(0xFF888888), fontFamily: 'monospace', fontSize: 8),
+                  ),
+                ),
+              ),
+            )
+          : null,
     );
   }
 
@@ -108,6 +143,6 @@ class _CategoryPageState extends State<CategoryPage> {
         entry: e,
         files: _files,
         currentDir: File(e.path).parent.path,
-        onChanged: _load,
+        onChanged: _refresh,
       );
 }
