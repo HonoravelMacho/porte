@@ -61,7 +61,7 @@ class TerminalService {
       final detail = sep < 0 ? '' : raw.substring(sep + 1).trim();
       return switch (code) {
         'null_service' => TerminalOutcome(TerminalResult.serviceMissing, detail),
-        'denied' => TerminalOutcome(TerminalResult.denied, detail),
+        'denied' || 'denied_perm' => TerminalOutcome(TerminalResult.denied, detail),
         _ => TerminalOutcome(TerminalResult.failed, raw),
       };
     } on MissingPluginException catch (_) {
