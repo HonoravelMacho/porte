@@ -1,8 +1,9 @@
 package dev.porte.porte
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Bundle
+import android.os.Build
 import io.flutter.embedding.android.FlutterActivity
 import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugin.common.MethodChannel
@@ -22,8 +23,30 @@ class MainActivity : FlutterActivity() {
         }
     }
 
-    /** Tenta RUN_COMMAND do Termux com cwd = pasta atual; false => Dart faz fallback. */
+    private fun isInstalled(pkg: String): Boolean {
+        return try {
+            if (Build.VERSION.SDK_INT >= 33) {
+                packageManager.getPackageInfo(pkg, PackageManager.PackageInfoFlags.of(0))
+            } else {
+                @Suppress("DEPRECATION")
+                packageManager.getPackageInfo(pkg, 0)
+            }
+            true
+        } catch (e: PackageManager.NameNotFoundException) {
+            false
+        }
+    }
+
+    /**
+     * Abre o Termux na [path] via RUN_COMMAND.
+     * Retorna false (e abre a página do Termux) quando ele não está instalado
+     * — antes o código retornava true mesmo sem o Termux, e nada acontecia.
+     */
     private fun openTermux(path: String): Boolean {
+        if (!isInstalled("com.termux")) {
+            openStore()
+            return false
+        }
         return try {
             val intent = Intent("com.termux.action.RUN_COMMAND").apply {
                 setClassName("com.termux", "com.termux.app.RunCommandService")
@@ -32,14 +55,18 @@ class MainActivity : FlutterActivity() {
                 putExtra("com.termux.RUN_COMMAND_WORKDIR", path)
                 putExtra("com.termux.RUN_COMMAND_BACKGROUND", false)
             }
-            startService(intent)
+            if (Build.VERSION.SDK_INT >= 26) startForegroundService(intent) else startService(intent)
             true
         } catch (e: Exception) {
-            try {
-                // Fallback: abre o app Termux na Play Store
-                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=com.termux")))
-            } catch (_: Exception) {}
+            openStore()
             false
         }
+    }
+
+    /** Termux atual está no F-Droid (a versão da Play Store é antiga/descontinuada). */
+    private fun openStore() {
+        try {
+            startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://f-droid.org/packages/com.termux/")))
+        } catch (_: Exception) {}
     }
 }

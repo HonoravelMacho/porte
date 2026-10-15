@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:android_intent_plus/android_intent.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Abre um terminal nativo apontando para [directory].
@@ -34,24 +33,16 @@ class TerminalService {
       debugPrint('PORTE terminal channel: $e');
     }
     // 2) Intent RUN_COMMAND do Termux (workingDirectory = pasta atual).
+    // Obs.: RUN_COMMAND é um Service — disparar como Activity falha;
+    // por isso o caminho oficial é o MethodChannel (MainActivity).
+    // Aqui resta apenas o fallback para a página do Termux no F-Droid
+    // (a versão da Play Store está descontinuada).
     try {
-      final intent = AndroidIntent(
-        action: 'com.termux.action.RUN_COMMAND',
-        package: 'com.termux',
-        arguments: {
-          'com.termux.RUN_COMMAND_PATH': '/data/data/com.termux/files/usr/bin/bash',
-          'com.termux.RUN_COMMAND_ARGUMENTS': ['-lic', 'cd "$directory" && exec bash'],
-          'com.termux.RUN_COMMAND_WORKDIR': directory,
-          'com.termux.RUN_COMMAND_BACKGROUND': false,
-        },
-      );
-      await intent.launch();
-      return true;
-    } catch (e) {
-      debugPrint('PORTE termux intent falhou: $e');
-      // 3) fallback: página do Termux na Play Store
-      await launchUrl(Uri.parse('https://play.google.com/store/apps/details?id=com.termux'),
+      await launchUrl(Uri.parse('https://f-droid.org/packages/com.termux/'),
           mode: LaunchMode.externalApplication);
+      return false;
+    } catch (e) {
+      debugPrint('PORTE termux fallback falhou: $e');
       return false;
     }
   }

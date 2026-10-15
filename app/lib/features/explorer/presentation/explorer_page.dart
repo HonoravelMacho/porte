@@ -6,6 +6,7 @@ import '../../../core/theme/porte_colors.dart';
 import '../../../core/widgets/hud_panel.dart';
 import '../domain/file_entry.dart';
 import '../services/file_service.dart';
+import '../../terminal/terminal_service.dart';
 import 'widgets/category_grid.dart';
 import 'widgets/file_tile.dart';
 import 'widgets/path_bar.dart';
@@ -37,14 +38,24 @@ class _ExplorerPageState extends State<ExplorerPage> {
   }
 
   Future<void> _init() async {
-    if (Platform.isAndroid) {
-      await Permission.storage.request();
-      await Permission.manageExternalStorage.request();
-    }
-    if (Platform.isLinux || !(await Directory(_dir).exists())) {
-      _dir = Platform.isLinux
-          ? (Platform.environment['HOME'] ?? '/')
-          : (await getApplicationDocumentsDirectory()).path;
+    try {
+      if (Platform.isAndroid) {
+        await Permission.storage.request();
+        await Permission.manageExternalStorage.request();
+      }
+      if (Platform.isLinux || !(await Directory(_dir).exists())) {
+        String home = '/';
+        try {
+          home = Platform.isLinux
+              ? (Platform.environment['HOME'] ?? '/')
+              : (await getApplicationDocumentsDirectory()).path;
+        } catch (_) {
+          home = '/';
+        }
+        _dir = home;
+      }
+    } catch (_) {
+      _dir = '/';
     }
     await _reload();
   }
@@ -190,9 +201,54 @@ class _ExplorerPageState extends State<ExplorerPage> {
           : FloatingActionButton(
               backgroundColor: PorteColors.cyanNeon,
               foregroundColor: PorteColors.abyss,
-              onPressed: _onCreate,
+              onPressed: _onFabPressed,
               child: const Icon(Icons.add),
             ),
+    );
+  }
+
+  /// Botão + agora oferece as duas ações: criar pasta OU abrir terminal aqui.
+  Future<void> _onFabPressed() async {
+    final choice = await showModalBottomSheet<String>(
+      context: context,
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              leading: const Icon(Icons.create_new_folder_outlined, color: PorteColors.cyanNeon),
+              title: const Text('Criar nova pasta'),
+              subtitle: Text(_dir, maxLines: 1, overflow: TextOverflow.ellipsis),
+              onTap: () => Navigator.pop(ctx, 'mkdir'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.terminal_rounded, color: PorteColors.amberNeon),
+              title: const Text('Abrir pasta atual no terminal'),
+              subtitle: Text(_dir, maxLines: 1, overflow: TextOverflow.ellipsis),
+              onTap: () => Navigator.pop(ctx, 'terminal'),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (choice == 'mkdir') {
+      await _onCreateFolder();
+    } else if (choice == 'terminal') {
+      await _onOpenTerminalHere();
+    }
+  }
+
+  Future<void> _onOpenTerminalHere() async {
+    final ok = await TerminalService().openTerminal(_dir);
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          ok
+              ? 'Terminal despachado para $_dir'
+              : 'Não foi possível abrir o terminal. No Android: instale o Termux (F-Droid) e rode termux-setup-storage. No Linux: instale xterm/gnome-terminal.',
+        ),
+      ),
     );
   }
 
@@ -257,7 +313,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
     );
   }
 
-  Future<void> _onCreate() async {
+  Future<void> _onCreateFolder() async {
     final name = await showDialog<String>(
       context: context,
       builder: (d) {
