@@ -24,9 +24,10 @@ class MainActivity : FlutterActivity() {
 
     /**
      * Abre o Termux na [path] via RUN_COMMAND.
-     * Retorna códigos para o Dart dar feedback exato:
-     * "ok" | "null_service" (serviço não existe = Termux ausente/incompatível)
-     * | "denied" (Android bloqueou o disparo) | "error" (outra falha).
+     * Retorna "ok" ou "CODIGO: detalhe" com a exceção real
+     * (classe + mensagem), para o Dart exibir em diálogo com copiar.
+     * Códigos: "denied" (Android bloqueou), "null_service" (serviço não
+     * existe = Termux ausente/incompatível), "error" (outra falha).
      *
      * Estratégia: Intent explícito direto (sem getPackageInfo, que no
      * Android 11+ pode dizer "não instalado" com o Termux instalado).
@@ -50,10 +51,8 @@ class MainActivity : FlutterActivity() {
             try {
                 val component = startForegroundService(intent)
                 if (component != null) return "ok"
-            } catch (e: SecurityException) {
-                return "denied"
             } catch (e: Exception) {
-                // cai para o startService legado abaixo
+                return "denied: ${e.javaClass.simpleName}: ${e.message}"
             }
         }
         // 2) caminho legado / fallback
@@ -62,14 +61,12 @@ class MainActivity : FlutterActivity() {
             val component = startService(intent)
             if (component == null) {
                 openStore()
-                "null_service"
+                "null_service: startService retornou null (serviço com.termux.app.RunCommandService não existe)"
             } else {
                 "ok"
             }
-        } catch (e: SecurityException) {
-            "denied"
         } catch (e: Exception) {
-            "error"
+            "error: ${e.javaClass.simpleName}: ${e.message}"
         }
     }
 

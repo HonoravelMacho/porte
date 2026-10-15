@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:share_plus/share_plus.dart';
+import '../../../terminal/terminal_dialogs.dart';
 import '../../../terminal/terminal_service.dart';
 import '../../services/file_service.dart';
 import '../../domain/file_entry.dart';
@@ -30,23 +31,9 @@ Future<void> showPorteContextMenu({
             onTap: () async {
               Navigator.pop(ctx);
               final target = isDir ? entry.path : currentDir;
-              final res = await terminal.openTerminal(target);
-              if (ctx.mounted && res != TerminalResult.opened) {
-                ScaffoldMessenger.of(ctx).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      switch (res) {
-                        TerminalResult.opened => '',
-                        TerminalResult.serviceMissing =>
-                          'Serviço do Termux não encontrado — abrimos a página de instalação.',
-                        TerminalResult.denied =>
-                          'Android bloqueou o disparo do terminal.',
-                        TerminalResult.failed =>
-                          'Terminal indisponível — no Linux instale xterm ou gnome-terminal.',
-                      },
-                    ),
-                  ),
-                );
+              final outcome = await terminal.openTerminal(target);
+              if (ctx.mounted && !outcome.opened) {
+                await showTerminalFailure(ctx, outcome: outcome, dir: target);
               }
             },
           ),

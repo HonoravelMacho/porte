@@ -5,6 +5,15 @@ import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 /// Resultado detalhado da tentativa de abrir o terminal,
+/// com o detalhe técnico (ex.: mensagem da exceção) para diagnóstico.
+class TerminalOutcome {
+  final TerminalResult result;
+  final String detail;
+  const TerminalOutcome(this.result, [this.detail = '']);
+  bool get opened => result == TerminalResult.opened;
+}
+
+/// Resultado detalhado da tentativa de abrir o terminal,
 /// para feedback exato na interface (em vez de true/false cego).
 enum TerminalResult {
   /// Comando despachado. No Android, se o Termux abrir e fechar na hora,
@@ -29,41 +38,49 @@ enum TerminalResult {
 class TerminalService {
   static const _channel = MethodChannel('dev.porte/terminal');
 
-  Future<TerminalResult> openTerminal(String directory) async {
+  Future<TerminalOutcome> openTerminal(String directory) async {
     if (Platform.isAndroid) return _openAndroid(directory);
     if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
-      return (await _openDesktop(directory)) ? TerminalResult.opened : TerminalResult.failed;
+      return (await _openDesktop(directory))
+          ? const TerminalOutcome(TerminalResult.opened)
+          : const TerminalOutcome(TerminalResult.failed, 'nenhum emulador encontrado (x-terminal-emulator, gnome-terminal, konsole, xfce4-terminal, xterm)');
     }
-    return TerminalResult.failed;
+    return const TerminalOutcome(TerminalResult.failed, 'plataforma sem suporte');
   }
 
   // ---- Android: Termux ----
-  Future<TerminalResult> _openAndroid(String directory) async {
+  Future<TerminalOutcome> _openAndroid(String directory) async {
     try {
-      final status = await _channel.invokeMethod<String>('openTerminal', {'path': directory});
-      return switch (status) {
-        'ok' => TerminalResult.opened,
-        'null_service' => TerminalResult.serviceMissing,
-        'denied' => TerminalResult.denied,
-        _ => TerminalResult.failed,
+      final raw = await _channel.invokeMethod<String>('openTerminal', {'path': directory});
+      if (raw == null || raw == 'ok') {
+        return const TerminalOutcome(TerminalResult.opened);
+      }
+      // Formato "CODIGO: detalhe" vindo do Kotlin.
+      final sep = raw.indexOf(':');
+      final code = (sep < 0 ? raw : raw.substring(0, sep)).trim();
+      final detail = sep < 0 ? '' : raw.substring(sep + 1).trim();
+      return switch (code) {
+        'null_service' => TerminalOutcome(TerminalResult.serviceMissing, detail),
+        'denied' => TerminalOutcome(TerminalResult.denied, detail),
+        _ => TerminalOutcome(TerminalResult.failed, raw),
       };
     } on MissingPluginException catch (_) {
       return _openStoreFallback();
     } catch (e) {
       debugPrint('PORTE terminal channel: $e');
-      return TerminalResult.failed;
+      return TerminalOutcome(TerminalResult.failed, '$e');
     }
   }
 
   /// Sem o canal nativo: abre a página do Termux no F-Droid.
-  Future<TerminalResult> _openStoreFallback() async {
+  Future<TerminalOutcome> _openStoreFallback() async {
     try {
       await launchUrl(Uri.parse('https://f-droid.org/packages/com.termux/'),
           mode: LaunchMode.externalApplication);
-      return TerminalResult.serviceMissing;
+      return const TerminalOutcome(TerminalResult.serviceMissing, 'canal nativo ausente; aberta página do F-Droid');
     } catch (e) {
       debugPrint('PORTE termux fallback falhou: $e');
-      return TerminalResult.failed;
+      return TerminalOutcome(TerminalResult.failed, '$e');
     }
   }
 
