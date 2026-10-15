@@ -110,8 +110,8 @@ class MainActivity : FlutterActivity() {
             // requestCode único por chamada (exigência do Termux).
             var flags = PendingIntent.FLAG_ONE_SHOT
             if (Build.VERSION.SDK_INT >= 31) flags = flags or PendingIntent.FLAG_MUTABLE
-            val resultIntent = Intent(this, TermuxResultReceiver::class.java)
-            val pending = PendingIntent.getBroadcast(this, nextRequestCode++, resultIntent, flags)
+            val resultIntent = Intent(this@MainActivity, TermuxResultReceiver::class.java)
+            val pending = PendingIntent.getBroadcast(this@MainActivity, nextRequestCode++, resultIntent, flags)
             putExtra("com.termux.RUN_COMMAND_PENDING_INTENT", pending)
         }
         // 1) caminho moderno (API 26+)
