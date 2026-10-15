@@ -10,9 +10,13 @@ enum TerminalResult {
   /// Comando despachado. No Android, se o Termux abrir e fechar na hora,
   /// falta `termux-setup-storage` (permissão de arquivos do Termux).
   opened,
-  /// Termux não instalado — app já abriu a página do F-Droid.
-  notInstalled,
-  /// Falha (sem terminal padrão no Linux, erro de Intent, etc).
+  /// O serviço do Termux não existe no aparelho (Termux ausente ou
+  /// incompatível) — app já abriu a página de instalação.
+  serviceMissing,
+  /// O Android bloqueou o disparo (SecurityException). Geralmente restrição
+  /// de execução em segundo plano ou política do fabricante.
+  denied,
+  /// Outra falha (sem terminal padrão no Linux, erro de Intent, etc).
   failed,
 }
 
@@ -39,7 +43,8 @@ class TerminalService {
       final status = await _channel.invokeMethod<String>('openTerminal', {'path': directory});
       return switch (status) {
         'ok' => TerminalResult.opened,
-        'not_installed' => TerminalResult.notInstalled,
+        'null_service' => TerminalResult.serviceMissing,
+        'denied' => TerminalResult.denied,
         _ => TerminalResult.failed,
       };
     } on MissingPluginException catch (_) {
@@ -50,12 +55,12 @@ class TerminalService {
     }
   }
 
-  /// Sem o canal nativo (ou sem Termux): abre a página do Termux no F-Droid.
+  /// Sem o canal nativo: abre a página do Termux no F-Droid.
   Future<TerminalResult> _openStoreFallback() async {
     try {
       await launchUrl(Uri.parse('https://f-droid.org/packages/com.termux/'),
           mode: LaunchMode.externalApplication);
-      return TerminalResult.notInstalled;
+      return TerminalResult.serviceMissing;
     } catch (e) {
       debugPrint('PORTE termux fallback falhou: $e');
       return TerminalResult.failed;

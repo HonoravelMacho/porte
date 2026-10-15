@@ -24,41 +24,51 @@ class MainActivity : FlutterActivity() {
 
     /**
      * Abre o Termux na [path] via RUN_COMMAND.
-     * Retorna "ok" | "not_installed" | "error" para o Dart dar feedback exato.
+     * Retorna códigos para o Dart dar feedback exato:
+     * "ok" | "null_service" (serviço não existe = Termux ausente/incompatível)
+     * | "denied" (Android bloqueou o disparo) | "error" (outra falha).
      *
-     * Estratégia: dispara o serviço DIRETO com Intent explícito (não sofre a
-     * restrição de visibilidade de pacotes do Android 11+). Só abre a loja
-     * se o start retornar null (serviço inexistente = Termux ausente) ou
-     * lançar exceção. O getPackageInfo saiu do caminho principal porque
-     * podia dizer "não instalado" com o Termux instalado.
+     * Estratégia: Intent explícito direto (sem getPackageInfo, que no
+     * Android 11+ pode dizer "não instalado" com o Termux instalado).
+     * Tenta startForegroundService (API 26+) e cai para startService se o
+     * sistema recusar. A loja só abre quando o serviço não existe.
      *
      * O comando usa ";" (e não "&&"): se o cd falhar (ex.: sem
      * termux-setup-storage), o Termux ainda abre num shell em vez de
      * fechar a sessão na hora e parecer que "nada aconteceu".
      */
     private fun openTermux(path: String): String {
+        val intent = Intent("com.termux.action.RUN_COMMAND").apply {
+            setClassName("com.termux", "com.termux.app.RunCommandService")
+            putExtra("com.termux.RUN_COMMAND_PATH", "/data/data/com.termux/files/usr/bin/bash")
+            putExtra("com.termux.RUN_COMMAND_ARGUMENTS", arrayOf("-lic", "cd \"$path\"; exec bash"))
+            putExtra("com.termux.RUN_COMMAND_WORKDIR", path)
+            putExtra("com.termux.RUN_COMMAND_BACKGROUND", false)
+        }
+        // 1) caminho moderno (API 26+)
+        if (Build.VERSION.SDK_INT >= 26) {
+            try {
+                val component = startForegroundService(intent)
+                if (component != null) return "ok"
+            } catch (e: SecurityException) {
+                return "denied"
+            } catch (e: Exception) {
+                // cai para o startService legado abaixo
+            }
+        }
+        // 2) caminho legado / fallback
         return try {
-            val intent = Intent("com.termux.action.RUN_COMMAND").apply {
-                setClassName("com.termux", "com.termux.app.RunCommandService")
-                putExtra("com.termux.RUN_COMMAND_PATH", "/data/data/com.termux/files/usr/bin/bash")
-                putExtra("com.termux.RUN_COMMAND_ARGUMENTS", arrayOf("-lic", "cd \"$path\"; exec bash"))
-                putExtra("com.termux.RUN_COMMAND_WORKDIR", path)
-                putExtra("com.termux.RUN_COMMAND_BACKGROUND", false)
-            }
-            val component = if (Build.VERSION.SDK_INT >= 26) {
-                startForegroundService(intent)
-            } else {
-                @Suppress("DEPRECATION")
-                startService(intent)
-            }
+            @Suppress("DEPRECATION")
+            val component = startService(intent)
             if (component == null) {
                 openStore()
-                "not_installed"
+                "null_service"
             } else {
                 "ok"
             }
+        } catch (e: SecurityException) {
+            "denied"
         } catch (e: Exception) {
-            openStore()
             "error"
         }
     }

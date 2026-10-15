@@ -35,9 +35,15 @@ Future<void> showPorteContextMenu({
                 ScaffoldMessenger.of(ctx).showSnackBar(
                   SnackBar(
                     content: Text(
-                      res == TerminalResult.notInstalled
-                          ? 'Termux não encontrado — abrimos a página dele no F-Droid. Depois rode termux-setup-storage dentro dele.'
-                          : 'Terminal indisponível — no Linux instale xterm ou gnome-terminal.',
+                      switch (res) {
+                        TerminalResult.opened => '',
+                        TerminalResult.serviceMissing =>
+                          'Serviço do Termux não encontrado — abrimos a página de instalação.',
+                        TerminalResult.denied =>
+                          'Android bloqueou o disparo do terminal.',
+                        TerminalResult.failed =>
+                          'Terminal indisponível — no Linux instale xterm ou gnome-terminal.',
+                      },
                     ),
                   ),
                 );

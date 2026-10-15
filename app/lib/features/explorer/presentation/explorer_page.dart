@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../core/theme/porte_colors.dart';
@@ -208,13 +209,39 @@ class _ExplorerPageState extends State<ExplorerPage> {
   }
 
   /// Botão + agora oferece as duas ações: criar pasta OU abrir terminal aqui.
+  /// O cabeçalho mostra a versão do PORTE (diagnóstico: confirma qual build
+  /// está instalada no aparelho).
   Future<void> _onFabPressed() async {
+    String version = '';
+    try {
+      final info = await PackageInfo.fromPlatform();
+      version = 'v${info.version}+${info.buildNumber}';
+    } catch (_) {}
+    if (!mounted) return;
     final choice = await showModalBottomSheet<String>(
       context: context,
       builder: (ctx) => SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 10, 16, 2),
+              child: Row(
+                children: [
+                  const Icon(Icons.radar, color: PorteColors.amberNeon, size: 16),
+                  const SizedBox(width: 6),
+                  Text(
+                    'PORTE $version',
+                    style: const TextStyle(
+                      color: PorteColors.textDim,
+                      fontFamily: 'monospace',
+                      fontSize: 11,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             ListTile(
               leading: const Icon(Icons.create_new_folder_outlined, color: PorteColors.cyanNeon),
               title: const Text('Criar nova pasta'),
@@ -247,8 +274,10 @@ class _ExplorerPageState extends State<ExplorerPage> {
           switch (res) {
             TerminalResult.opened =>
               'Comando enviado ao Termux ($_dir). Se ele abrir e fechar: rode termux-setup-storage dentro do Termux.',
-            TerminalResult.notInstalled =>
-              'Termux não encontrado — abrimos a página dele no F-Droid. Instale, abra uma vez e rode termux-setup-storage.',
+            TerminalResult.serviceMissing =>
+              'Serviço do Termux não encontrado — abrimos a página de instalação. Se o Termux já está instalado, me diga sua versão do Android + PORTE (menu +).',
+            TerminalResult.denied =>
+              'Android bloqueou o disparo do terminal. Me diga seu aparelho + versão do Android.',
             TerminalResult.failed =>
               'Não foi possível abrir o terminal. No Linux: instale xterm ou gnome-terminal.',
           },
