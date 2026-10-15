@@ -1,0 +1,24 @@
+# Referência local — NÃO versionada (237 MB descompilado + 23 MB APK)
+# Usada só para reconstrução do MVP em Flutter. Não subir ao GitHub.
+app_descompilado/
+filemanager.apk
+
+# Build / releases locais
+dist/
+app/build/
+app/.dart_tool/
+app/.flutter-plugins*
+app/.packages
+
+# Android signing (nunca commitar!)
+*.keystore
+*.jks
+app/android/key.properties
+app/android/app/release.keystore
+
+# IDE / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db

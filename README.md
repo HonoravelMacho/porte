@@ -1,0 +1,52 @@
+# PORTE — Plataforma de Organização de Rede, Terminal e Exploração
+
+> PORTE — gerenciador de arquivos Sci-Fi/Skeuomorphic em Flutter: exploração local, terminal integrado (Termux/Linux), cofre com criptografia e HUD neon ciano/âmbar. Open-source, multiplataforma (Android/Linux).
+
+Gerenciador de arquivos multiplataforma (Android + Linux), responsivo e open-source, com HUD futurista, terminal nativo e cofre criptografado.
+
+## Estrutura
+
+- `app/` — projeto Flutter (código oficial do PORTE)
+  - `lib/core/` — tema Sci-Fi (`porte_colors`, `porte_theme`, `chamfered`) + widgets HUD
+  - `lib/features/explorer/` — listagem/navegação/operações de arquivo, cache de ícones, PathBar, carrossel de armazenamento, grade de categorias
+  - `lib/features/terminal/` — "Abrir Terminal" (Termux no Android, terminal padrão no Linux)
+  - `lib/features/crypto/` — cofre AES (MVP)
+- `.github/workflows/release.yml` — gera `.apk` + `.deb` a cada tag `v*`
+- `packaging/deb/build-deb.sh` — empacota o bundle Linux em `.deb`
+- `app_descompilado/` + `filemanager.apk` — **referência local, fora do Git** (app original que inspirou o MVP)
+
+## Rodar local
+
+```bash
+cd app
+flutter pub get
+flutter analyze
+flutter test
+flutter run          # Android/Linux
+```
+
+## Releases de teste (calma, passo a passo)
+
+Versão atual: **0.0.1** (pré-1.0.0). Evolução planejada: 0.0.2 → 0.0.3 → … → 1.0.0.
+
+```bash
+git tag v0.0.1
+git push origin v0.0.1   # dispara o Actions: APK + DEB na página Releases
+```
+
+Baixe os artefatos em **GitHub → Releases** (ou em Actions → artifacts, se ainda estiver rodando).
+No Android, instale o APK e confira: navegação por pastas, PathBar, categorias, menu "Abrir Terminal" (pede Termux instalado).
+
+## Assinatura do APK (opcional)
+
+Sem secrets, o CI assina com chaves de debug — suficiente para teste.
+Para release final, cadastre em Settings → Secrets → Actions:
+
+- `ANDROID_KEYSTORE_B64`
+- `ANDROID_KEYSTORE_PASSWORD`
+- `ANDROID_KEY_ALIAS`
+- `ANDROID_KEY_PASSWORD`
+
+## Licença
+
+A definir (sugestão: MIT ou GPL-3.0 por ser open-source).

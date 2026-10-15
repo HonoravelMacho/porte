@@ -1,0 +1,127 @@
+name: release
+
+# Gera binários da release: .apk (Android) + .deb (Linux).
+# Apple ignorado por ora (sem macos jobs).
+# Auth: usa o GITHUB_TOKEN automático (sem secret manual).
+# Para assinar o APK, cadastre opcionalmente os secrets:
+#   ANDROID_KEYSTORE_B64, ANDROID_KEYSTORE_PASSWORD,
+#   ANDROID_KEY_ALIAS, ANDROID_KEY_PASSWORD
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Versão (ex.: v0.1.0)"
+        required: false
+        default: "v0.1.0"
+
+permissions:
+  contents: write
+
+env:
+  FLUTTER_VERSION: "3.44.9"
+  APP_DIR: app
+
+jobs:
+  android-apk:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Pub get
+        working-directory: ${{ env.APP_DIR }}
+        run: flutter pub get
+
+      - name: Analyze
+        working-directory: ${{ env.APP_DIR }}
+        run: flutter analyze --no-fatal-infos || true
+
+      - name: Keystore (opcional, só se secrets existirem)
+        if: ${{ secrets.ANDROID_KEYSTORE_B64 != '' }}
+        working-directory: ${{ env.APP_DIR }}/android/app
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_B64 }}" | base64 -d > release.keystore
+          cat >> key.properties <<EOF
+          storePassword=${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          storeFile=release.keystore
+          EOF
+
+      - name: Build APK (release)
+        working-directory: ${{ env.APP_DIR }}
+        run: flutter build apk --release
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: porte-android-apk
+          path: ${{ env.APP_DIR }}/build/app/outputs/flutter-apk/app-release.apk
+
+  linux-deb:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deps Linux + dpkg
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y clang cmake ninja-build pkg-config \
+            libgtk-3-dev liblzma-dev libstdc++-12-dev dpkg-dev
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Pub get
+        working-directory: ${{ env.APP_DIR }}
+        run: flutter pub get
+
+      - name: Build Linux bundle
+        working-directory: ${{ env.APP_DIR }}
+        run: flutter build linux --release
+
+      - name: Montar .deb
+        run: |
+          chmod +x packaging/deb/build-deb.sh
+          ./packaging/deb/build-deb.sh "${{ github.ref_name }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: porte-linux-deb
+          path: dist/*.deb
+
+  publish:
+    needs: [android-apk, linux-deb]
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: artifacts
+      - name: Renomear
+        run: |
+          ls -R artifacts
+          mkdir -p dist
+          find artifacts -name "*.apk" -exec cp {} dist/porte-${{ github.ref_name }}-android.apk \;
+          find artifacts -name "*.deb" -exec cp {} dist/ \;
+          ls -la dist
+      - uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
