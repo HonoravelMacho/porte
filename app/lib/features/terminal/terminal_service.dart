@@ -113,7 +113,7 @@ class TerminalService {
     try {
       final map = await _verdictCompleter!.future.timeout(timeout);
       if (map == null) return null;
-      return _verdictFromMap(map);
+      return terminalVerdictFromMap(map);
     } on TimeoutException {
       return null;
     } finally {
@@ -121,24 +121,6 @@ class TerminalService {
     }
   }
 
-  TerminalOutcome _verdictFromMap(Map<String, dynamic> map) {
-    if (map['hasResult'] != true) {
-      return TerminalOutcome(
-        TerminalResult.failed,
-        'Termux respondeu sem pacote de resultado (${map['error'] ?? '?'})',
-      );
-    }
-    final err = (map['err'] as num?)?.toInt();
-    final exitCode = (map['exitCode'] as num?)?.toInt();
-    final errmsg = map['errmsg']?.toString() ?? '';
-    if (err == -1) {
-      return TerminalOutcome(TerminalResult.opened, 'veredito Termux: ok (exitCode=$exitCode)');
-    }
-    return TerminalOutcome(
-      TerminalResult.failed,
-      'veredito Termux: err=$err exitCode=$exitCode errmsg=$errmsg',
-    );
-  }
   /// Sem o canal nativo: abre a página do Termux no F-Droid.
   Future<TerminalOutcome> _openStoreFallback() async {
     try {
@@ -175,4 +157,25 @@ class TerminalService {
     }
     return false;
   }
+}
+
+/// Mapeia o pacote de resultado do Termux para [TerminalOutcome].
+/// Função pura (testável): err == -1 (RESULT_OK) significa sem erro interno.
+TerminalOutcome terminalVerdictFromMap(Map<String, dynamic> map) {
+  if (map['hasResult'] != true) {
+    return TerminalOutcome(
+      TerminalResult.failed,
+      'Termux respondeu sem pacote de resultado (${map['error'] ?? '?'})',
+    );
+  }
+  final err = (map['err'] as num?)?.toInt();
+  final exitCode = (map['exitCode'] as num?)?.toInt();
+  final errmsg = map['errmsg']?.toString() ?? '';
+  if (err == -1) {
+    return TerminalOutcome(TerminalResult.opened, 'veredito Termux: ok (exitCode=$exitCode)');
+  }
+  return TerminalOutcome(
+    TerminalResult.failed,
+    'veredito Termux: err=$err exitCode=$exitCode errmsg=$errmsg',
+  );
 }

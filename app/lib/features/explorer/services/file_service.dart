@@ -13,6 +13,14 @@ class FileOpException implements Exception {
 }
 
 class FileService {
+  /// Extensões por categoria (grade do desktop original).
+  static const categoryExtensions = {
+    'imagens': {'jpg', 'jpeg', 'png', 'gif', 'webp', 'bmp', 'svg', 'heic'},
+    'audio': {'mp3', 'flac', 'ogg', 'aac', 'wav', 'm4a', 'opus'},
+    'video': {'mp4', 'mkv', 'webm', '3gp', 'avi', 'mov'},
+    'docs': {'pdf', 'txt', 'md', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'csv', 'epub'},
+    'pacotes': {'zip', 'rar', '7z', 'tar', 'gz', 'jar', 'apk', 'apks', 'xapk'},
+  };
   /// Lista e ordena (pastas primeiro). Inclui entrada ".." quando houver pai.
   Future<List<FileEntry>> list(String dirPath, {bool showHidden = false}) async {
     final dir = Directory(dirPath);
@@ -135,6 +143,29 @@ class FileService {
             out.add(FileEntry.fromEntity(e));
           } catch (_) {}
         }
+      }
+    } catch (_) {}
+    out.sort();
+    return out;
+  }
+
+  /// Varredura por categoria (imagens/áudio/vídeo/docs/pacotes) com teto,
+  /// para a grade de categorias não travar em armazenamentos gigantes.
+  Future<List<FileEntry>> byCategory(String root, String category, {int limit = 500}) async {
+    final exts = categoryExtensions[category];
+    if (exts == null) return [];
+    final out = <FileEntry>[];
+    try {
+      await for (final e in Directory(root).list(recursive: true, followLinks: false)) {
+        if (out.length >= limit) break;
+        if (e is! File) continue;
+        final name = p.basename(e.path);
+        final dot = name.lastIndexOf('.');
+        if (dot < 0) continue;
+        if (!exts.contains(name.substring(dot + 1).toLowerCase())) continue;
+        try {
+          out.add(FileEntry.fromEntity(e));
+        } catch (_) {}
       }
     } catch (_) {}
     out.sort();

@@ -8,7 +8,9 @@ import '../../../core/widgets/hud_panel.dart';
 import '../domain/file_entry.dart';
 import '../services/file_service.dart';
 import '../../terminal/terminal_dialogs.dart';
+import 'category_page.dart';
 import 'widgets/category_grid.dart';
+import 'widgets/file_grid_tile.dart';
 import 'widgets/file_tile.dart';
 import 'widgets/path_bar.dart';
 import 'widgets/porte_context_menu.dart';
@@ -31,6 +33,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
   String? _error;
   final Set<String> _selected = {};
   bool get _selectionMode => _selected.isNotEmpty;
+  bool _gridMode = false;
 
   @override
   void initState() {
@@ -84,6 +87,16 @@ class _ExplorerPageState extends State<ExplorerPage> {
     _reload();
   }
 
+  void _tapEntry(FileEntry e) {
+    if (_selectionMode && e.kind != PorteEntryKind.parent) {
+      setState(() {
+        _selected.contains(e.path) ? _selected.remove(e.path) : _selected.add(e.path);
+      });
+    } else {
+      _openEntry(e);
+    }
+  }
+
   void _openEntry(FileEntry e) {
     if (e.kind == PorteEntryKind.parent) {
       _navigate(e.path);
@@ -106,6 +119,11 @@ class _ExplorerPageState extends State<ExplorerPage> {
       appBar: PorteAppBar(
         title: 'PORTE // EXPLORER',
         actions: [
+          IconButton(
+            icon: Icon(_gridMode ? Icons.view_list_rounded : Icons.grid_view_rounded,
+                color: PorteColors.cyanNeon),
+            onPressed: () => setState(() => _gridMode = !_gridMode),
+          ),
           IconButton(
             icon: const Icon(Icons.search, color: PorteColors.cyanNeon),
             onPressed: _onSearch,
@@ -156,38 +174,57 @@ class _ExplorerPageState extends State<ExplorerPage> {
                         child: Text(_error!, style: const TextStyle(color: PorteColors.danger, fontFamily: 'monospace')),
                       ),
                     ),
-                  SliverList.builder(
-                    itemCount: _entries.length,
-                    itemBuilder: (context, i) {
-                      final e = _entries[i];
-                      return FileTile(
-                        entry: e,
-                        selected: _selected.contains(e.path),
-                        selectionMode: _selectionMode,
-                        onTap: () {
-                          if (_selectionMode && e.kind != PorteEntryKind.parent) {
-                            setState(() {
-                              _selected.contains(e.path)
-                                  ? _selected.remove(e.path)
-                                  : _selected.add(e.path);
-                            });
-                          } else {
-                            _openEntry(e);
-                          }
-                        },
-                        onLongPress: () => showPorteContextMenu(
-                          context: context,
-                          entry: e,
-                          files: _files,
-                          currentDir: _dir,
-                          onChanged: _reload,
+                  if (_gridMode)
+                    SliverPadding(
+                      padding: const EdgeInsets.all(8),
+                      sliver: SliverGrid.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          childAspectRatio: 0.85,
+                          crossAxisSpacing: 8,
+                          mainAxisSpacing: 8,
                         ),
-                        onSelected: (v) => setState(() {
-                          v ? _selected.add(e.path) : _selected.remove(e.path);
-                        }),
-                      );
-                    },
-                  ),
+                        itemCount: _entries.length,
+                        itemBuilder: (context, i) {
+                          final e = _entries[i];
+                          return FileGridTile(
+                            entry: e,
+                            selected: _selected.contains(e.path),
+                            onTap: () => _tapEntry(e),
+                            onLongPress: () => showPorteContextMenu(
+                              context: context,
+                              entry: e,
+                              files: _files,
+                              currentDir: _dir,
+                              onChanged: _reload,
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  else
+                    SliverList.builder(
+                      itemCount: _entries.length,
+                      itemBuilder: (context, i) {
+                        final e = _entries[i];
+                        return FileTile(
+                          entry: e,
+                          selected: _selected.contains(e.path),
+                          selectionMode: _selectionMode,
+                          onTap: () => _tapEntry(e),
+                          onLongPress: () => showPorteContextMenu(
+                            context: context,
+                            entry: e,
+                            files: _files,
+                            currentDir: _dir,
+                            onChanged: _reload,
+                          ),
+                          onSelected: (v) => setState(() {
+                            v ? _selected.add(e.path) : _selected.remove(e.path);
+                          }),
+                        );
+                      },
+                    ),
                   const SliverToBoxAdapter(child: SizedBox(height: 90)),
                 ],
               ),
@@ -279,9 +316,69 @@ class _ExplorerPageState extends State<ExplorerPage> {
     }
   }
 
-  void _onCategory(String key) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text('Categoria $key — filtro por extensão chega no próximo sprint.')),
+  /// Categorias reais: pastas especiais navegam direto; mídia/docs/pacotes
+  /// abrem a CategoryPage com varredura por extensão.
+  Future<void> _onCategory(String key) async {
+    final home = Platform.isAndroid ? '/storage/emulated/0' : (Platform.environment['HOME'] ?? '/');
+    String sep = Platform.pathSeparator;
+    if (key == 'downloads') {
+      for (final c in ['Download', 'Downloads']) {
+        final d = Directory('$home$sep$c');
+        if (await d.exists()) {
+          _navigate(d.path);
+          return;
+        }
+      }
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Pasta de downloads não encontrada.')),
+        );
+      }
+      return;
+    }
+    if (key == 'camera') {
+      for (final c in ['DCIM${sep}Camera', 'DCIM', 'Pictures']) {
+        final d = Directory('$home$sep$c');
+        if (await d.exists()) {
+          _navigate(d.path);
+          return;
+        }
+      }
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Pasta de câmera não encontrada.')),
+        );
+      }
+      return;
+    }
+    if (key == 'vault') {
+      try {
+        final docs = await getApplicationDocumentsDirectory();
+        final v = Directory('${docs.path}$sep.porte_vault');
+        if (!await v.exists()) await v.create(recursive: true);
+        _navigate(v.path);
+      } catch (e) {
+        if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
+      }
+      return;
+    }
+    if (!mounted) return;
+    const titles = {
+      'imagens': 'IMAGENS',
+      'audio': 'ÁUDIO',
+      'video': 'VÍDEO',
+      'docs': 'DOCUMENTOS',
+      'pacotes': 'PACOTES',
+    };
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (_) => CategoryPage(
+          category: key,
+          title: titles[key] ?? key.toUpperCase(),
+          root: home,
+        ),
+      ),
     );
   }
 

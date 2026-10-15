@@ -3,6 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:porte/main.dart';
 import 'package:porte/features/explorer/services/file_service.dart';
 import 'package:porte/features/explorer/domain/file_entry.dart';
+import 'package:porte/features/terminal/terminal_service.dart'
+    show terminalVerdictFromMap, TerminalResult;
 
 void main() {
   testWidgets('PORTE boots to explorer', (WidgetTester tester) async {
@@ -38,5 +40,40 @@ void main() {
     } finally {
       await tmp.delete(recursive: true);
     }
+  });
+
+  test('FileService.byCategory filtra por extensao', () async {
+    final svc = FileService();
+    final tmp = Directory.systemTemp.createTempSync('porte_cat_');
+    try {
+      await File('${tmp.path}/foto.jpg').writeAsBytes([1, 2, 3]);
+      await File('${tmp.path}/musica.mp3').writeAsBytes([1, 2, 3]);
+      await File('${tmp.path}/nota.txt').writeAsBytes([1, 2, 3]);
+      final imgs = await svc.byCategory(tmp.path, 'imagens');
+      expect(imgs.map((e) => e.name), contains('foto.jpg'));
+      expect(imgs.map((e) => e.name), isNot(contains('musica.mp3')));
+      final docs = await svc.byCategory(tmp.path, 'docs');
+      expect(docs.map((e) => e.name), contains('nota.txt'));
+      expect(await svc.byCategory(tmp.path, 'inexistente'), isEmpty);
+    } finally {
+      await tmp.delete(recursive: true);
+    }
+  });
+
+  // Regressão do terminal: o mapeamento do veredito nunca pode mudar
+  // de significado sem quebrar este teste (protege o fluxo Termux).
+  test('terminalVerdictFromMap preserva contrato', () {
+    var o = terminalVerdictFromMap({'hasResult': true, 'err': -1, 'exitCode': 0});
+    expect(o.result, TerminalResult.opened);
+
+    o = terminalVerdictFromMap({'hasResult': true, 'err': 401, 'errmsg': 'x'});
+    expect(o.result, TerminalResult.failed);
+    expect(o.detail, contains('401'));
+
+    o = terminalVerdictFromMap({'hasResult': false});
+    expect(o.result, TerminalResult.failed);
+
+    o = terminalVerdictFromMap({'hasResult': true});
+    expect(o.result, TerminalResult.failed); // sem err => falha segura
   });
 }
