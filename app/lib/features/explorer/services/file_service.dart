@@ -205,4 +205,43 @@ class FileService {
     } catch (_) {}
     return 0.0;
   }
+
+  /// Retorna dados de preview para um arquivo: bytes de imagem (primeiros 500KB) ou
+  /// as primeiras linhas de texto (até 200 caracteres). Retorna null se não for compatível.
+  Future<Map<String, dynamic>?> getPreviewData(String path) async {
+    final ext = p.extension(path).toLowerCase();
+    final file = File(path);
+    if (!await file.exists()) return null;
+
+    // Imagens: retorna os primeiros bytes (limite 500KB) para display rápido
+    if (categoryExtensions.keys.any((cat) => categoryExtensions[cat]?.contains(ext.substring(1)) ?? false)) {
+      try {
+        final bytes = await file.readAsBytes();
+        if (bytes.isNotEmpty) {
+          return {'type': 'image', 'bytes': bytes.sublist(0, minBytesAndLength(bytes, 500 * 1024))};
+        }
+      } catch (_) {}
+    }
+
+    // Textos/Documentos: retorna primeiras 200 caracteres
+    if (ext == '.txt' || ext == '.md' || ext == '.csv' || ext == '.json' || ext == '.xml' || ext == '.html' || ext == '.python' || ext == '.dart' || ext == '.js' || ext == '.ts') {
+      try {
+        final text = await file.readAsString();
+        final trimmed = text.length > 200 ? '${text.substring(0, 200)}...' : text;
+        return {'type': 'text', 'text': trimmed};
+      } catch (_) {}
+    }
+
+    // PDF: tentar extrair texto simples (apenas primeiras 100 palavras)
+    if (ext == '.pdf') {
+      // No MVP, apenas ícone; extração completa exigiria dependência extra.
+      return null;
+    }
+
+    return null;
+  }
+
+  int minBytesAndLength(List<int> bytes, int limit) {
+    return bytes.length <= limit ? bytes.length : limit;
+  }
 }

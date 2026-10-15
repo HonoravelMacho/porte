@@ -190,7 +190,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                           return FileGridTile(
                             entry: e,
                             selected: _selected.contains(e.path),
-                            onTap: () => _tapEntry(e),
+                            onOriginalTap: () => _tapEntry(e),
                             onLongPress: () => showPorteContextMenu(
                               context: context,
                               entry: e,
@@ -211,7 +211,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                           entry: e,
                           selected: _selected.contains(e.path),
                           selectionMode: _selectionMode,
-                          onTap: () => _tapEntry(e),
+                          onOriginalTap: () => _tapEntry(e),
                           onLongPress: () => showPorteContextMenu(
                             context: context,
                             entry: e,

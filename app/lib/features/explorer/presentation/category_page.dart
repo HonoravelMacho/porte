@@ -97,7 +97,7 @@ class _CategoryPageState extends State<CategoryPage> {
                       itemCount: _entries.length,
                       itemBuilder: (context, i) => FileGridTile(
                         entry: _entries[i],
-                        onTap: () => _open(_entries[i]),
+                        onOriginalTap: () => _open(_entries[i]),
                         onLongPress: () => _menu(_entries[i]),
                       ),
                     )
@@ -105,7 +105,7 @@ class _CategoryPageState extends State<CategoryPage> {
                       itemCount: _entries.length,
                       itemBuilder: (context, i) => FileTile(
                         entry: _entries[i],
-                        onTap: () => _open(_entries[i]),
+                        onOriginalTap: () => _open(_entries[i]),
                         onLongPress: () => _menu(_entries[i]),
                       ),
                     ),

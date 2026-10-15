@@ -9,13 +9,17 @@
    "color": "#22d3ee",
    "imports": [
     "package:flutter/material.dart",
+    "package:package_info_plus/package_info_plus.dart",
     "package:path_provider/path_provider.dart",
     "package:permission_handler/permission_handler.dart",
     "../../../core/theme/porte_colors.dart",
     "../../../core/widgets/hud_panel.dart",
     "../domain/file_entry.dart",
     "../services/file_service.dart",
+    "../../terminal/terminal_dialogs.dart",
+    "category_page.dart",
     "widgets/category_grid.dart",
+    "widgets/file_grid_tile.dart",
     "widgets/file_tile.dart",
     "widgets/path_bar.dart",
     "widgets/porte_context_menu.dart",
@@ -25,147 +29,189 @@
    "externals": [
     "dart:io"
    ],
-   "symbols": 26,
+   "symbols": 34,
    "defs": [
     {
      "n": "ExplorerPage",
      "k": "class",
-     "l": 18
+     "l": 22
     },
     {
      "n": "createState",
      "k": "func",
-     "l": 21
+     "l": 25
     },
     {
      "n": "_ExplorerPageState",
      "k": "class",
-     "l": 23
+     "l": 27
     },
     {
      "n": "initState",
      "k": "func",
-     "l": 34
+     "l": 39
     },
     {
      "n": "_init",
      "k": "func",
-     "l": 38
+     "l": 43
     },
     {
      "n": "_reload",
      "k": "func",
-     "l": 51
+     "l": 66
     },
     {
      "n": "setState",
      "k": "func",
-     "l": 53
+     "l": 68
     },
     {
      "n": "setState",
-     "k": "func",
-     "l": 59
-    },
-    {
-     "n": "setState",
-     "k": "func",
-     "l": 64
-    },
-    {
-     "n": "_navigate",
-     "k": "func",
-     "l": 69
-    },
-    {
-     "n": "setState",
-     "k": "func",
-     "l": 71
-    },
-    {
-     "n": "_openEntry",
      "k": "func",
      "l": 74
     },
     {
-     "n": "build",
+     "n": "setState",
      "k": "func",
-     "l": 92
+     "l": 79
     },
     {
-     "n": "SliverToBoxAdapter",
+     "n": "_navigate",
      "k": "func",
-     "l": 141
-    },
-    {
-     "n": "FileTile",
-     "k": "func",
-     "l": 151
+     "l": 84
     },
     {
      "n": "setState",
      "k": "func",
-     "l": 157
+     "l": 86
     },
     {
-     "n": "_onAnalyze",
+     "n": "_tapEntry",
      "k": "func",
-     "l": 198
+     "l": 89
     },
     {
-     "n": "_onCategory",
+     "n": "setState",
+     "k": "func",
+     "l": 92
+    },
+    {
+     "n": "_openEntry",
+     "k": "func",
+     "l": 99
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 117
+    },
+    {
+     "n": "Scaffold",
+     "k": "func",
+     "l": 118
+    },
+    {
+     "n": "SliverToBoxAdapter",
+     "k": "func",
+     "l": 171
+    },
+    {
+     "n": "FileGridTile",
+     "k": "func",
+     "l": 190
+    },
+    {
+     "n": "FileTile",
      "k": "func",
      "l": 210
     },
     {
+     "n": "_onFabPressed",
+     "k": "func",
+     "l": 251
+    },
+    {
+     "n": "Padding",
+     "k": "func",
+     "l": 264
+    },
+    {
+     "n": "ListTile",
+     "k": "func",
+     "l": 288
+    },
+    {
+     "n": "_onOpenTerminalHere",
+     "k": "func",
+     "l": 304
+    },
+    {
+     "n": "_onAnalyze",
+     "k": "func",
+     "l": 306
+    },
+    {
+     "n": "_onCategory",
+     "k": "func",
+     "l": 321
+    },
+    {
+     "n": "MaterialPageRoute",
+     "k": "func",
+     "l": 374
+    },
+    {
      "n": "_onSearch",
      "k": "func",
-     "l": 216
+     "l": 384
     },
     {
      "n": "AlertDialog",
      "k": "func",
-     "l": 222
+     "l": 390
     },
     {
      "n": "TextButton",
      "k": "func",
-     "l": 227
+     "l": 395
     },
     {
      "n": "showDialog",
      "k": "func",
-     "l": 235
+     "l": 403
     },
     {
-     "n": "_onCreate",
+     "n": "_onCreateFolder",
      "k": "func",
-     "l": 259
+     "l": 427
     },
     {
      "n": "AlertDialog",
      "k": "func",
-     "l": 265
+     "l": 433
     },
     {
      "n": "TextButton",
      "k": "func",
-     "l": 270
+     "l": 438
     },
     {
      "n": "_deleteSelected",
      "k": "func",
-     "l": 283
+     "l": 451
     }
    ],
-   "caps": [],
-   "loc": 295,
+   "caps": [
+    "camera"
+   ],
+   "loc": 463,
    "todo_n": 0,
    "todo_ex": [],
    "entry": false,
    "changed": false,
-   "deg": 10,
-   "size": 20.0
+   "deg": 13,
+   "size": 22.7
   },
   {
    "id": "app.lib.core.theme.porte_colors",
@@ -186,8 +232,186 @@
    "todo_ex": [],
    "entry": false,
    "changed": false,
+   "deg": 9,
+   "size": 14.1
+  },
+  {
+   "id": "app.lib.features.explorer.domain.file_entry",
+   "label": "file_entry.dart",
+   "file": "app/lib/features/explorer/domain/file_entry.dart",
+   "lang": "dart",
+   "mod": "app",
+   "color": "#22d3ee",
+   "imports": [
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 3,
+   "defs": [
+    {
+     "n": "PorteEntryKind",
+     "k": "class",
+     "l": 5
+    },
+    {
+     "n": "FileEntry",
+     "k": "class",
+     "l": 6
+    },
+    {
+     "n": "compareTo",
+     "k": "func",
+     "l": 53
+    }
+   ],
+   "caps": [],
+   "loc": 58,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
    "deg": 7,
-   "size": 12.3
+   "size": 13.05
+  },
+  {
+   "id": "app.lib.features.explorer.presentation.category_page",
+   "label": "category_page.dart",
+   "file": "app/lib/features/explorer/presentation/category_page.dart",
+   "lang": "dart",
+   "mod": "app",
+   "color": "#22d3ee",
+   "imports": [
+    "package:flutter/material.dart",
+    "package:open_filex/open_filex.dart",
+    "../../../../core/widgets/hud_panel.dart",
+    "../domain/file_entry.dart",
+    "../services/file_service.dart",
+    "widgets/file_grid_tile.dart",
+    "widgets/file_tile.dart",
+    "widgets/porte_context_menu.dart",
+    "dart:async",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:async",
+    "dart:io"
+   ],
+   "symbols": 13,
+   "defs": [
+    {
+     "n": "CategoryPage",
+     "k": "class",
+     "l": 16
+    },
+    {
+     "n": "createState",
+     "k": "func",
+     "l": 23
+    },
+    {
+     "n": "_CategoryPageState",
+     "k": "class",
+     "l": 25
+    },
+    {
+     "n": "initState",
+     "k": "func",
+     "l": 36
+    },
+    {
+     "n": "_load",
+     "k": "func",
+     "l": 40
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 42
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 49
+    },
+    {
+     "n": "_refresh",
+     "k": "func",
+     "l": 58
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 62
+    },
+    {
+     "n": "IconButton",
+     "k": "func",
+     "l": 70
+    },
+    {
+     "n": "IconButton",
+     "k": "func",
+     "l": 75
+    },
+    {
+     "n": "_open",
+     "k": "func",
+     "l": 132
+    },
+    {
+     "n": "_menu",
+     "k": "func",
+     "l": 140
+    }
+   ],
+   "caps": [],
+   "loc": 148,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 7,
+   "size": 15.55
+  },
+  {
+   "id": "app.lib.features.explorer.presentation.widgets.file_grid_tile",
+   "label": "file_grid_tile.dart",
+   "file": "app/lib/features/explorer/presentation/widgets/file_grid_tile.dart",
+   "lang": "dart",
+   "mod": "app",
+   "color": "#22d3ee",
+   "imports": [
+    "package:flutter/material.dart",
+    "../../../../core/theme/porte_colors.dart",
+    "../../../../core/theme/chamfered.dart",
+    "../../services/icon_cache.dart",
+    "../../domain/file_entry.dart",
+    "file_tile.dart"
+   ],
+   "externals": [],
+   "symbols": 2,
+   "defs": [
+    {
+     "n": "FileGridTile",
+     "k": "class",
+     "l": 10
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 25
+    }
+   ],
+   "caps": [],
+   "loc": 74,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 7,
+   "size": 12.8
   },
   {
    "id": "app.lib.core.widgets.hud_panel",
@@ -254,78 +478,8 @@
    ],
    "entry": false,
    "changed": false,
-   "deg": 5,
-   "size": 12.5
-  },
-  {
-   "id": "app.lib.features.explorer.domain.file_entry",
-   "label": "file_entry.dart",
-   "file": "app/lib/features/explorer/domain/file_entry.dart",
-   "lang": "dart",
-   "mod": "app",
-   "color": "#22d3ee",
-   "imports": [
-    "dart:io"
-   ],
-   "externals": [
-    "dart:io"
-   ],
-   "symbols": 3,
-   "defs": [
-    {
-     "n": "PorteEntryKind",
-     "k": "class",
-     "l": 5
-    },
-    {
-     "n": "FileEntry",
-     "k": "class",
-     "l": 6
-    },
-    {
-     "n": "compareTo",
-     "k": "func",
-     "l": 53
-    }
-   ],
-   "caps": [],
-   "loc": 58,
-   "todo_n": 0,
-   "todo_ex": [],
-   "entry": false,
-   "changed": false,
-   "deg": 5,
-   "size": 11.25
-  },
-  {
-   "id": "app.lib.core.theme.porte_theme",
-   "label": "porte_theme.dart",
-   "file": "app/lib/core/theme/porte_theme.dart",
-   "lang": "dart",
-   "mod": "app",
-   "color": "#22d3ee",
-   "imports": [
-    "package:flutter/material.dart",
-    "porte_colors.dart",
-    "chamfered.dart"
-   ],
-   "externals": [],
-   "symbols": 1,
-   "defs": [
-    {
-     "n": "buildPorteTheme",
-     "k": "func",
-     "l": 7
-    }
-   ],
-   "caps": [],
-   "loc": 79,
-   "todo_n": 0,
-   "todo_ex": [],
-   "entry": false,
-   "changed": false,
-   "deg": 4,
-   "size": 9.85
+   "deg": 6,
+   "size": 13.4
   },
   {
    "id": "app.lib.features.explorer.presentation.widgets.file_tile",
@@ -371,8 +525,8 @@
    "todo_ex": [],
    "entry": false,
    "changed": false,
-   "deg": 4,
-   "size": 10.6
+   "deg": 6,
+   "size": 12.4
   },
   {
    "id": "app.lib.features.explorer.presentation.widgets.porte_context_menu",
@@ -385,7 +539,7 @@
     "package:flutter/material.dart",
     "package:open_filex/open_filex.dart",
     "package:share_plus/share_plus.dart",
-    "../../../terminal/terminal_service.dart",
+    "../../../terminal/terminal_dialogs.dart",
     "../../services/file_service.dart",
     "../../domain/file_entry.dart",
     "dart:io"
@@ -398,62 +552,62 @@
     {
      "n": "showModalBottomSheet",
      "k": "func",
-     "l": 20
+     "l": 19
     },
     {
      "n": "ListTile",
      "k": "func",
-     "l": 26
+     "l": 25
     },
     {
      "n": "ListTile",
      "k": "func",
-     "l": 50
+     "l": 44
     },
     {
      "n": "ListTile",
      "k": "func",
-     "l": 59
+     "l": 53
     },
     {
      "n": "ListTile",
      "k": "func",
-     "l": 68
+     "l": 62
     },
     {
      "n": "TextButton",
      "k": "func",
-     "l": 80
+     "l": 74
     },
     {
      "n": "TextButton",
      "k": "func",
-     "l": 81
+     "l": 75
     },
     {
      "n": "ListTile",
      "k": "func",
-     "l": 97
+     "l": 91
     },
     {
      "n": "TextButton",
      "k": "func",
-     "l": 108
+     "l": 102
     },
     {
      "n": "TextButton",
      "k": "func",
-     "l": 109
+     "l": 103
     }
    ],
    "caps": [],
-   "loc": 137,
+   "loc": 131,
    "todo_n": 0,
    "todo_ex": [],
    "entry": false,
    "changed": false,
-   "deg": 4,
-   "size": 12.1
+   "deg": 5,
+   "size": 13.0
   },
   {
    "id": "app.lib.features.explorer.services.file_service",
@@ -470,7 +624,7 @@
    "externals": [
     "dart:io"
    ],
-   "symbols": 11,
+   "symbols": 12,
    "defs": [
     {
      "n": "FileOpException",
@@ -490,52 +644,57 @@
     {
      "n": "createFolder",
      "k": "func",
-     "l": 42
+     "l": 50
     },
     {
      "n": "createFile",
      "k": "func",
-     "l": 48
+     "l": 56
     },
     {
      "n": "rename",
      "k": "func",
-     "l": 54
+     "l": 62
     },
     {
      "n": "delete",
      "k": "func",
-     "l": 68
+     "l": 76
     },
     {
      "n": "copy",
      "k": "func",
-     "l": 77
+     "l": 85
     },
     {
      "n": "move",
      "k": "func",
-     "l": 87
+     "l": 95
     },
     {
      "n": "File",
      "k": "func",
-     "l": 90
+     "l": 98
     },
     {
      "n": "_copyDir",
      "k": "func",
-     "l": 97
+     "l": 105
+    },
+    {
+     "n": "memoryUsagePct",
+     "k": "func",
+     "l": 195
     }
    ],
    "caps": [],
-   "loc": 144,
+   "loc": 209,
    "todo_n": 0,
    "todo_ex": [],
    "entry": false,
    "changed": false,
-   "deg": 4,
-   "size": 12.35
+   "deg": 5,
+   "size": 13.5
   },
   {
    "id": "app.lib.core.theme.chamfered",
@@ -587,8 +746,182 @@
    "todo_ex": [],
    "entry": false,
    "changed": false,
-   "deg": 3,
-   "size": 10.2
+   "deg": 4,
+   "size": 11.1
+  },
+  {
+   "id": "app.lib.core.theme.porte_theme",
+   "label": "porte_theme.dart",
+   "file": "app/lib/core/theme/porte_theme.dart",
+   "lang": "dart",
+   "mod": "app",
+   "color": "#22d3ee",
+   "imports": [
+    "package:flutter/material.dart",
+    "porte_colors.dart",
+    "chamfered.dart"
+   ],
+   "externals": [],
+   "symbols": 1,
+   "defs": [
+    {
+     "n": "buildPorteTheme",
+     "k": "func",
+     "l": 7
+    }
+   ],
+   "caps": [],
+   "loc": 79,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 4,
+   "size": 9.85
+  },
+  {
+   "id": "app.lib.main",
+   "label": "main.dart",
+   "file": "app/lib/main.dart",
+   "lang": "dart",
+   "mod": "app",
+   "color": "#22d3ee",
+   "imports": [
+    "package:flutter/material.dart",
+    "core/theme/porte_colors.dart",
+    "core/theme/porte_theme.dart",
+    "features/explorer/presentation/explorer_page.dart",
+    "dart:async"
+   ],
+   "externals": [
+    "dart:async"
+   ],
+   "symbols": 6,
+   "defs": [
+    {
+     "n": "main",
+     "k": "func",
+     "l": 6
+    },
+    {
+     "n": "runZonedGuarded",
+     "k": "func",
+     "l": 8
+    },
+    {
+     "n": "PorteApp",
+     "k": "class",
+     "l": 18
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 23
+    },
+    {
+     "n": "PorteCrashScreen",
+     "k": "class",
+     "l": 35
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 40
+    }
+   ],
+   "caps": [],
+   "loc": 72,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": true,
+   "changed": false,
+   "deg": 4,
+   "size": 11.1
+  },
+  {
+   "id": "app.test.widget_test",
+   "label": "widget_test.dart",
+   "file": "app/test/widget_test.dart",
+   "lang": "dart",
+   "mod": "app",
+   "color": "#22d3ee",
+   "imports": [
+    "package:flutter_test/flutter_test.dart",
+    "package:porte/main.dart",
+    "package:porte/features/explorer/services/file_service.dart",
+    "package:porte/features/explorer/domain/file_entry.dart",
+    "package:porte/features/terminal/terminal_service.dart",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 11,
+   "defs": [
+    {
+     "n": "main",
+     "k": "func",
+     "l": 8
+    },
+    {
+     "n": "testWidgets",
+     "k": "func",
+     "l": 10
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 15
+    },
+    {
+     "n": "e",
+     "k": "func",
+     "l": 17
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 30
+    },
+    {
+     "n": "expect",
+     "k": "func",
+     "l": 37
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 44
+    },
+    {
+     "n": "expect",
+     "k": "func",
+     "l": 53
+    },
+    {
+     "n": "expect",
+     "k": "func",
+     "l": 54
+    },
+    {
+     "n": "expect",
+     "k": "func",
+     "l": 56
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 65
+    }
+   ],
+   "caps": [],
+   "loc": 80,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": true,
+   "changed": false,
+   "deg": 4,
+   "size": 12.35
   },
   {
    "id": "app.lib.features.explorer.presentation.widgets.category_grid",
@@ -676,103 +1009,69 @@
    "size": 9.45
   },
   {
-   "id": "app.lib.main",
-   "label": "main.dart",
-   "file": "app/lib/main.dart",
+   "id": "app.lib.features.terminal.terminal_dialogs",
+   "label": "terminal_dialogs.dart",
+   "file": "app/lib/features/terminal/terminal_dialogs.dart",
    "lang": "dart",
    "mod": "app",
    "color": "#22d3ee",
    "imports": [
     "package:flutter/material.dart",
-    "core/theme/porte_theme.dart",
-    "features/explorer/presentation/explorer_page.dart"
+    "package:flutter/services.dart",
+    "terminal_service.dart"
    ],
    "externals": [],
-   "symbols": 3,
+   "symbols": 8,
    "defs": [
     {
-     "n": "main",
+     "n": "handleTerminalRequest",
      "k": "func",
-     "l": 4
+     "l": 9
     },
     {
-     "n": "PorteApp",
-     "k": "class",
-     "l": 8
+     "n": "showDialog",
+     "k": "func",
+     "l": 36
     },
     {
-     "n": "build",
+     "n": "Text",
      "k": "func",
-     "l": 13
+     "l": 45
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 69
+    },
+    {
+     "n": "showDialog",
+     "k": "func",
+     "l": 90
+    },
+    {
+     "n": "Text",
+     "k": "func",
+     "l": 99
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 121
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 128
     }
    ],
    "caps": [],
-   "loc": 22,
+   "loc": 133,
    "todo_n": 0,
    "todo_ex": [],
-   "entry": true,
+   "entry": false,
    "changed": false,
    "deg": 3,
-   "size": 9.45
-  },
-  {
-   "id": "app.test.widget_test",
-   "label": "widget_test.dart",
-   "file": "app/test/widget_test.dart",
-   "lang": "dart",
-   "mod": "app",
-   "color": "#22d3ee",
-   "imports": [
-    "package:flutter_test/flutter_test.dart",
-    "package:porte/main.dart",
-    "package:porte/features/explorer/services/file_service.dart",
-    "package:porte/features/explorer/domain/file_entry.dart",
-    "dart:io"
-   ],
-   "externals": [
-    "dart:io"
-   ],
-   "symbols": 6,
-   "defs": [
-    {
-     "n": "main",
-     "k": "func",
-     "l": 6
-    },
-    {
-     "n": "testWidgets",
-     "k": "func",
-     "l": 8
-    },
-    {
-     "n": "test",
-     "k": "func",
-     "l": 13
-    },
-    {
-     "n": "e",
-     "k": "func",
-     "l": 15
-    },
-    {
-     "n": "test",
-     "k": "func",
-     "l": 28
-    },
-    {
-     "n": "expect",
-     "k": "func",
-     "l": 35
-    }
-   ],
-   "caps": [],
-   "loc": 43,
-   "todo_n": 0,
-   "todo_ex": [],
-   "entry": true,
-   "changed": false,
-   "deg": 3,
-   "size": 10.2
+   "size": 10.7
   },
   {
    "id": "app.lib.features.explorer.presentation.widgets.path_bar",
@@ -817,6 +1116,184 @@
    "changed": false,
    "deg": 2,
    "size": 8.8
+  },
+  {
+   "id": "app.lib.features.explorer.services.icon_cache",
+   "label": "icon_cache.dart",
+   "file": "app/lib/features/explorer/services/icon_cache.dart",
+   "lang": "dart",
+   "mod": "app",
+   "color": "#22d3ee",
+   "imports": [
+    "package:flutter/material.dart",
+    "dart:io",
+    "dart:typed_data"
+   ],
+   "externals": [
+    "dart:io",
+    "dart:typed_data"
+   ],
+   "symbols": 13,
+   "defs": [
+    {
+     "n": "IconCache",
+     "k": "class",
+     "l": 7
+    },
+    {
+     "n": "get",
+     "k": "func",
+     "l": 14
+    },
+    {
+     "n": "put",
+     "k": "func",
+     "l": 16
+    },
+    {
+     "n": "putBytes",
+     "k": "func",
+     "l": 23
+    },
+    {
+     "n": "getBytes",
+     "k": "func",
+     "l": 28
+    },
+    {
+     "n": "invalidate",
+     "k": "func",
+     "l": 30
+    },
+    {
+     "n": "clear",
+     "k": "func",
+     "l": 35
+    },
+    {
+     "n": "iconFor",
+     "k": "func",
+     "l": 42
+    },
+    {
+     "n": "colorFor",
+     "k": "func",
+     "l": 55
+    },
+    {
+     "n": "PorteFileIcon",
+     "k": "class",
+     "l": 67
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 74
+    },
+    {
+     "n": "ClipRRect",
+     "k": "func",
+     "l": 87
+    },
+    {
+     "n": "_fallback",
+     "k": "func",
+     "l": 98
+    }
+   ],
+   "caps": [],
+   "loc": 105,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 2,
+   "size": 11.05
+  },
+  {
+   "id": "app.lib.features.terminal.terminal_service",
+   "label": "terminal_service.dart",
+   "file": "app/lib/features/terminal/terminal_service.dart",
+   "lang": "dart",
+   "mod": "app",
+   "color": "#22d3ee",
+   "imports": [
+    "package:flutter/foundation.dart",
+    "package:flutter/services.dart",
+    "package:url_launcher/url_launcher.dart",
+    "dart:async",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:async",
+    "dart:io"
+   ],
+   "symbols": 11,
+   "defs": [
+    {
+     "n": "TerminalOutcome",
+     "k": "class",
+     "l": 9
+    },
+    {
+     "n": "TerminalResult",
+     "k": "class",
+     "l": 18
+    },
+    {
+     "n": "TerminalService",
+     "k": "class",
+     "l": 38
+    },
+    {
+     "n": "_ensureHandler",
+     "k": "func",
+     "l": 42
+    },
+    {
+     "n": "openTerminal",
+     "k": "func",
+     "l": 59
+    },
+    {
+     "n": "_openAndroid",
+     "k": "func",
+     "l": 71
+    },
+    {
+     "n": "launchTermuxApp",
+     "k": "func",
+     "l": 97
+    },
+    {
+     "n": "_openStoreFallback",
+     "k": "func",
+     "l": 125
+    },
+    {
+     "n": "_openDesktop",
+     "k": "func",
+     "l": 137
+    },
+    {
+     "n": "unawaited",
+     "k": "func",
+     "l": 152
+    },
+    {
+     "n": "terminalVerdictFromMap",
+     "k": "func",
+     "l": 164
+    }
+   ],
+   "caps": [],
+   "loc": 182,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 2,
+   "size": 10.55
   },
   {
    "id": "app.linux.flutter.generated_plugin_registrant~2",
@@ -941,155 +1418,6 @@
    "size": 7.8
   },
   {
-   "id": "app.lib.features.explorer.services.icon_cache",
-   "label": "icon_cache.dart",
-   "file": "app/lib/features/explorer/services/icon_cache.dart",
-   "lang": "dart",
-   "mod": "app",
-   "color": "#22d3ee",
-   "imports": [
-    "package:flutter/material.dart",
-    "dart:io",
-    "dart:typed_data"
-   ],
-   "externals": [
-    "dart:io",
-    "dart:typed_data"
-   ],
-   "symbols": 13,
-   "defs": [
-    {
-     "n": "IconCache",
-     "k": "class",
-     "l": 7
-    },
-    {
-     "n": "get",
-     "k": "func",
-     "l": 14
-    },
-    {
-     "n": "put",
-     "k": "func",
-     "l": 16
-    },
-    {
-     "n": "putBytes",
-     "k": "func",
-     "l": 23
-    },
-    {
-     "n": "getBytes",
-     "k": "func",
-     "l": 28
-    },
-    {
-     "n": "invalidate",
-     "k": "func",
-     "l": 30
-    },
-    {
-     "n": "clear",
-     "k": "func",
-     "l": 35
-    },
-    {
-     "n": "iconFor",
-     "k": "func",
-     "l": 42
-    },
-    {
-     "n": "colorFor",
-     "k": "func",
-     "l": 55
-    },
-    {
-     "n": "PorteFileIcon",
-     "k": "class",
-     "l": 67
-    },
-    {
-     "n": "build",
-     "k": "func",
-     "l": 74
-    },
-    {
-     "n": "ClipRRect",
-     "k": "func",
-     "l": 87
-    },
-    {
-     "n": "_fallback",
-     "k": "func",
-     "l": 98
-    }
-   ],
-   "caps": [],
-   "loc": 105,
-   "todo_n": 0,
-   "todo_ex": [],
-   "entry": false,
-   "changed": false,
-   "deg": 1,
-   "size": 10.15
-  },
-  {
-   "id": "app.lib.features.terminal.terminal_service",
-   "label": "terminal_service.dart",
-   "file": "app/lib/features/terminal/terminal_service.dart",
-   "lang": "dart",
-   "mod": "app",
-   "color": "#22d3ee",
-   "imports": [
-    "package:flutter/foundation.dart",
-    "package:flutter/services.dart",
-    "package:android_intent_plus/android_intent.dart",
-    "package:url_launcher/url_launcher.dart",
-    "dart:async",
-    "dart:io"
-   ],
-   "externals": [
-    "dart:async",
-    "dart:io"
-   ],
-   "symbols": 5,
-   "defs": [
-    {
-     "n": "TerminalService",
-     "k": "class",
-     "l": 14
-    },
-    {
-     "n": "openTerminal",
-     "k": "func",
-     "l": 16
-    },
-    {
-     "n": "_openAndroid",
-     "k": "func",
-     "l": 26
-    },
-    {
-     "n": "_openDesktop",
-     "k": "func",
-     "l": 60
-    },
-    {
-     "n": "unawaited",
-     "k": "func",
-     "l": 75
-    }
-   ],
-   "caps": [],
-   "loc": 84,
-   "todo_n": 0,
-   "todo_ex": [],
-   "entry": false,
-   "changed": false,
-   "deg": 1,
-   "size": 8.15
-  },
-  {
    "id": "app.linux.flutter.generated_plugin_registrant",
    "label": "generated_plugin_registrant.cc",
    "file": "app/linux/flutter/generated_plugin_registrant.cc",
@@ -1202,7 +1530,7 @@
     }
    ],
    "caps": [],
-   "loc": 65,
+   "loc": 60,
    "todo_n": 0,
    "todo_ex": [],
    "entry": false,
@@ -1218,35 +1546,87 @@
    "mod": "app",
    "color": "#22d3ee",
    "imports": [
+    "android.app.PendingIntent",
     "android.content.Intent",
+    "android.content.pm.PackageManager",
     "android.net.Uri",
-    "android.os.Bundle",
+    "android.os.Build",
+    "android.os.Handler",
+    "android.os.Looper",
+    "androidx.core.app.ActivityCompat",
+    "androidx.core.content.ContextCompat",
     "io.flutter.embedding.android.FlutterActivity",
     "io.flutter.embedding.engine.FlutterEngine",
     "io.flutter.plugin.common.MethodChannel"
    ],
    "externals": [],
-   "symbols": 2,
+   "symbols": 5,
    "defs": [
     {
      "n": "MainActivity",
      "k": "class",
-     "l": 9
+     "l": 15
+    },
+    {
+     "n": "deliverResult",
+     "k": "func",
+     "l": 28
     },
     {
      "n": "openTermux",
      "k": "func",
-     "l": 26
+     "l": 102
+    },
+    {
+     "n": "openStore",
+     "k": "func",
+     "l": 142
+    },
+    {
+     "n": "launchTermux",
+     "k": "func",
+     "l": 153
     }
    ],
    "caps": [],
-   "loc": 46,
+   "loc": 169,
    "todo_n": 0,
    "todo_ex": [],
    "entry": true,
    "changed": false,
    "deg": 0,
-   "size": 6.5
+   "size": 7.25
+  },
+  {
+   "id": "app.android.app.src.main.kotlin.dev.porte.porte.TermuxResultReceiver",
+   "label": "TermuxResultReceiver.kt",
+   "file": "app/android/app/src/main/kotlin/dev/porte/porte/TermuxResultReceiver.kt",
+   "lang": "kotlin",
+   "mod": "app",
+   "color": "#22d3ee",
+   "imports": [
+    "android.content.BroadcastReceiver",
+    "android.content.Context",
+    "android.content.Intent",
+    "android.os.Bundle"
+   ],
+   "externals": [],
+   "symbols": 1,
+   "defs": [
+    {
+     "n": "TermuxResultReceiver",
+     "k": "class",
+     "l": 14
+    }
+   ],
+   "caps": [],
+   "loc": 38,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 0,
+   "size": 6.25
   },
   {
    "id": "app.android.build.gradle",
@@ -1388,6 +1768,30 @@
    "app.lib.core.theme.porte_theme"
   ],
   [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.core.widgets.hud_panel"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.features.explorer.domain.file_entry"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.features.explorer.services.file_service"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.features.explorer.presentation.widgets.file_tile"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.features.explorer.presentation.widgets.porte_context_menu"
+  ],
+  [
    "app.lib.features.explorer.presentation.explorer_page",
    "app.lib.core.theme.porte_colors"
   ],
@@ -1405,7 +1809,19 @@
   ],
   [
    "app.lib.features.explorer.presentation.explorer_page",
+   "app.lib.features.terminal.terminal_dialogs"
+  ],
+  [
+   "app.lib.features.explorer.presentation.explorer_page",
+   "app.lib.features.explorer.presentation.category_page"
+  ],
+  [
+   "app.lib.features.explorer.presentation.explorer_page",
    "app.lib.features.explorer.presentation.widgets.category_grid"
+  ],
+  [
+   "app.lib.features.explorer.presentation.explorer_page",
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile"
   ],
   [
    "app.lib.features.explorer.presentation.explorer_page",
@@ -1432,6 +1848,26 @@
    "app.lib.core.theme.chamfered"
   ],
   [
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile",
+   "app.lib.core.theme.porte_colors"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile",
+   "app.lib.core.theme.chamfered"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile",
+   "app.lib.features.explorer.services.icon_cache"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile",
+   "app.lib.features.explorer.domain.file_entry"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile",
+   "app.lib.features.explorer.presentation.widgets.file_tile"
+  ],
+  [
    "app.lib.features.explorer.presentation.widgets.file_tile",
    "app.lib.core.theme.porte_colors"
   ],
@@ -1449,7 +1885,7 @@
   ],
   [
    "app.lib.features.explorer.presentation.widgets.porte_context_menu",
-   "app.lib.features.terminal.terminal_service"
+   "app.lib.features.terminal.terminal_dialogs"
   ],
   [
    "app.lib.features.explorer.presentation.widgets.porte_context_menu",
@@ -1470,6 +1906,14 @@
   [
    "app.lib.features.explorer.services.file_service",
    "app.lib.features.explorer.domain.file_entry"
+  ],
+  [
+   "app.lib.features.terminal.terminal_dialogs",
+   "app.lib.features.terminal.terminal_service"
+  ],
+  [
+   "app.lib.main",
+   "app.lib.core.theme.porte_colors"
   ],
   [
    "app.lib.main",
@@ -1506,9 +1950,18 @@
   [
    "app.test.widget_test",
    "app.lib.features.explorer.domain.file_entry"
+  ],
+  [
+   "app.test.widget_test",
+   "app.lib.features.terminal.terminal_service"
   ]
  ],
  "call_edges": [
+  [
+   "app.android.app.src.main.kotlin.dev.porte.porte.TermuxResultReceiver",
+   "app.android.app.src.main.kotlin.dev.porte.porte.MainActivity",
+   "deliverResult"
+  ],
   [
    "app.lib.core.theme.porte_theme",
    "app.lib.core.theme.chamfered",
@@ -1526,6 +1979,11 @@
   ],
   [
    "app.lib.core.widgets.hud_panel",
+   "app.lib.features.terminal.terminal_dialogs",
+   "Text"
+  ],
+  [
+   "app.lib.core.widgets.hud_panel",
    "app.lib.features.explorer.presentation.widgets.path_bar",
    "Row"
   ],
@@ -1536,6 +1994,51 @@
   ],
   [
    "app.lib.features.crypto.vault_service",
+   "app.lib.features.explorer.services.file_service",
+   "File"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.features.explorer.services.file_service",
+   "FileService"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.features.explorer.services.file_service",
+   "memoryUsagePct"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.features.explorer.presentation.explorer_page",
+   "Scaffold"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.core.widgets.hud_panel",
+   "PorteAppBar"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.features.terminal.terminal_dialogs",
+   "Text"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.core.widgets.hud_panel",
+   "HudPanel"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.features.explorer.presentation.widgets.file_tile",
+   "formatSize"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
+   "app.lib.features.crypto.vault_service",
+   "open"
+  ],
+  [
+   "app.lib.features.explorer.presentation.category_page",
    "app.lib.features.explorer.services.file_service",
    "File"
   ],
@@ -1553,11 +2056,6 @@
    "app.lib.features.explorer.presentation.explorer_page",
    "app.lib.core.widgets.hud_panel",
    "PorteAppBar"
-  ],
-  [
-   "app.lib.features.explorer.presentation.explorer_page",
-   "app.lib.core.widgets.hud_panel",
-   "IconButton"
   ],
   [
    "app.lib.features.explorer.presentation.explorer_page",
@@ -1581,13 +2079,28 @@
   ],
   [
    "app.lib.features.explorer.presentation.explorer_page",
+   "app.lib.features.terminal.terminal_dialogs",
+   "Text"
+  ],
+  [
+   "app.lib.features.explorer.presentation.explorer_page",
+   "app.lib.features.explorer.presentation.widgets.path_bar",
+   "Row"
+  ],
+  [
+   "app.lib.features.explorer.presentation.explorer_page",
+   "app.lib.features.terminal.terminal_dialogs",
+   "handleTerminalRequest"
+  ],
+  [
+   "app.lib.features.explorer.presentation.explorer_page",
    "app.lib.features.explorer.presentation.widgets.file_tile",
    "formatSize"
   ],
   [
    "app.lib.features.explorer.presentation.explorer_page",
-   "app.lib.features.explorer.presentation.widgets.porte_context_menu",
-   "ListTile"
+   "app.lib.features.explorer.presentation.category_page",
+   "CategoryPage"
   ],
   [
    "app.lib.features.explorer.presentation.explorer_page",
@@ -1605,9 +2118,39 @@
    "ChamferedClipper"
   ],
   [
+   "app.lib.features.explorer.presentation.widgets.category_grid",
+   "app.lib.features.terminal.terminal_dialogs",
+   "Text"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile",
+   "app.lib.features.explorer.services.icon_cache",
+   "colorFor"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile",
+   "app.lib.features.explorer.presentation.widgets.category_grid",
+   "ClipPath"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile",
+   "app.lib.core.theme.chamfered",
+   "ChamferedClipper"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile",
+   "app.lib.features.explorer.services.icon_cache",
+   "PorteFileIcon"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile",
+   "app.lib.features.terminal.terminal_dialogs",
+   "Text"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile",
    "app.lib.features.explorer.presentation.widgets.file_tile",
-   "app.lib.features.explorer.presentation.widgets.porte_context_menu",
-   "ListTile"
+   "formatSize"
   ],
   [
    "app.lib.features.explorer.presentation.widgets.file_tile",
@@ -1615,14 +2158,24 @@
    "PorteFileIcon"
   ],
   [
-   "app.lib.features.explorer.presentation.widgets.porte_context_menu",
-   "app.lib.features.terminal.terminal_service",
-   "TerminalService"
+   "app.lib.features.explorer.presentation.widgets.file_tile",
+   "app.lib.features.terminal.terminal_dialogs",
+   "Text"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.path_bar",
+   "app.lib.features.terminal.terminal_dialogs",
+   "Text"
   ],
   [
    "app.lib.features.explorer.presentation.widgets.porte_context_menu",
-   "app.lib.features.terminal.terminal_service",
-   "openTerminal"
+   "app.lib.features.terminal.terminal_dialogs",
+   "Text"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.porte_context_menu",
+   "app.lib.features.terminal.terminal_dialogs",
+   "handleTerminalRequest"
   ],
   [
    "app.lib.features.explorer.presentation.widgets.porte_context_menu",
@@ -1656,6 +2209,16 @@
   ],
   [
    "app.lib.features.explorer.presentation.widgets.storage_carousel",
+   "app.lib.features.terminal.terminal_dialogs",
+   "Text"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.storage_carousel",
+   "app.lib.features.explorer.presentation.explorer_page",
+   "Padding"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.storage_carousel",
    "app.lib.core.widgets.hud_panel",
    "NeonButton"
   ],
@@ -1670,6 +2233,36 @@
    "File"
   ],
   [
+   "app.lib.features.terminal.terminal_dialogs",
+   "app.lib.features.terminal.terminal_service",
+   "TerminalService"
+  ],
+  [
+   "app.lib.features.terminal.terminal_dialogs",
+   "app.lib.features.terminal.terminal_service",
+   "openTerminal"
+  ],
+  [
+   "app.lib.features.terminal.terminal_dialogs",
+   "app.lib.features.explorer.presentation.explorer_page",
+   "AlertDialog"
+  ],
+  [
+   "app.lib.features.terminal.terminal_dialogs",
+   "app.lib.features.terminal.terminal_service",
+   "launchTermuxApp"
+  ],
+  [
+   "app.lib.features.terminal.terminal_service",
+   "app.lib.features.explorer.services.file_service",
+   "toString"
+  ],
+  [
+   "app.lib.main",
+   "app.lib.features.explorer.services.file_service",
+   "toString"
+  ],
+  [
    "app.lib.main",
    "app.lib.core.theme.porte_theme",
    "buildPorteTheme"
@@ -1678,6 +2271,21 @@
    "app.lib.main",
    "app.lib.features.explorer.presentation.explorer_page",
    "ExplorerPage"
+  ],
+  [
+   "app.lib.main",
+   "app.lib.features.explorer.presentation.explorer_page",
+   "Scaffold"
+  ],
+  [
+   "app.lib.main",
+   "app.lib.features.explorer.presentation.explorer_page",
+   "Padding"
+  ],
+  [
+   "app.lib.main",
+   "app.lib.features.terminal.terminal_dialogs",
+   "Text"
   ],
   [
    "app.linux.runner.main",
@@ -1718,6 +2326,16 @@
    "app.test.widget_test",
    "app.lib.features.explorer.services.file_service",
    "delete"
+  ],
+  [
+   "app.test.widget_test",
+   "app.lib.features.explorer.services.file_service",
+   "File"
+  ],
+  [
+   "app.test.widget_test",
+   "app.lib.features.terminal.terminal_service",
+   "terminalVerdictFromMap"
   ]
  ],
  "mods": {
@@ -1726,6 +2344,7 @@
  },
  "capabilities": {
   "camera": [
+   "app/lib/features/explorer/presentation/explorer_page.dart",
    "app/lib/features/explorer/presentation/widgets/category_grid.dart"
   ],
   "network": [
@@ -1761,19 +2380,24 @@
   "gods": [
    {
     "file": "app/lib/features/explorer/presentation/explorer_page.dart",
-    "loc": 295,
-    "symbols": 26,
-    "deg": 10,
-    "score": 4.04
+    "loc": 463,
+    "symbols": 34,
+    "deg": 13,
+    "score": 5.46
    }
   ],
   "fan_out": [
    {
     "file": "app/lib/features/explorer/presentation/explorer_page.dart",
+    "n": 12
+   }
+  ],
+  "fan_in": [
+   {
+    "file": "app/lib/core/theme/porte_colors.dart",
     "n": 9
    }
   ],
-  "fan_in": [],
   "cycles": [],
   "todos": [
    {
@@ -1801,19 +2425,22 @@
   "orphans": [
    "app/android/app/build.gradle.kts",
    "app/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java",
+   "app/android/app/src/main/kotlin/dev/porte/porte/TermuxResultReceiver.kt",
    "app/android/build.gradle.kts",
    "app/android/settings.gradle.kts",
    "app/lib/features/crypto/vault_service.dart",
    "app_descompilado/META-INF/services/ax.Ec.H"
   ]
  },
- "changed": [],
+ "changed": [
+  ".astos/graph.json"
+ ],
  "meta": {
   "root": "/home/tiagorabelo/porte",
-  "files": 28,
-  "edges": 35,
-  "call_edges": 42,
-  "git_changed": 0,
+  "files": 32,
+  "edges": 52,
+  "call_edges": 76,
+  "git_changed": 1,
   "langs": [
    "c",
    "dart",
@@ -1823,9 +2450,9 @@
   "supported": ".py, .c, .h, .cpp, .hpp, .cc, .cxx, .dart, .rs, .js, .jsx, .ts, .tsx, .java, .go, .cs, .kt",
   "fallback": false,
   "generic_truncated": false,
-  "generated_in_s": 1.67,
+  "generated_in_s": 1.36,
   "full_rescan": true,
   "out": "/home/tiagorabelo/porte/.astos",
-  "scanned_at": "2026-10-15T03:34:30+00:00"
+  "scanned_at": "2026-10-15T17:53:01+00:00"
  }
 }
