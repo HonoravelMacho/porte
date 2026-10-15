@@ -4,46 +4,61 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+/// Resultado detalhado da tentativa de abrir o terminal,
+/// para feedback exato na interface (em vez de true/false cego).
+enum TerminalResult {
+  /// Comando despachado. No Android, se o Termux abrir e fechar na hora,
+  /// falta `termux-setup-storage` (permissão de arquivos do Termux).
+  opened,
+  /// Termux não instalado — app já abriu a página do F-Droid.
+  notInstalled,
+  /// Falha (sem terminal padrão no Linux, erro de Intent, etc).
+  failed,
+}
+
 /// Abre um terminal nativo apontando para [directory].
 ///
-/// - Android: dispara Intent para o Termux (`com.termux`).
-///   Requer Termux + Termux:API instalados; sem eles, abre a Play Store.
-/// - Linux/macOS/Windows desktop: lança o terminal padrão com cwd.
-///   Retorna `true` se o disparo foi aceito.
+/// - Android: via MethodChannel (MainActivity) que dispara o RUN_COMMAND
+///   do Termux com cwd = pasta atual. Exige o Termux do **F-Droid**
+///   (a versão da Play Store está descontinuada) + `termux-setup-storage`.
+/// - Linux: lança o terminal padrão com workingDirectory.
 class TerminalService {
   static const _channel = MethodChannel('dev.porte/terminal');
 
-  Future<bool> openTerminal(String directory) async {
+  Future<TerminalResult> openTerminal(String directory) async {
     if (Platform.isAndroid) return _openAndroid(directory);
     if (Platform.isLinux || Platform.isMacOS || Platform.isWindows) {
-      return _openDesktop(directory);
+      return (await _openDesktop(directory)) ? TerminalResult.opened : TerminalResult.failed;
     }
-    return false;
+    return TerminalResult.failed;
   }
 
   // ---- Android: Termux ----
-  Future<bool> _openAndroid(String directory) async {
-    // 1) Tenta via plugin de plataforma do app (MainActivity), se registrado.
+  Future<TerminalResult> _openAndroid(String directory) async {
     try {
-      final ok = await _channel.invokeMethod<bool>('openTerminal', {'path': directory});
-      if (ok == true) return true;
+      final status = await _channel.invokeMethod<String>('openTerminal', {'path': directory});
+      return switch (status) {
+        'ok' => TerminalResult.opened,
+        'not_installed' => TerminalResult.notInstalled,
+        _ => TerminalResult.failed,
+      };
     } on MissingPluginException catch (_) {
-      // cai para o fluxo por Intent abaixo
+      return _openStoreFallback();
     } catch (e) {
       debugPrint('PORTE terminal channel: $e');
+      return TerminalResult.failed;
     }
-    // 2) Intent RUN_COMMAND do Termux (workingDirectory = pasta atual).
-    // Obs.: RUN_COMMAND é um Service — disparar como Activity falha;
-    // por isso o caminho oficial é o MethodChannel (MainActivity).
-    // Aqui resta apenas o fallback para a página do Termux no F-Droid
-    // (a versão da Play Store está descontinuada).
+  }
+
+  /// Sem o canal nativo (ou sem Termux): abre a página do Termux no F-Droid.
+  Future<TerminalResult> _openStoreFallback() async {
     try {
       await launchUrl(Uri.parse('https://f-droid.org/packages/com.termux/'),
           mode: LaunchMode.externalApplication);
-      return false;
+      return TerminalResult.notInstalled;
     } catch (e) {
       debugPrint('PORTE termux fallback falhou: $e');
-      return false;
+      return TerminalResult.failed;
     }
   }
 

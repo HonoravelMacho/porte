@@ -39,27 +39,29 @@ class MainActivity : FlutterActivity() {
 
     /**
      * Abre o Termux na [path] via RUN_COMMAND.
-     * Retorna false (e abre a página do Termux) quando ele não está instalado
-     * — antes o código retornava true mesmo sem o Termux, e nada acontecia.
+     * Retorna "ok" | "not_installed" | "error" para o Dart dar feedback exato.
+     * O comando usa ";" (e não "&&"): se o cd falhar (ex.: sem
+     * termux-setup-storage), o Termux ainda abre num shell em vez de
+     * fechar a sessão na hora e parecer que "nada aconteceu".
      */
-    private fun openTermux(path: String): Boolean {
+    private fun openTermux(path: String): String {
         if (!isInstalled("com.termux")) {
             openStore()
-            return false
+            return "not_installed"
         }
         return try {
             val intent = Intent("com.termux.action.RUN_COMMAND").apply {
                 setClassName("com.termux", "com.termux.app.RunCommandService")
                 putExtra("com.termux.RUN_COMMAND_PATH", "/data/data/com.termux/files/usr/bin/bash")
-                putExtra("com.termux.RUN_COMMAND_ARGUMENTS", arrayOf("-lic", "cd \"$path\" && exec bash"))
+                putExtra("com.termux.RUN_COMMAND_ARGUMENTS", arrayOf("-lic", "cd \"$path\"; exec bash"))
                 putExtra("com.termux.RUN_COMMAND_WORKDIR", path)
                 putExtra("com.termux.RUN_COMMAND_BACKGROUND", false)
             }
             if (Build.VERSION.SDK_INT >= 26) startForegroundService(intent) else startService(intent)
-            true
+            "ok"
         } catch (e: Exception) {
             openStore()
-            false
+            "error"
         }
     }
 

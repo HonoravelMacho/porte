@@ -30,10 +30,16 @@ Future<void> showPorteContextMenu({
             onTap: () async {
               Navigator.pop(ctx);
               final target = isDir ? entry.path : currentDir;
-              final ok = await terminal.openTerminal(target);
-              if (ctx.mounted && !ok) {
+              final res = await terminal.openTerminal(target);
+              if (ctx.mounted && res != TerminalResult.opened) {
                 ScaffoldMessenger.of(ctx).showSnackBar(
-                  const SnackBar(content: Text('Terminal indisponível — instale o Termux (Android) ou xterm/gnome-terminal (Linux).')),
+                  SnackBar(
+                    content: Text(
+                      res == TerminalResult.notInstalled
+                          ? 'Termux não encontrado — abrimos a página dele no F-Droid. Depois rode termux-setup-storage dentro dele.'
+                          : 'Terminal indisponível — no Linux instale xterm ou gnome-terminal.',
+                    ),
+                  ),
                 );
               }
             },

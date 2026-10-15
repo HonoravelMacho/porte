@@ -239,14 +239,19 @@ class _ExplorerPageState extends State<ExplorerPage> {
   }
 
   Future<void> _onOpenTerminalHere() async {
-    final ok = await TerminalService().openTerminal(_dir);
+    final res = await TerminalService().openTerminal(_dir);
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          ok
-              ? 'Terminal despachado para $_dir'
-              : 'Não foi possível abrir o terminal. No Android: instale o Termux (F-Droid) e rode termux-setup-storage. No Linux: instale xterm/gnome-terminal.',
+          switch (res) {
+            TerminalResult.opened =>
+              'Comando enviado ao Termux ($_dir). Se ele abrir e fechar: rode termux-setup-storage dentro do Termux.',
+            TerminalResult.notInstalled =>
+              'Termux não encontrado — abrimos a página dele no F-Droid. Instale, abra uma vez e rode termux-setup-storage.',
+            TerminalResult.failed =>
+              'Não foi possível abrir o terminal. No Linux: instale xterm ou gnome-terminal.',
+          },
         ),
       ),
     );

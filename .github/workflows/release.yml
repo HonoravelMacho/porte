@@ -95,7 +95,10 @@ jobs:
           path: ${{ env.APP_DIR }}/build/app/outputs/flutter-apk/app-release.apk
 
   linux-deb:
-    runs-on: ubuntu-latest
+    # Ubuntu 22.04 de propósito: binário linkado contra glib 2.72 roda em
+    # 22.04+ (Pop!_OS 22.04, Mint 21...). Build no 24.04 quebra nesses
+    # sistemas (undefined symbol: g_once_init_enter_pointer).
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
 
