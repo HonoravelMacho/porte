@@ -70,7 +70,26 @@ jobs:
         working-directory: ${{ env.APP_DIR }}
         run: flutter build apk --release
 
+      - name: Renomear APK
+        run: cp ${{ env.APP_DIR }}/build/app/outputs/flutter-apk/app-release.apk porte-${{ github.ref_name }}-android.apk
+
+      # Caminho principal (tags v*): publica direto na Release.
+      # Evita upload-artifact (cota de artifacts estourada não bloqueia release).
+      - name: Publicar APK na release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: porte-${{ github.ref_name }}-android.apk
+          generate_release_notes: true
+          prerelease: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Fallback p/ workflow_dispatch (sem tag): tenta artifact (pode falhar
+      # se a cota de artifacts seguir estourada).
       - uses: actions/upload-artifact@v4
+        if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
         with:
           name: porte-android-apk
           path: ${{ env.APP_DIR }}/build/app/outputs/flutter-apk/app-release.apk
@@ -104,29 +123,20 @@ jobs:
           chmod +x packaging/deb/build-deb.sh
           ./packaging/deb/build-deb.sh "${{ github.ref_name }}"
 
+      - name: Publicar DEB na release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          files: dist/*.deb
+          generate_release_notes: true
+          prerelease: true
+          fail_on_unmatched_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - uses: actions/upload-artifact@v4
+        if: ${{ !startsWith(github.ref, 'refs/tags/v') }}
         with:
           name: porte-linux-deb
           path: dist/*.deb
-
-  publish:
-    needs: [android-apk, linux-deb]
-    runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          path: artifacts
-      - name: Renomear
-        run: |
-          ls -R artifacts
-          mkdir -p dist
-          find artifacts -name "*.apk" -exec cp {} dist/porte-${{ github.ref_name }}-android.apk \;
-          find artifacts -name "*.deb" -exec cp {} dist/ \;
-          ls -la dist
-      - uses: softprops/action-gh-release@v2
-        with:
-          files: dist/*
-          generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
