@@ -63,9 +63,10 @@ class _CategoryPageState extends State<CategoryPage> {
     final title = widget.title.isNotEmpty
         ? widget.title
         : widget.category.toUpperCase();
+    final rootName = widget.root.split(Platform.pathSeparator).last;
     return Scaffold(
       appBar: PorteAppBar(
-        title: '$title\nArquivos: $_fileCount | RAM: ${_memPct.toStringAsFixed(1)}%',
+        title: '$title ($rootName)\nArquivos: $_fileCount | RAM: ${_memPct.toStringAsFixed(1)}%',
         actions: [
           IconButton(
             icon: Icon(_grid ? Icons.view_list_rounded : Icons.grid_view_rounded,

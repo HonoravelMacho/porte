@@ -36,6 +36,13 @@ class _ExplorerPageState extends State<ExplorerPage> {
   bool _gridMode = false;
   String _viewMode = 'todos'; // 'todos' | 'recente' | 'categoria'
 
+  String _buildAppBarTitle() {
+    if (_viewMode == 'recente') {
+      return 'PORTE // EXPLORER - Recent ${_entries.length} files';
+    }
+    return 'PORTE // EXPLORER';
+  }
+
   @override
   void initState() {
     super.initState();
@@ -122,7 +129,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PorteAppBar(
-        title: 'PORTE // EXPLORER',
+        title: _buildAppBarTitle(),
         actions: [
           PopupMenuButton<String>(
             icon: const Icon(Icons.filter_list, color: PorteColors.cyanNeon),
@@ -134,7 +141,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
               ),
               const PopupMenuItem(
                 value: 'recente',
-                child: Text('Recent', style: TextStyle(fontFamily: 'monospace')),
+                child: Text('Recent (ordenado por data)', style: TextStyle(fontFamily: 'monospace')),
               ),
               const PopupMenuItem(
                 value: 'categoria',
@@ -382,6 +389,87 @@ class _ExplorerPageState extends State<ExplorerPage> {
         _navigate(v.path);
       } catch (e) {
         if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
+      }
+      return;
+    }
+    // Categorias com navegação automática para pastas de mídia típicas
+    if (key == 'imagens') {
+      // Tenta DCIM/Camera primeiro, depois Pictures, depois root/DCIM
+      for (final d in ['${home}sepDCIM${sep}Camera', '${home}sepPictures', home]) {
+        final directory = Directory(d);
+        if (await directory.exists()) {
+          _navigate(d);
+          return;
+        }
+      }
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Nenhum diretório de imagens encontrado.')),
+        );
+      }
+      return;
+    }
+    if (key == 'audio') {
+      // Tenta pastas de áudio típicas
+      for (final d in ['${home}sepMusic', '${home}sepAudio', '${home}sepMP3']) {
+        final directory = Directory(d);
+        if (await directory.exists()) {
+          _navigate(d);
+          return;
+        }
+      }
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Nenhum diretório de áudio encontrado.')),
+        );
+      }
+      return;
+    }
+    if (key == 'video') {
+      // Tenta pastas de vídeo típicas
+      for (final d in ['${home}sepVideo', '${home}sepMovies']) {
+        final directory = Directory(d);
+        if (await directory.exists()) {
+          _navigate(d);
+          return;
+        }
+      }
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Nenhum diretório de vídeo encontrado.')),
+        );
+      }
+      return;
+    }
+    if (key == 'docs') {
+      // Tenta pastas de documentos
+      for (final d in ['${home}sepDocs', '${home}sepDocuments']) {
+        final directory = Directory(d);
+        if (await directory.exists()) {
+          _navigate(d);
+          return;
+        }
+      }
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Nenhum diretório de documentos encontrado.')),
+        );
+      }
+      return;
+    }
+    if (key == 'pacotes') {
+      // Tenta pastas de pacotes/APKs
+      for (final d in ['${home}sepDownload', '${home}sepApk']) {
+        final directory = Directory(d);
+        if (await directory.exists()) {
+          _navigate(d);
+          return;
+        }
+      }
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Nenhum diretório de pacotes encontrado.')),
+        );
       }
       return;
     }
