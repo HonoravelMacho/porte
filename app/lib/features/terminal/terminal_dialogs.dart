@@ -2,6 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'terminal_service.dart';
 
+/// Fluxo unificado: dispara, aguarda o veredito do Termux (até 10s) e mostra
+/// sucesso ou o diálogo de falha com o erro exato + copiar. Sem veredito
+/// (timeout), assume sessão interativa aberta = sucesso.
+Future<void> handleTerminalRequest(BuildContext context, String dir) async {
+  final terminal = TerminalService();
+  final outcome = await terminal.openTerminal(dir);
+  if (!context.mounted) return;
+  if (!outcome.opened) {
+    await showTerminalFailure(context, outcome: outcome, dir: dir);
+    return;
+  }
+  final verdict = await terminal.waitForVerdict();
+  if (!context.mounted) return;
+  if (verdict == null || verdict.opened) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text('Terminal aberto em $dir')),
+    );
+  } else {
+    await showTerminalFailure(context, outcome: verdict, dir: dir);
+  }
+}
+
 /// Diálogo de falha do terminal com o detalhe técnico exato + botões:
 /// COPIAR (manda o erro ao dev) e ABRIR O TERMUX (plano B sem permissão).
 Future<void> showTerminalFailure(

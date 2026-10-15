@@ -37,6 +37,25 @@ enum TerminalResult {
 /// - Linux: lança o terminal padrão com workingDirectory.
 class TerminalService {
   static const _channel = MethodChannel('dev.porte/terminal');
+  static Completer<Map<String, dynamic>?>? _verdictCompleter;
+  static bool _handlerInstalled = false;
+
+  static void _ensureHandler() {
+    if (_handlerInstalled) return;
+    _handlerInstalled = true;
+    _channel.setMethodCallHandler((call) async {
+      if (call.method == 'onTermuxResult') {
+        final c = _verdictCompleter;
+        if (c != null && !c.isCompleted) {
+          try {
+            c.complete(Map<String, dynamic>.from(call.arguments as Map));
+          } catch (_) {
+            c.complete(null);
+          }
+        }
+      }
+    });
+  }
 
   Future<TerminalOutcome> openTerminal(String directory) async {
     if (Platform.isAndroid) return _openAndroid(directory);
@@ -86,6 +105,40 @@ class TerminalService {
     }
   }
 
+  /// Aguarda o veredito do Termux (via TermuxResultReceiver).
+  /// Retorna null em timeout (sessão interativa segue aberta — sucesso provável).
+  Future<TerminalOutcome?> waitForVerdict({Duration timeout = const Duration(seconds: 10)}) async {
+    _ensureHandler();
+    _verdictCompleter = Completer<Map<String, dynamic>?>();
+    try {
+      final map = await _verdictCompleter!.future.timeout(timeout);
+      if (map == null) return null;
+      return _verdictFromMap(map);
+    } on TimeoutException {
+      return null;
+    } finally {
+      _verdictCompleter = null;
+    }
+  }
+
+  TerminalOutcome _verdictFromMap(Map<String, dynamic> map) {
+    if (map['hasResult'] != true) {
+      return TerminalOutcome(
+        TerminalResult.failed,
+        'Termux respondeu sem pacote de resultado (${map['error'] ?? '?'})',
+      );
+    }
+    final err = (map['err'] as num?)?.toInt();
+    final exitCode = (map['exitCode'] as num?)?.toInt();
+    final errmsg = map['errmsg']?.toString() ?? '';
+    if (err == -1) {
+      return TerminalOutcome(TerminalResult.opened, 'veredito Termux: ok (exitCode=$exitCode)');
+    }
+    return TerminalOutcome(
+      TerminalResult.failed,
+      'veredito Termux: err=$err exitCode=$exitCode errmsg=$errmsg',
+    );
+  }
   /// Sem o canal nativo: abre a página do Termux no F-Droid.
   Future<TerminalOutcome> _openStoreFallback() async {
     try {

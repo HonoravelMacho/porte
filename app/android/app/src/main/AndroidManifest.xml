@@ -35,6 +35,8 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!-- PORTE: recebe o veredito do Termux (RUN_COMMAND_PENDING_INTENT) -->
+        <receiver android:name=".TermuxResultReceiver" android:exported="false" />
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
         <meta-data

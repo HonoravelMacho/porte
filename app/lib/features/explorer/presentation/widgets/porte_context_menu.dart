@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../../terminal/terminal_dialogs.dart';
-import '../../../terminal/terminal_service.dart';
 import '../../services/file_service.dart';
 import '../../domain/file_entry.dart';
 
@@ -16,7 +15,6 @@ Future<void> showPorteContextMenu({
   required String currentDir,
   required VoidCallback onChanged,
 }) {
-  final terminal = TerminalService();
   final isDir = entry.isDir;
   return showModalBottomSheet(
     context: context,
@@ -31,10 +29,7 @@ Future<void> showPorteContextMenu({
             onTap: () async {
               Navigator.pop(ctx);
               final target = isDir ? entry.path : currentDir;
-              final outcome = await terminal.openTerminal(target);
-              if (ctx.mounted && !outcome.opened) {
-                await showTerminalFailure(ctx, outcome: outcome, dir: target);
-              }
+              await handleTerminalRequest(ctx, target);
             },
           ),
           if (!isDir) ...[

@@ -1,9 +1,12 @@
 package dev.porte.porte
 
+import android.app.PendingIntent
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
+import android.os.Handler
+import android.os.Looper
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import io.flutter.embedding.android.FlutterActivity
@@ -17,9 +20,27 @@ class MainActivity : FlutterActivity() {
     private var pendingResult: MethodChannel.Result? = null
     private var pendingPath: String = ""
 
+    companion object {
+        private var channelRef: MethodChannel? = null
+        private var nextRequestCode = 2000
+
+        /** Repassa o veredito do Termux (via TermuxResultReceiver) ao Dart. */
+        fun deliverResult(map: Map<String, Any?>) {
+            val ch = channelRef ?: return
+            Handler(Looper.getMainLooper()).post {
+                try {
+                    ch.invokeMethod("onTermuxResult", map)
+                } catch (_: Exception) {
+                }
+            }
+        }
+    }
+
     override fun configureFlutterEngine(engine: FlutterEngine) {
         super.configureFlutterEngine(engine)
-        MethodChannel(engine.dartExecutor.binaryMessenger, channel).setMethodCallHandler { call, result ->
+        val methodChannel = MethodChannel(engine.dartExecutor.binaryMessenger, channel)
+        channelRef = methodChannel
+        methodChannel.setMethodCallHandler { call, result ->
             if (call.method == "openTerminal") {
                 val path = call.argument<String>("path") ?: ""
                 // A permissão do Termux é "dangerous": manifest sozinho não
@@ -85,6 +106,13 @@ class MainActivity : FlutterActivity() {
             putExtra("com.termux.RUN_COMMAND_ARGUMENTS", arrayOf("-lic", "cd \"$path\"; exec bash"))
             putExtra("com.termux.RUN_COMMAND_WORKDIR", path)
             putExtra("com.termux.RUN_COMMAND_BACKGROUND", false)
+            // PendingIntent para o Termux devolver o veredito (err/errmsg).
+            // requestCode único por chamada (exigência do Termux).
+            var flags = PendingIntent.FLAG_ONE_SHOT
+            if (Build.VERSION.SDK_INT >= 31) flags = flags or PendingIntent.FLAG_MUTABLE
+            val resultIntent = Intent(this, TermuxResultReceiver::class.java)
+            val pending = PendingIntent.getBroadcast(this, nextRequestCode++, resultIntent, flags)
+            putExtra("com.termux.RUN_COMMAND_PENDING_INTENT", pending)
         }
         // 1) caminho moderno (API 26+)
         if (Build.VERSION.SDK_INT >= 26) {

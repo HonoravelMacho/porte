@@ -8,7 +8,6 @@ import '../../../core/widgets/hud_panel.dart';
 import '../domain/file_entry.dart';
 import '../services/file_service.dart';
 import '../../terminal/terminal_dialogs.dart';
-import '../../terminal/terminal_service.dart';
 import 'widgets/category_grid.dart';
 import 'widgets/file_tile.dart';
 import 'widgets/path_bar.dart';
@@ -266,21 +265,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
     }
   }
 
-  Future<void> _onOpenTerminalHere() async {
-    final outcome = await TerminalService().openTerminal(_dir);
-    if (!mounted) return;
-    if (outcome.opened) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            'Comando enviado ao Termux ($_dir). Se ele abrir e fechar: rode termux-setup-storage dentro do Termux.',
-          ),
-        ),
-      );
-    } else {
-      await showTerminalFailure(context, outcome: outcome, dir: _dir);
-    }
-  }
+  Future<void> _onOpenTerminalHere() => handleTerminalRequest(context, _dir);
 
   Future<void> _onAnalyze() async {
     ScaffoldMessenger.of(context).showSnackBar(
