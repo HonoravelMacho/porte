@@ -2,9 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:share_plus/share_plus.dart';
+import '../../../../core/theme/porte_colors.dart';
 import '../../../terminal/terminal_dialogs.dart';
 import '../../services/file_service.dart';
 import '../../domain/file_entry.dart';
+import '../../../crypto/martelos_service.dart';
 
 /// Menu de contexto da pasta/arquivo — inclui "Abrir Terminal"
 /// (requisito §4), além de abrir/compartilhar/renomear/copiar/excluir.
@@ -47,6 +49,58 @@ Future<void> showPorteContextMenu({
               onTap: () async {
                 Navigator.pop(ctx);
                 await SharePlus.instance.share(ShareParams(files: [XFile(entry.path)]));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.vpn_key_rounded, color: PorteColors.amberNeon),
+              title: const Text('MARTELOS // Criptografar'),
+              onTap: () async {
+                Navigator.pop(ctx);
+                final res = await showMartelosDialog(
+                  context: context,
+                  inputPath: entry.path,
+                  encrypt: true,
+                );
+                if (res == null) return;
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: res.ok ? PorteColors.ok : PorteColors.danger,
+                      content: Text(
+                        '${res.message}\n${res.outputPath != null ? 'saída: ${res.outputPath}' : ''}',
+                        style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
+                      ),
+                      duration: const Duration(seconds: 5),
+                    ),
+                  );
+                  if (res.ok) onChanged();
+                }
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.vpn_key_rounded, color: PorteColors.cyanNeon),
+              title: const Text('MARTELOS // Descriptografar'),
+              onTap: () async {
+                Navigator.pop(ctx);
+                final res = await showMartelosDialog(
+                  context: context,
+                  inputPath: entry.path,
+                  encrypt: false,
+                );
+                if (res == null) return;
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: res.ok ? PorteColors.ok : PorteColors.danger,
+                      content: Text(
+                        '${res.message}\n${res.outputPath != null ? 'saída: ${res.outputPath}' : ''}',
+                        style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
+                      ),
+                      duration: const Duration(seconds: 5),
+                    ),
+                  );
+                  if (res.ok) onChanged();
+                }
               },
             ),
           ] else ...[
