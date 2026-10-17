@@ -14,13 +14,28 @@ class MartelosService {
     '/usr/local/bin/martelos',
     '/usr/bin/martelos',
     '/opt/martelos/bin/martelos',
+    '/usr/lib/porte/martelos', // motor embutido no .deb do PORTE
     // Termux
     '${Platform.environment['HOME'] ?? ''}/martelos',
     '/data/data/com.termux/files/usr/bin/martelos',
   ];
 
+  /// No Android, o binário é empacotado em jniLibs como `libmartelos.so`
+  /// e fica no nativeLibraryDir — que aparece no LD_LIBRARY_PATH do app.
+  static List<String> _jniLibCandidates() {
+    final ld = Platform.environment['LD_LIBRARY_PATH'];
+    if (ld == null || ld.isEmpty) return const [];
+    return ld
+        .split(':')
+        .where((d) => d.isNotEmpty)
+        .map((d) => '$d/libmartelos.so')
+        .toList();
+  }
+
+  static List<String> _allCandidates() => [..._jniLibCandidates(), ..._candidates];
+
   static Future<String?> _binaryPath() async {
-    for (final c in _candidates) {
+    for (final c in _allCandidates()) {
       try {
         if (c == 'martelos') {
           final r = await Process.run('which', ['martelos']);
@@ -34,12 +49,15 @@ class MartelosService {
     return null;
   }
 
-  /// Executa: martelos -m <entrada> -c/-d -k <n> "#<chave>#" -f <const> -o <saida>
+  /// Executa: `martelos -m <entrada> -c/-d -k <N> "#senha1#" ... "#senhaN#" -f <const>`
+  ///
+  /// O motor aceita N senhas (uma por camada); a [passphrases] deve conter
+  /// todas, na mesma ordem usada na criptografia (a ordem importa na
+  /// descriptografia).
   static Future<MartelosResult> process({
     required String inputPath,
     required bool encrypt, // true = criptografar, false = descriptografar
-    required String passphrase,
-    required int layers,
+    required List<String> passphrases,
     required String constante, // pi | catalan | apery | clausen | arctan | log3
     String? outputPath,
   }) async {
@@ -54,14 +72,18 @@ class MartelosService {
 
     final dir = p.dirname(inputPath);
     final base = p.basenameWithoutExtension(inputPath);
-    final out = outputPath ?? p.join(dir, '${base}_martelos.${encrypt ? 'martelos' : 'out'}');
+    // Sem -o o motor mesmo decide: cripto -> <entrada>.martelos;
+    // descripto -> nome/extensão originais guardados no cabeçalho .martelos.
+    final fallbackOut = encrypt
+        ? p.join(dir, '${p.basename(inputPath)}.martelos')
+        : p.join(dir, base);
 
     final args = <String>[
       '-m', inputPath,
       encrypt ? '-c' : '-d',
-      '-k', layers.toString(), '#$passphrase#',
+      '-k', passphrases.length.toString(),
+      for (final s in passphrases) '#$s#',
       '-f', constante,
-      '-o', out,
     ];
 
     try {
@@ -70,10 +92,15 @@ class MartelosService {
       final stderr = result.stderr as String? ?? '';
 
       if (result.exitCode == 0) {
+        // O motor informa o arquivo real gerado em "Finalizado em: <path>".
+        final match = RegExp(r'Finalizado em:\s*(.+)', multiLine: true).firstMatch(stdout);
+        final realOut = match?.group(1)?.trim();
         return MartelosResult(
           ok: true,
           message: 'Concluído com sucesso.',
-          outputPath: out,
+          outputPath: (realOut != null && realOut.isNotEmpty && File(realOut).existsSync())
+              ? realOut
+              : fallbackOut,
           details: stdout.trim().isEmpty ? stderr.trim() : stdout.trim(),
         );
       }
@@ -131,16 +158,46 @@ class MartelosResult {
 const List<String> _constantes = <String>['pi', 'catalan', 'apery', 'clausen', 'arctan', 'log3'];
 
 /// Dialog para configurar e executar criptografia/descriptografia martelos.
+/// Permite definir a quantidade de senhas (uma por camada) — o motor aceita
+/// N senhas, quantas o operador quiser. Na descriptografia, as senhas devem
+/// estar na MESMA ordem usada na criptografia.
 Future<MartelosResult?> showMartelosDialog({
   required BuildContext context,
   required String inputPath,
   required bool encrypt,
 }) async {
-  final ctrlPass = TextEditingController();
-  final ctrlLayers = TextEditingController(text: '1');
+  final ncSenhas = TextEditingController(text: '1');
   String constante = _constantes.first;
+  int qtd = 1;
+  List<TextEditingController> passCtrls = [
+    TextEditingController(),
+  ];
   bool isLoading = false;
   final dialogCtx = context;
+
+  void setQtd(StateSetter setSt, int n) {
+    final novo = n.clamp(1, 99);
+    setSt(() {
+      qtd = novo;
+      ncSenhas.text = novo.toString();
+      while (passCtrls.length < novo) {
+        passCtrls.add(TextEditingController());
+      }
+      while (passCtrls.length > novo) {
+        passCtrls.removeLast().dispose();
+      }
+    });
+  }
+
+  InputDecoration estilo(String hint) => InputDecoration(
+        hintText: hint,
+        hintStyle: const TextStyle(color: PorteColors.textDim, fontSize: 10),
+        filled: true,
+        fillColor: PorteColors.grid,
+        border: OutlineInputBorder(borderSide: BorderSide(color: PorteColors.cyanDim)),
+        focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: PorteColors.cyanNeon)),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+      );
 
   final result = await showDialog<MartelosResult>(
     context: context,
@@ -154,68 +211,92 @@ Future<MartelosResult?> showMartelosDialog({
         ),
         content: SizedBox(
           width: 320,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text('ARQUIVO:', style: TextStyle(color: PorteColors.textDim, fontSize: 11, fontFamily: 'monospace')),
-              const SizedBox(height: 4),
-              Text(
-                p.basename(inputPath),
-                style: const TextStyle(color: PorteColors.textMain, fontSize: 11, fontFamily: 'monospace'),
-                overflow: TextOverflow.ellipsis,
-              ),
-              const SizedBox(height: 14),
-              const Text('CHAVE (senha):', style: TextStyle(color: PorteColors.textDim, fontSize: 11, fontFamily: 'monospace')),
-              const SizedBox(height: 4),
-              TextField(
-                controller: ctrlPass,
-                obscureText: true,
-                style: const TextStyle(color: PorteColors.textMain, fontFamily: 'monospace'),
-                decoration: InputDecoration(
-                  hintText: 'sua senha aqui',
-                  hintStyle: const TextStyle(color: PorteColors.textDim, fontSize: 10),
-                  filled: true,
-                  fillColor: PorteColors.grid,
-                  border: OutlineInputBorder(borderSide: BorderSide(color: PorteColors.cyanDim)),
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: PorteColors.cyanNeon)),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Text('ARQUIVO:', style: TextStyle(color: PorteColors.textDim, fontSize: 11, fontFamily: 'monospace')),
+                const SizedBox(height: 4),
+                Text(
+                  p.basename(inputPath),
+                  style: const TextStyle(color: PorteColors.textMain, fontSize: 11, fontFamily: 'monospace'),
+                  overflow: TextOverflow.ellipsis,
                 ),
+                const SizedBox(height: 14),
+                if (!encrypt)
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 8),
+                    child: Text(
+                      'AVISO: informe as senhas na MESMA ordem da criptografia.',
+                      style: TextStyle(color: PorteColors.amberNeon, fontSize: 10, fontFamily: 'monospace'),
+                    ),
+                  ),
+                const Text('QUANTIDADE DE SENHAS:', style: TextStyle(color: PorteColors.textDim, fontSize: 11, fontFamily: 'monospace')),
+                const SizedBox(height: 4),
+                Row(
+                  children: [
+                    IconButton.outlined(
+                      icon: const Icon(Icons.remove_circle_outline),
+                      color: PorteColors.textMain,
+                      onPressed: isLoading ? null : () => setQtd(setSt, qtd - 1),
+                    ),
+                    Expanded(
+                      child: TextField(
+                        controller: ncSenhas,
+                        keyboardType: TextInputType.number,
+                        textAlign: TextAlign.center,
+                        enabled: !isLoading,
+                        style: const TextStyle(color: PorteColors.textMain, fontFamily: 'monospace'),
+                        decoration: estilo('1'),
+                        onChanged: (v) {
+                          final n = int.tryParse(v);
+                          if (n != null && n >= 1) setSt(() => qtd = n.clamp(1, 99));
+                        },
+                        onSubmitted: (v) => setQtd(setSt, int.tryParse(v) ?? 1),
+                      ),
+                    ),
+                    IconButton.outlined(
+                      icon: const Icon(Icons.add_circle_outline),
+                      color: PorteColors.cyanNeon,
+                      onPressed: isLoading ? null : () => setQtd(setSt, qtd + 1),
+                    ),
+                  ],
               ),
-              const SizedBox(height: 12),
-              const Text('CAMADAS:', style: TextStyle(color: PorteColors.textDim, fontSize: 11, fontFamily: 'monospace')),
-              const SizedBox(height: 4),
-              TextField(
-                controller: ctrlLayers,
-                keyboardType: TextInputType.number,
-                style: const TextStyle(color: PorteColors.textMain, fontFamily: 'monospace'),
-                decoration: InputDecoration(
-                  hintText: '1',
-                  hintStyle: const TextStyle(color: PorteColors.textDim, fontSize: 10),
-                  filled: true,
-                  fillColor: PorteColors.grid,
-                  border: OutlineInputBorder(borderSide: BorderSide(color: PorteColors.cyanDim)),
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: PorteColors.cyanNeon)),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                const SizedBox(height: 12),
+                // Um campo de senha por camada — N senhas, quantas quiser.
+                for (int i = 0; i < passCtrls.length; i++) ...[
+                  Text(
+                    'SENHA ${i + 1}:',
+                    style: const TextStyle(color: PorteColors.textDim, fontSize: 11, fontFamily: 'monospace'),
+                  ),
+                  const SizedBox(height: 4),
+                  TextField(
+                    controller: passCtrls[i],
+                    obscureText: true,
+                    enabled: !isLoading,
+                    style: const TextStyle(color: PorteColors.textMain, fontFamily: 'monospace'),
+                    decoration: estilo('senha ${i + 1}'),
+                  ),
+                  SizedBox(height: i + 1 < passCtrls.length ? 8 : 12),
+                ],
+                const Text('CONSTANTE BBP:', style: TextStyle(color: PorteColors.textDim, fontSize: 11, fontFamily: 'monospace')),
+                const SizedBox(height: 4),
+                DropdownButtonFormField<String>(
+                  initialValue: constante,
+                  dropdownColor: PorteColors.hullLight,
+                  style: const TextStyle(color: PorteColors.textMain, fontFamily: 'monospace', fontSize: 12),
+                  items: _constantes.map((c) => DropdownMenuItem(value: c, child: Text(c, style: const TextStyle(fontFamily: 'monospace')))).toList(),
+                  onChanged: isLoading ? null : (v) => setSt(() => constante = v!),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: PorteColors.grid,
+                    border: OutlineInputBorder(borderSide: BorderSide(color: PorteColors.cyanDim)),
+                    focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: PorteColors.cyanNeon)),
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 12),
-              const Text('CONSTANTE BBP:', style: TextStyle(color: PorteColors.textDim, fontSize: 11, fontFamily: 'monospace')),
-              const SizedBox(height: 4),
-              DropdownButtonFormField<String>(
-                initialValue: constante,
-                dropdownColor: PorteColors.hullLight,
-                style: const TextStyle(color: PorteColors.textMain, fontFamily: 'monospace', fontSize: 12),
-                items: _constantes.map((c) => DropdownMenuItem(value: c, child: Text(c, style: const TextStyle(fontFamily: 'monospace')))).toList(),
-                onChanged: (v) => setSt(() => constante = v!),
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: PorteColors.grid,
-                  border: OutlineInputBorder(borderSide: BorderSide(color: PorteColors.cyanDim)),
-                  focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: PorteColors.cyanNeon)),
-                  contentPadding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
-                ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         actions: [
@@ -232,22 +313,20 @@ Future<MartelosResult?> showMartelosDialog({
             onPressed: isLoading
                 ? null
                 : () async {
-                    final pass = ctrlPass.text.trim();
-                    if (pass.isEmpty) {
+                    final pass = [for (final c in passCtrls) c.text.trim()].where((s) => s.isNotEmpty).toList();
+                    if (pass.length != passCtrls.length) {
                       if (dialogCtx.mounted) {
                         ScaffoldMessenger.of(dialogCtx).showSnackBar(
-                          const SnackBar(content: Text('Informe a senha (chave).')),
+                          const SnackBar(content: Text('Preencha todas as senhas (1 por camada).')),
                         );
                       }
                       return;
                     }
-                    final layers = int.tryParse(ctrlLayers.text.trim()) ?? 1;
                     setSt(() => isLoading = true);
                     final res = await MartelosService.process(
                       inputPath: inputPath,
                       encrypt: encrypt,
-                      passphrase: pass,
-                      layers: layers,
+                      passphrases: pass,
                       constante: constante,
                     );
                     if (!dialogCtx.mounted) return;

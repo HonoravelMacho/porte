@@ -10,9 +10,11 @@ Gerenciador de arquivos multiplataforma (Android + Linux), responsivo e open-sou
   - `lib/core/` — tema Sci-Fi (`porte_colors`, `porte_theme`, `chamfered`) + widgets HUD
   - `lib/features/explorer/` — listagem/navegação/operações de arquivo, cache de ícones, PathBar, carrossel de armazenamento, grade de categorias
   - `lib/features/terminal/` — "Abrir Terminal" (Termux no Android, terminal padrão no Linux)
-  - `lib/features/crypto/` — cofre AES (MVP)
+  - `lib/features/crypto/` — cofre AES + motor M.A.R.T.E.L.O.S. (cripto/descripto de qualquer arquivo com N senhas)
 - `.github/workflows/release.yml` — gera `.apk` + `.deb` a cada tag `v*`
-- `packaging/deb/build-deb.sh` — empacota o bundle Linux em `.deb`
+- `packaging/deb/build-deb.sh` — empacota o bundle Linux em `.deb` (inclui o motor martelos embutido em `/usr/lib/porte`)
+- `packaging/binaries/x86_64/martelos` — motor estático x86_64 para o .deb
+- `app/android/app/src/main/jniLibs/arm64-v8a/libmartelos.so` — motor arm64 embutido no `.apk`
 - `app_descompilado/` + `filemanager.apk` — **referência local, fora do Git** (app original que inspirou o MVP)
 
 ## Rodar local
@@ -27,11 +29,11 @@ flutter run          # Android/Linux
 
 ## Releases de teste (calma, passo a passo)
 
-Versão atual: **0.0.1** (pré-1.0.0). Evolução planejada: 0.0.2 → 0.0.3 → … → 1.0.0.
+Versão atual: **0.2.1** — motor M.A.R.T.E.L.O.S. integrado (cripto/descripto com N senhas) no APK e no .deb.
 
 ```bash
-git tag v0.0.1
-git push origin v0.0.1   # dispara o Actions: APK + DEB na página Releases
+git tag v0.2.1
+git push origin v0.2.1   # dispara o Actions: APK + DEB na página Releases
 ```
 
 Baixe os artefatos em **GitHub → Releases** (ou em Actions → artifacts, se ainda estiver rodando).

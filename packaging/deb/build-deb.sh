@@ -13,6 +13,13 @@ mkdir -p "/tmp/$PKG/DEBIAN" "/tmp/$PKG/usr/lib/porte" "/tmp/$PKG/usr/bin" \
          "/tmp/$PKG/usr/share/applications" "/tmp/$PKG/usr/share/icons/hicolor/256x256/apps" dist
 
 cp -r "$BUNDLE"/* "/tmp/$PKG/usr/lib/porte/"
+
+# Motor M.A.R.T.E.L.O.S. embutido (estático, x86_64) — usado pelo cocofre
+# MARTELOS do PORTE via /usr/lib/porte/martelos.
+MARTELOS_BIN="packaging/binaries/x86_64/martelos"
+if [ -f "$MARTELOS_BIN" ]; then
+  install -m 755 "$MARTELOS_BIN" "/tmp/$PKG/usr/lib/porte/martelos"
+fi
 cat > "/tmp/$PKG/usr/bin/porte" <<'EOF'
 #!/bin/sh
 exec /usr/lib/porte/porte "$@"
