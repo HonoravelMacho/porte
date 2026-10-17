@@ -14,7 +14,7 @@ Gerenciador de arquivos multiplataforma (Android + Linux), responsivo e open-sou
 - `.github/workflows/release.yml` — gera `.apk` + `.deb` a cada tag `v*`
 - `packaging/deb/build-deb.sh` — empacota o bundle Linux em `.deb` (inclui o motor martelos embutido em `/usr/lib/porte`)
 - `packaging/binaries/x86_64/martelos` — motor estático x86_64 para o .deb
-- `app/android/app/src/main/jniLibs/arm64-v8a/libmartelos.so` — motor arm64 embutido no `.apk`
+- `app/android/app/src/main/jniLibs/{arm64-v8a,armeabi-v7a,x86_64}/libmartelos.so` — motor embutido no `.apk` (uma cópia por ABI)
 - `app_descompilado/` + `filemanager.apk` — **referência local, fora do Git** (app original que inspirou o MVP)
 
 ## Rodar local
@@ -29,7 +29,9 @@ flutter run          # Android/Linux
 
 ## Releases de teste (calma, passo a passo)
 
-Versão atual: **0.2.1** — motor M.A.R.T.E.L.O.S. integrado (cripto/descripto com N senhas) no APK e no .deb.
+Versão atual: **0.2.2** — motor martelos embutido no `.apk` (arm64, arm32 e x86_64) e no `.deb`;
+a descoberta do binário usa `nativeLibraryDir` via platform channel (o binário do Termux não é
+executável de dentro do PORTE — sandbox do Android).
 
 ```bash
 git tag v0.2.1

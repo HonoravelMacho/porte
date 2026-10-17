@@ -56,6 +56,16 @@ class MainActivity : FlutterActivity() {
                 }
             } else if (call.method == "launchTermux") {
                 result.success(launchTermux())
+            } else if (call.method == "nativeEnv") {
+                // nativeLibraryDir é onde os .so do APK foram extraídos —
+                // é o único lugar que o app pode executar binários (o
+                // Android bloqueia exec de tudo mais no Android 10+).
+                result.success(
+                    mapOf(
+                        "nativeLibraryDir" to applicationInfo.nativeLibraryDir,
+                        "abis" to Build.SUPPORTED_ABIS.joinToString(","),
+                    )
+                )
             } else {
                 result.notImplemented()
             }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:path/path.dart' as p;
 import '../../../core/theme/porte_colors.dart';
 
@@ -20,22 +21,34 @@ class MartelosService {
     '/data/data/com.termux/files/usr/bin/martelos',
   ];
 
-  /// No Android, o binário é empacotado em jniLibs como `libmartelos.so`
-  /// e fica no nativeLibraryDir — que aparece no LD_LIBRARY_PATH do app.
-  static List<String> _jniLibCandidates() {
-    final ld = Platform.environment['LD_LIBRARY_PATH'];
-    if (ld == null || ld.isEmpty) return const [];
-    return ld
-        .split(':')
-        .where((d) => d.isNotEmpty)
-        .map((d) => '$d/libmartelos.so')
-        .toList();
+  /// No Android, o binário é empacotado em jniLibs (`libmartelos.so`) e
+  /// extraído no nativeLibraryDir do próprio APK — o único ponto executável
+  /// permitido pelo Android. O caminho do Termux (`/data/data/com.termux/...`)
+  /// nunca funciona de dentro de outro app (sandbox/SELinux), por isso o
+  /// motor vem embutido no PORTE em todas as ABIs.
+  static const _channel = MethodChannel('dev.porte/terminal');
+
+  static Future<List<String>> _jniLibCandidates() async {
+    final out = <String>[];
+    if (Platform.environment['LD_LIBRARY_PATH'] case final ld? when ld.isNotEmpty) {
+      for (final d in ld.split(':')) {
+        if (d.isNotEmpty) out.add('$d/libmartelos.so');
+      }
+    }
+    if (Platform.isAndroid) {
+      try {
+        final env = await _channel.invokeMapMethod<String, dynamic>('nativeEnv');
+        final nld = env?['nativeLibraryDir'] as String?;
+        if (nld != null && nld.isNotEmpty && !out.contains('$nld/libmartelos.so')) {
+          out.add('$nld/libmartelos.so');
+        }
+      } catch (_) {}
+    }
+    return out;
   }
 
-  static List<String> _allCandidates() => [..._jniLibCandidates(), ..._candidates];
-
   static Future<String?> _binaryPath() async {
-    for (final c in _allCandidates()) {
+    for (final c in [...await _jniLibCandidates(), ..._candidates]) {
       try {
         if (c == 'martelos') {
           final r = await Process.run('which', ['martelos']);
@@ -63,9 +76,18 @@ class MartelosService {
   }) async {
     final bin = await _binaryPath();
     if (bin == null) {
+      String diag = '';
+      if (Platform.isAndroid) {
+        String abis = '?';
+        try {
+          final env = await _channel.invokeMapMethod<String, dynamic>('nativeEnv');
+          abis = env?['abis'] as String? ?? '?';
+        } catch (_) {}
+        diag = ' (ABI do aparelho: $abis)';
+      }
       return MartelosResult(
         ok: false,
-        message: 'Binário martelos não encontrado. Instale o motor M.A.R.T.E.L.O.S. '
+        message: 'Binário martelos não encontrado$diag. Instale o motor M.A.R.T.E.L.O.S. '
             '(engine em C com GMP) e coloque-o no PATH ou em /usr/local/bin/martelos.',
       );
     }
