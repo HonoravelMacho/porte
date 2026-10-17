@@ -3045,9 +3045,9 @@
   "supported": ".py, .c, .h, .cpp, .hpp, .cc, .cxx, .dart, .rs, .js, .jsx, .ts, .tsx, .java, .go, .cs, .kt",
   "fallback": false,
   "generic_truncated": false,
-  "generated_in_s": 2.22,
+  "generated_in_s": 0.41,
   "full_rescan": true,
   "out": "/home/tiagorabelo/porte/.astos",
-  "scanned_at": "2026-10-17T19:26:39+00:00"
+  "scanned_at": "2026-10-17T19:26:51+00:00"
  }
 }
