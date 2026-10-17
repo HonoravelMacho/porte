@@ -823,7 +823,7 @@
    "todo_n": 0,
    "todo_ex": [],
    "entry": false,
-   "changed": true,
+   "changed": false,
    "deg": 7,
    "size": 15.3
   },
@@ -1123,6 +1123,119 @@
    "size": 12.35
   },
   {
+   "id": "app.lib.features.crypto.martelos_service",
+   "label": "martelos_service.dart",
+   "file": "app/lib/features/crypto/martelos_service.dart",
+   "lang": "dart",
+   "mod": "app",
+   "color": "#22d3ee",
+   "imports": [
+    "package:flutter/material.dart",
+    "package:path/path.dart",
+    "../../../core/theme/porte_colors.dart",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 17,
+   "defs": [
+    {
+     "n": "MartelosService",
+     "k": "class",
+     "l": 11
+    },
+    {
+     "n": "_jniLibCandidates",
+     "k": "func",
+     "l": 25
+    },
+    {
+     "n": "_allCandidates",
+     "k": "func",
+     "l": 34
+    },
+    {
+     "n": "_binaryPath",
+     "k": "func",
+     "l": 36
+    },
+    {
+     "n": "showNotInstalled",
+     "k": "func",
+     "l": 124
+    },
+    {
+     "n": "SnackBar",
+     "k": "func",
+     "l": 127
+    },
+    {
+     "n": "MartelosResult",
+     "k": "class",
+     "l": 144
+    },
+    {
+     "n": "setQtd",
+     "k": "func",
+     "l": 177
+    },
+    {
+     "n": "setSt",
+     "k": "func",
+     "l": 180
+    },
+    {
+     "n": "estilo",
+     "k": "func",
+     "l": 191
+    },
+    {
+     "n": "Text",
+     "k": "func",
+     "l": 218
+    },
+    {
+     "n": "Expanded",
+     "k": "func",
+     "l": 243
+    },
+    {
+     "n": "SizedBox",
+     "k": "func",
+     "l": 280
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 303
+    },
+    {
+     "n": "SizedBox",
+     "k": "func",
+     "l": 307
+    },
+    {
+     "n": "setSt",
+     "k": "func",
+     "l": 325
+    },
+    {
+     "n": "setSt",
+     "k": "func",
+     "l": 333
+    }
+   ],
+   "caps": [],
+   "loc": 346,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 3,
+   "size": 12.95
+  },
+  {
    "id": "app.lib.features.explorer.presentation.widgets.category_grid",
    "label": "category_grid.dart",
    "file": "app/lib/features/explorer/presentation/widgets/category_grid.dart",
@@ -1271,84 +1384,6 @@
    "changed": false,
    "deg": 3,
    "size": 10.7
-  },
-  {
-   "id": "app.lib.features.crypto.martelos_service",
-   "label": "martelos_service.dart",
-   "file": "app/lib/features/crypto/martelos_service.dart",
-   "lang": "dart",
-   "mod": "app",
-   "color": "#22d3ee",
-   "imports": [
-    "package:flutter/material.dart",
-    "package:path/path.dart",
-    "../../../core/theme/porte_colors.dart",
-    "dart:io"
-   ],
-   "externals": [
-    "dart:io"
-   ],
-   "symbols": 10,
-   "defs": [
-    {
-     "n": "MartelosService",
-     "k": "class",
-     "l": 11
-    },
-    {
-     "n": "_binaryPath",
-     "k": "func",
-     "l": 21
-    },
-    {
-     "n": "showNotInstalled",
-     "k": "func",
-     "l": 97
-    },
-    {
-     "n": "SnackBar",
-     "k": "func",
-     "l": 100
-    },
-    {
-     "n": "MartelosResult",
-     "k": "class",
-     "l": 117
-    },
-    {
-     "n": "Text",
-     "k": "func",
-     "l": 160
-    },
-    {
-     "n": "TextButton",
-     "k": "func",
-     "l": 222
-    },
-    {
-     "n": "SizedBox",
-     "k": "func",
-     "l": 226
-    },
-    {
-     "n": "setSt",
-     "k": "func",
-     "l": 245
-    },
-    {
-     "n": "setSt",
-     "k": "func",
-     "l": 254
-    }
-   ],
-   "caps": [],
-   "loc": 267,
-   "todo_n": 0,
-   "todo_ex": [],
-   "entry": false,
-   "changed": true,
-   "deg": 2,
-   "size": 10.3
   },
   {
    "id": "app.lib.features.explorer.presentation.widgets.path_bar",
@@ -1827,6 +1862,63 @@
    "changed": false,
    "deg": 1,
    "size": 7.15
+  },
+  {
+   "id": "app.test.martelos_service_test",
+   "label": "martelos_service_test.dart",
+   "file": "app/test/martelos_service_test.dart",
+   "lang": "dart",
+   "mod": "app",
+   "color": "#22d3ee",
+   "imports": [
+    "package:flutter_test/flutter_test.dart",
+    "package:porte/features/crypto/martelos_service.dart",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 6,
+   "defs": [
+    {
+     "n": "main",
+     "k": "func",
+     "l": 8
+    },
+    {
+     "n": "group",
+     "k": "func",
+     "l": 11
+    },
+    {
+     "n": "setUp",
+     "k": "func",
+     "l": 15
+    },
+    {
+     "n": "tearDown",
+     "k": "func",
+     "l": 21
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 25
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 75
+    }
+   ],
+   "caps": [],
+   "loc": 96,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": true,
+   "changed": false,
+   "deg": 1,
+   "size": 8.4
   },
   {
    "id": "app.android.app.build.gradle",
@@ -2316,6 +2408,10 @@
    "app.linux.flutter.generated_plugin_registrant~2"
   ],
   [
+   "app.test.martelos_service_test",
+   "app.lib.features.crypto.martelos_service"
+  ],
+  [
    "app.test.widget_test",
    "app.lib.main"
   ],
@@ -2364,6 +2460,11 @@
    "SizedBox"
   ],
   [
+   "app.lib.core.widgets.hud_panel",
+   "app.lib.features.crypto.martelos_service",
+   "Expanded"
+  ],
+  [
    "app.lib.features.crypto.martelos_service",
    "app.lib.features.explorer.services.file_service",
    "File"
@@ -2375,8 +2476,23 @@
   ],
   [
    "app.lib.features.crypto.martelos_service",
+   "app.test.martelos_service_test",
+   "group"
+  ],
+  [
+   "app.lib.features.crypto.martelos_service",
    "app.lib.features.explorer.presentation.explorer_page",
    "AlertDialog"
+  ],
+  [
+   "app.lib.features.crypto.martelos_service",
+   "app.lib.features.explorer.presentation.explorer_page",
+   "Padding"
+  ],
+  [
+   "app.lib.features.crypto.martelos_service",
+   "app.lib.features.explorer.presentation.widgets.path_bar",
+   "Row"
   ],
   [
    "app.lib.features.crypto.vault_service",
@@ -2550,6 +2666,11 @@
   ],
   [
    "app.lib.features.explorer.presentation.widgets.file_grid_tile",
+   "app.lib.features.crypto.martelos_service",
+   "Expanded"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.file_grid_tile",
    "app.lib.features.explorer.services.icon_cache",
    "PorteFileIcon"
   ],
@@ -2622,6 +2743,11 @@
    "app.lib.features.explorer.presentation.widgets.storage_carousel",
    "app.lib.features.crypto.martelos_service",
    "SizedBox"
+  ],
+  [
+   "app.lib.features.explorer.presentation.widgets.storage_carousel",
+   "app.lib.features.crypto.martelos_service",
+   "Expanded"
   ],
   [
    "app.lib.features.explorer.presentation.widgets.storage_carousel",
@@ -2724,6 +2850,11 @@
    "SizedBox"
   ],
   [
+   "app.lib.main",
+   "app.lib.features.crypto.martelos_service",
+   "Expanded"
+  ],
+  [
    "app.linux.runner.main",
    "app.linux.runner.my_application",
    "my_application_new"
@@ -2732,6 +2863,26 @@
    "app.linux.runner.my_application",
    "app.linux.flutter.generated_plugin_registrant",
    "fl_register_plugins"
+  ],
+  [
+   "app.test.martelos_service_test",
+   "app.lib.features.explorer.services.file_service",
+   "toString"
+  ],
+  [
+   "app.test.martelos_service_test",
+   "app.lib.features.crypto.martelos_service",
+   "MartelosService"
+  ],
+  [
+   "app.test.martelos_service_test",
+   "app.lib.features.explorer.services.file_service",
+   "File"
+  ],
+  [
+   "app.test.martelos_service_test",
+   "app.test.widget_test",
+   "expect"
   ],
   [
    "app.test.widget_test",
@@ -2863,6 +3014,7 @@
    "app/lib/main.dart",
    "app/test/widget_test.dart",
    "app/linux/runner/main.cc",
+   "app/test/martelos_service_test.dart",
    "app/android/app/src/main/kotlin/dev/porte/porte/MainActivity.kt"
   ],
   "orphans": [
@@ -2876,19 +3028,14 @@
   ]
  },
  "changed": [
-  ".astos/city.html",
-  ".astos/graph.json",
-  ".astos/index.html",
-  ".astos/map.md",
-  "app/lib/features/crypto/martelos_service.dart",
-  "app/lib/features/explorer/presentation/widgets/porte_context_menu.dart"
+  ".astos/graph.json"
  ],
  "meta": {
   "root": "/home/tiagorabelo/porte",
-  "files": 34,
-  "edges": 58,
-  "call_edges": 88,
-  "git_changed": 6,
+  "files": 35,
+  "edges": 59,
+  "call_edges": 99,
+  "git_changed": 1,
   "langs": [
    "c",
    "dart",
@@ -2898,9 +3045,9 @@
   "supported": ".py, .c, .h, .cpp, .hpp, .cc, .cxx, .dart, .rs, .js, .jsx, .ts, .tsx, .java, .go, .cs, .kt",
   "fallback": false,
   "generic_truncated": false,
-  "generated_in_s": 3.03,
+  "generated_in_s": 2.22,
   "full_rescan": true,
   "out": "/home/tiagorabelo/porte/.astos",
-  "scanned_at": "2026-10-17T02:14:48+00:00"
+  "scanned_at": "2026-10-17T19:26:39+00:00"
  }
 }
