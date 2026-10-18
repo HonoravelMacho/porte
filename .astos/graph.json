@@ -1932,7 +1932,7 @@
    "symbols": 0,
    "defs": [],
    "caps": [],
-   "loc": 67,
+   "loc": 77,
    "todo_n": 1,
    "todo_ex": [
     "TODO:L25 Specify your own unique Application ID (https://developer.android.com/studio/bui"
@@ -3041,9 +3041,9 @@
   "supported": ".py, .c, .h, .cpp, .hpp, .cc, .cxx, .dart, .rs, .js, .jsx, .ts, .tsx, .java, .go, .cs, .kt",
   "fallback": false,
   "generic_truncated": false,
-  "generated_in_s": 1.09,
+  "generated_in_s": 14.02,
   "full_rescan": true,
   "out": "/home/tiagorabelo/porte/.astos",
-  "scanned_at": "2026-10-17T23:38:14+00:00"
+  "scanned_at": "2026-10-18T01:10:56+00:00"
  }
 }

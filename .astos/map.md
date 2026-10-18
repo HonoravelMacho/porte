@@ -1,5 +1,5 @@
 # ASTOS MAP — porte
-> Gerado por `astos` em 2026-10-17 23:38 UTC. 35 arquivos · 59 dependências · 99 chamadas inter-arquivo · langs: c, dart, java, kotlin.
+> Gerado por `astos` em 2026-10-18 01:10 UTC. 35 arquivos · 59 dependências · 99 chamadas inter-arquivo · langs: c, dart, java, kotlin.
 > Se desatualizado: `astos -f` (atualiza sem abrir o navegador). Detalhe: `.astos/graph.json`. Visual humano: `.astos/index.html` + `.astos/city.html` (palácio).
 > Queries baratas (use em vez de grep): `astos q --symbol X` · `astos q --cap camera` · `astos trace --from A --to B` · `astos impact --file F` · `astos caps` · `astos hubs` · `astos risks` · `astos slice <pasta>` · `astos changed` · `astos status` · `astos explain --symbol X` · `astos hotspots` · `astos dead` · `astos tests --file X`.
 

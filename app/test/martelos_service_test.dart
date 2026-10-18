@@ -3,11 +3,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:porte/features/crypto/martelos_service.dart';
 
 /// Teste de integração com o motor M.A.R.T.E.L.O.S. real (CLI `-m`).
-/// Requer o binário `martelos` no PATH; se ausente, o grupo é pulado
-/// (CI não tem o motor instalado).
+/// Usa o binário empacotado no próprio repositório
+/// (`packaging/binaries/x86_64/martelos`) para garantir versão/patch do motor;
+/// se ausente, o grupo é pulado (CI não tem o binário... olá!).
 void main() {
-  final rn = Process.runSync('which', ['martelos']);
-  final temMotor = rn.exitCode == 0 && rn.stdout.toString().trim().isNotEmpty;
+  final repo = File.fromUri(Uri.parse('file://${Directory.current.path}/../packaging/binaries/x86_64/martelos'));
+  final repoBin = Directory.current.path.endsWith('/app')
+      ? File('${Directory.current.parent.path}/packaging/binaries/x86_64/martelos')
+      : repo;
+  final motor = repoBin.existsSync() ? repoBin : null;
+  if (motor != null) MartelosService.debugBinaryPath = motor.path;
+  final ciSemMotor = motor == null;
 
   group('MartelosService (motor real)', () {
     late Directory tmp;
@@ -24,7 +30,7 @@ void main() {
     });
 
     test('cripto + descripto com N senhas (ordem importa)', () async {
-      if (!temMotor) return;
+      if (ciSemMotor) return;
       const senhas = <String>['alpha-01', 'beta-02', 'gama-03'];
 
       final cripto = await MartelosService.process(
@@ -74,7 +80,7 @@ void main() {
     }, timeout: const Timeout(Duration(minutes: 2)));
 
     test('1 senha (single layer) roundtrip', () async {
-      if (!temMotor) return;
+      if (ciSemMotor) return;
       final c = await MartelosService.process(
         inputPath: entrada.path,
         encrypt: true,
@@ -91,5 +97,81 @@ void main() {
       expect(d.ok, isTrue, reason: d.details ?? d.message);
       expect(File(d.outputPath ?? '').readAsStringSync(), entrada.readAsStringSync());
     }, timeout: const Timeout(Duration(minutes: 2)));
-  }, skip: temMotor ? false : 'motor martelos não instalado');
+
+    test('genérico -m funciona SEM ffmpeg no PATH (causa do falso sucesso)', () async {
+      if (ciSemMotor) return;
+      final orig = entrada.readAsStringSync();
+      // PATH restrito: o motor não enxerga ffmpeg/ffprobe e nem consegue
+      // resolvê-los como lib*.so — modo genérico não deve depender deles.
+      final env = {'PATH': '/tmp/opencode/mockbin'};
+      final c = await MartelosService.process(
+        inputPath: entrada.path,
+        encrypt: true,
+        passphrases: ['p1', 'p2'],
+        constante: 'pi',
+        environment: env,
+      );
+      expect(c.ok, isTrue, reason: 'detalhes: ${c.details}');
+      expect(File(c.outputPath ?? '').existsSync(), isTrue);
+      final d = await MartelosService.process(
+        inputPath: c.outputPath!,
+        encrypt: false,
+        passphrases: ['p1', 'p2'],
+        constante: 'pi',
+        environment: env,
+      );
+      expect(d.ok, isTrue, reason: 'detalhes: ${d.details}');
+      expect(File(d.outputPath ?? '').readAsStringSync(), orig);
+    }, timeout: const Timeout(Duration(minutes: 2)));
+
+    test('modo imagem sem ffmpeg FALHA (não pode indicar sucesso sem arquivo)', () async {
+      if (ciSemMotor) return;
+      // BMP "de mentira": extensão válida passa no formato, mas o motor
+      // sem ffmpeg (nem empacotado) deve bloquear com [❌] e NÃO criar saída.
+      final bmp = File('${tmp.path}/fotinha.bmp');
+      bmp.writeAsBytesSync([..._bmpFalso(), ...List.filled(200, 42)]);
+      final c = await MartelosService.process(
+        inputPath: bmp.path,
+        encrypt: true,
+        passphrases: ['x'],
+        constante: 'clausen',
+        alvo: MartelosAlvo.imagem,
+        environment: {'PATH': '/tmp/opencode/mockbin'},
+      );
+      expect(c.ok, isFalse, reason: 'sem ffmpeg o modo imagem não pode concluir (main acao1)');
+      final saida = File(c.outputPath ?? '');
+      expect(saida.existsSync(), isFalse, reason: 'nenhum arquivo pode ser criado');
+    }, timeout: const Timeout(Duration(minutes: 2)));
+
+    test('nome de saída personalizado é honrado (-o)', () async {
+      if (ciSemMotor) return;
+      final orig = entrada.readAsStringSync();
+      final c = await MartelosService.process(
+        inputPath: entrada.path,
+        encrypt: true,
+        passphrases: ['p1'],
+        constante: 'pi',
+        outputName: 'meu_segredo_cofre',
+      );
+      expect(c.ok, isTrue, reason: 'detalhes: ${c.details}');
+      final esperado = File('${tmp.path}/meu_segredo_cofre');
+      expect(esperado.existsSync(), isTrue, reason: c.details ?? c.message);
+      final d = await MartelosService.process(
+        inputPath: esperado.path,
+        encrypt: false,
+        passphrases: ['p1'],
+        constante: 'pi',
+      );
+      expect(d.ok, isTrue, reason: 'detalhes: ${d.details}');
+      expect(File(d.outputPath ?? '').readAsStringSync(), orig);
+    }, timeout: const Timeout(Duration(minutes: 2)));
+  }, skip: ciSemMotor ? 'binário empacotado do motor ausente' : false);
 }
+
+/// Cabeçalho BMP 1x1 mínimo para os testes.
+List<int> _bmpFalso() => [
+      0x42, 0x4D, 0x3A, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x1A, 0x00, 0x00, 0x00,
+      0x0C, 0x00, 0x00, 0x00, 0x01, 0x00, 0x01, 0x00, 0x01, 0x00, 0x18, 0x00, 0xFF, 0xFF,
+      0xFF, 0x00, 0x00, 0x00, 0xFF, 0xFF, 0xFF, 0x00, 0x00,
+    ];
+// --------------------- EXTRAS v0.2.4 ---------------------

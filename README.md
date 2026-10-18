@@ -29,9 +29,10 @@ flutter run          # Android/Linux
 
 ## Releases de teste (calma, passo a passo)
 
-Versão atual: **0.2.2** — motor martelos embutido no `.apk` (arm64, arm32 e x86_64) e no `.deb`;
-a descoberta do binário usa `nativeLibraryDir` via platform channel (o binário do Termux não é
-executável de dentro do PORTE — sandbox do Android).
+Versão atual: **0.2.4** — martelos 100% funcional no `.apk`: motor **+ ffmpeg/ffprobe estáticos** embutidos
+(arm64), selo de "concluído" só com arquivo de saída real, escolha do nome de saída e modos de mídia
+(arquivo/imagem/áudio/vídeo — arquivos de chiado `*.bmp/*.wav/*.avi`). Fonte do motor: `martelos_projeto`
+v6.3.4 (`-m` não exige mais ffmpeg; descoberta de `libffmpeg.so` ao lado do binário).
 
 ```bash
 git tag v0.2.1
