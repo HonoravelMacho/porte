@@ -1,7 +1,7 @@
 name: porte
 description: "PORTE — gerenciador de arquivos Sci-Fi/Skeuomorphic em Flutter com terminal integrado e cofre criptografado. Open-source, multiplataforma (Android/Linux)."
 publish_to: 'none'
-version: 0.2.5+19
+version: 0.2.6+20
 
 environment:
   sdk: ^3.12.2
