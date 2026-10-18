@@ -53,6 +53,16 @@ android {
             }
         }
     }
+
+    packaging {
+        jniLibs {
+            // OBRIGATÓRIO para o MARTELOS: o Android 10+ só permite executar
+            // binários do nativeLibraryDir, e por padrão (extractNativeLibs=false)
+            // os .so ficam DENTRO do APK sem extração — libmartelos.so nunca
+            // existiria no filesystem. useLegacyPackaging força a extração.
+            useLegacyPackaging = true
+        }
+    }
 }
 
 kotlin {

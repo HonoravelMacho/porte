@@ -1131,6 +1131,7 @@
    "color": "#22d3ee",
    "imports": [
     "package:flutter/material.dart",
+    "package:flutter/services.dart",
     "package:path/path.dart",
     "../../../core/theme/porte_colors.dart",
     "dart:io"
@@ -1138,102 +1139,97 @@
    "externals": [
     "dart:io"
    ],
-   "symbols": 17,
+   "symbols": 16,
    "defs": [
     {
      "n": "MartelosService",
      "k": "class",
-     "l": 11
+     "l": 12
     },
     {
      "n": "_jniLibCandidates",
      "k": "func",
-     "l": 25
-    },
-    {
-     "n": "_allCandidates",
-     "k": "func",
-     "l": 34
+     "l": 30
     },
     {
      "n": "_binaryPath",
      "k": "func",
-     "l": 36
+     "l": 49
     },
     {
      "n": "showNotInstalled",
      "k": "func",
-     "l": 124
+     "l": 146
     },
     {
      "n": "SnackBar",
      "k": "func",
-     "l": 127
+     "l": 149
     },
     {
      "n": "MartelosResult",
      "k": "class",
-     "l": 144
+     "l": 166
     },
     {
      "n": "setQtd",
      "k": "func",
-     "l": 177
+     "l": 199
     },
     {
      "n": "setSt",
      "k": "func",
-     "l": 180
+     "l": 202
     },
     {
      "n": "estilo",
      "k": "func",
-     "l": 191
+     "l": 213
     },
     {
      "n": "Text",
      "k": "func",
-     "l": 218
+     "l": 240
     },
     {
      "n": "Expanded",
      "k": "func",
-     "l": 243
+     "l": 265
     },
     {
      "n": "SizedBox",
      "k": "func",
-     "l": 280
+     "l": 302
     },
     {
      "n": "TextButton",
      "k": "func",
-     "l": 303
+     "l": 325
     },
     {
      "n": "SizedBox",
      "k": "func",
-     "l": 307
+     "l": 329
     },
     {
      "n": "setSt",
      "k": "func",
-     "l": 325
+     "l": 347
     },
     {
      "n": "setSt",
      "k": "func",
-     "l": 333
+     "l": 355
     }
    ],
    "caps": [],
-   "loc": 346,
+   "loc": 368,
    "todo_n": 0,
    "todo_ex": [],
    "entry": false,
    "changed": false,
    "deg": 3,
-   "size": 12.95
+   "size": 12.7
   },
   {
    "id": "app.lib.features.explorer.presentation.widgets.category_grid",
@@ -2019,21 +2015,21 @@
     {
      "n": "openTermux",
      "k": "func",
-     "l": 102
+     "l": 112
     },
     {
      "n": "openStore",
      "k": "func",
-     "l": 142
+     "l": 152
     },
     {
      "n": "launchTermux",
      "k": "func",
-     "l": 153
+     "l": 163
     }
    ],
    "caps": [],
-   "loc": 169,
+   "loc": 179,
    "todo_n": 0,
    "todo_ex": [],
    "entry": true,
@@ -3045,9 +3041,9 @@
   "supported": ".py, .c, .h, .cpp, .hpp, .cc, .cxx, .dart, .rs, .js, .jsx, .ts, .tsx, .java, .go, .cs, .kt",
   "fallback": false,
   "generic_truncated": false,
-  "generated_in_s": 0.45,
+  "generated_in_s": 1.09,
   "full_rescan": true,
   "out": "/home/tiagorabelo/porte/.astos",
-  "scanned_at": "2026-10-17T19:27:01+00:00"
+  "scanned_at": "2026-10-17T23:38:14+00:00"
  }
 }
