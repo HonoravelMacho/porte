@@ -70,6 +70,31 @@ class MartelosService {
     return null;
   }
 
+  /// Preflight: confirma que o ffmpeg é executável de verdade (io PATH no
+  /// desktop; libffmpeg.so extraída do APK no Android). Devolve o caminho
+  /// ou null — com detalhes de por que falhou.
+  static Future<(String?, String)> _ffmpegPreflight() async {
+    if (Platform.isAndroid) {
+      try {
+        final env = await _channel.invokeMapMethod<String, dynamic>('nativeEnv');
+        final nld = env?['nativeLibraryDir'] as String?;
+        final path = nld == null ? null : '$nld/libffmpeg.so';
+        if (path != null) {
+          if (!File(path).existsSync()) return (null, 'libffmpeg.so não existe em $nld (extração falhou?)');
+          final r = await Process.run(path, ['-version']);
+          if (r.exitCode == 0) return (path, 'ok: $path');
+          return (null, 'libffmpeg.so não executa (${r.exitCode}): ${((r.stderr as String?) ?? r.stdout.toString()).trim()}');
+        }
+        return (null, 'nativeLibraryDir não disponível');
+      } catch (e) {
+        return (null, 'preflight falhou: $e');
+      }
+    }
+    // Desktop: ffmpeg no PATH do sistema resolve via o shell do motor.
+    final r = await Process.run('which', ['ffmpeg']);
+    return (r.exitCode == 0 ? 'ffmpeg' : null, 'PATH do sistema: ${r.stdout.toString().trim().isEmpty ? 'ffmpeg ausente' : r.stdout.toString().trim()}');
+  }
+
   /// Executa: `martelos -m/-i/-a/-v <entrada> -c/-d -k <N> "#senha1#" ... "#senhaN#" -f <const> [-o <nome>]`
   ///
   /// O motor aceita N senhas (uma por camada); [passphrases] deve conter
@@ -105,6 +130,18 @@ class MartelosService {
 
     final dir = p.dirname(inputPath);
     final fname = p.basename(inputPath);
+
+    // Preflight de mídia (só nos modos que usam ffmpeg — arquivo/-m dispensa).
+    if (alvo != MartelosAlvo.arquivo) {
+      final (ffPath, ffDiag) = await _ffmpegPreflight();
+      if (ffPath == null && debugBinaryPath == null) {
+        return MartelosResult(
+          ok: false,
+          message: 'ffmpeg indisponível para mídia ($ffDiag). '
+              'O modo "arquivo" funciona sem ele; a descriptografia usa os mesmos alvos de quando criptografou.',
+        );
+      }
+    }
 
     // Fallback do caminho de saída se o motor não reportar "Finalizado em:".
     final String fallbackOut;

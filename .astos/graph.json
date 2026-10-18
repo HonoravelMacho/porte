@@ -1139,97 +1139,112 @@
    "externals": [
     "dart:io"
    ],
-   "symbols": 16,
+   "symbols": 19,
    "defs": [
+    {
+     "n": "MartelosAlvo",
+     "k": "class",
+     "l": 10
+    },
     {
      "n": "MartelosService",
      "k": "class",
-     "l": 12
+     "l": 16
     },
     {
      "n": "_jniLibCandidates",
      "k": "func",
-     "l": 30
+     "l": 37
     },
     {
      "n": "_binaryPath",
      "k": "func",
-     "l": 49
+     "l": 56
     },
     {
      "n": "showNotInstalled",
      "k": "func",
-     "l": 146
+     "l": 198
     },
     {
      "n": "SnackBar",
      "k": "func",
-     "l": 149
+     "l": 201
     },
     {
      "n": "MartelosResult",
      "k": "class",
-     "l": 166
+     "l": 218
     },
     {
      "n": "setQtd",
      "k": "func",
-     "l": 199
+     "l": 253
     },
     {
      "n": "setSt",
      "k": "func",
-     "l": 202
+     "l": 256
     },
     {
      "n": "estilo",
      "k": "func",
-     "l": 213
+     "l": 267
     },
     {
      "n": "Text",
      "k": "func",
-     "l": 240
+     "l": 294
     },
     {
      "n": "Expanded",
      "k": "func",
-     "l": 265
+     "l": 319
     },
     {
      "n": "SizedBox",
      "k": "func",
-     "l": 302
+     "l": 356
+    },
+    {
+     "n": "SizedBox",
+     "k": "func",
+     "l": 374
     },
     {
      "n": "TextButton",
      "k": "func",
-     "l": 325
+     "l": 410
     },
     {
      "n": "SizedBox",
      "k": "func",
-     "l": 329
+     "l": 414
     },
     {
      "n": "setSt",
      "k": "func",
-     "l": 347
+     "l": 432
     },
     {
      "n": "setSt",
      "k": "func",
-     "l": 355
+     "l": 442
+    },
+    {
+     "n": "_alvoSugerido",
+     "k": "func",
+     "l": 457
     }
    ],
    "caps": [],
-   "loc": 368,
+   "loc": 469,
    "todo_n": 0,
    "todo_ex": [],
    "entry": false,
    "changed": false,
    "deg": 3,
-   "size": 12.7
+   "size": 13.45
   },
   {
    "id": "app.lib.features.explorer.presentation.widgets.category_grid",
@@ -1874,47 +1889,67 @@
    "externals": [
     "dart:io"
    ],
-   "symbols": 6,
+   "symbols": 10,
    "defs": [
     {
      "n": "main",
      "k": "func",
-     "l": 8
+     "l": 9
     },
     {
      "n": "group",
      "k": "func",
-     "l": 11
+     "l": 17
     },
     {
      "n": "setUp",
      "k": "func",
-     "l": 15
+     "l": 21
     },
     {
      "n": "tearDown",
      "k": "func",
-     "l": 21
+     "l": 27
     },
     {
      "n": "test",
      "k": "func",
-     "l": 25
+     "l": 31
     },
     {
      "n": "test",
      "k": "func",
-     "l": 75
+     "l": 81
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 100
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 126
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 145
+    },
+    {
+     "n": "_bmpFalso",
+     "k": "func",
+     "l": 172
     }
    ],
    "caps": [],
-   "loc": 96,
+   "loc": 178,
    "todo_n": 0,
    "todo_ex": [],
    "entry": true,
    "changed": false,
    "deg": 1,
-   "size": 8.4
+   "size": 9.4
   },
   {
    "id": "app.android.app.build.gradle",
@@ -2863,17 +2898,12 @@
   [
    "app.test.martelos_service_test",
    "app.lib.features.explorer.services.file_service",
-   "toString"
+   "File"
   ],
   [
    "app.test.martelos_service_test",
    "app.lib.features.crypto.martelos_service",
    "MartelosService"
-  ],
-  [
-   "app.test.martelos_service_test",
-   "app.lib.features.explorer.services.file_service",
-   "File"
   ],
   [
    "app.test.martelos_service_test",
@@ -3030,7 +3060,7 @@
   "root": "/home/tiagorabelo/porte",
   "files": 35,
   "edges": 59,
-  "call_edges": 99,
+  "call_edges": 98,
   "git_changed": 1,
   "langs": [
    "c",
@@ -3041,9 +3071,9 @@
   "supported": ".py, .c, .h, .cpp, .hpp, .cc, .cxx, .dart, .rs, .js, .jsx, .ts, .tsx, .java, .go, .cs, .kt",
   "fallback": false,
   "generic_truncated": false,
-  "generated_in_s": 14.02,
+  "generated_in_s": 2.05,
   "full_rescan": true,
   "out": "/home/tiagorabelo/porte/.astos",
-  "scanned_at": "2026-10-18T01:10:56+00:00"
+  "scanned_at": "2026-10-18T02:45:19+00:00"
  }
 }

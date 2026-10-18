@@ -29,10 +29,9 @@ flutter run          # Android/Linux
 
 ## Releases de teste (calma, passo a passo)
 
-Versão atual: **0.2.4** — martelos 100% funcional no `.apk`: motor **+ ffmpeg/ffprobe estáticos** embutidos
-(arm64), selo de "concluído" só com arquivo de saída real, escolha do nome de saída e modos de mídia
-(arquivo/imagem/áudio/vídeo — arquivos de chiado `*.bmp/*.wav/*.avi`). Fonte do motor: `martelos_projeto`
-v6.3.4 (`-m` não exige mais ffmpeg; descoberta de `libffmpeg.so` ao lado do binário).
+Versão atual: **0.2.5** — fix: motor arm64/arm32 do APK com o patch completo de descoberta de
+`libffmpeg.so` (a v0.2.4 saiu com o arm64 desatualizado) + preflight que valida o ffmpeg embutido
+antes de rodar e explica o problema real se faltar.
 
 ```bash
 git tag v0.2.1
