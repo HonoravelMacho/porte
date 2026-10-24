@@ -1,12 +1,15 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import '../../../core/theme/porte_colors.dart';
 import '../../../core/widgets/hud_panel.dart';
 import '../domain/file_entry.dart';
 import '../services/file_service.dart';
+import '../../security/lock_dialogs.dart';
+import '../../security/lock_service.dart';
 import '../../terminal/terminal_dialogs.dart';
 import 'category_page.dart';
 import 'widgets/category_grid.dart';
@@ -66,6 +69,8 @@ class _ExplorerPageState extends State<ExplorerPage> {
         }
         _dir = home;
       }
+      // Carrega locks antes da primeira listagem (badges de cadeado).
+      await LockService.instance.load();
     } catch (_) {
       _dir = '/';
     }
@@ -94,7 +99,16 @@ class _ExplorerPageState extends State<ExplorerPage> {
     }
   }
 
-  void _navigate(String path) {
+  /// Navega pedindo senha quando a pasta de destino (ou ancestral dela) está
+  /// protegida. Recarrega a mesma pasta sem reexigir a senha (path == _dir).
+  Future<void> _navigate(String path) async {
+    if (path != _dir) {
+      final gate = LockService.instance.blockedBy(path);
+      if (gate != null) {
+        final unlocked = await showUnlockGate(context, gate);
+        if (!unlocked || !mounted) return;
+      }
+    }
     setState(() => _dir = path);
     _reload();
   }
@@ -220,6 +234,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                           return FileGridTile(
                             entry: e,
                             selected: _selected.contains(e.path),
+                            locked: e.kind == PorteEntryKind.directory && LockService.instance.isLocked(e.path),
                             onOriginalTap: () => _tapEntry(e),
                             onLongPress: () => showPorteContextMenu(
                               context: context,
@@ -241,6 +256,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
                           entry: e,
                           selected: _selected.contains(e.path),
                           selectionMode: _selectionMode,
+                          locked: e.kind == PorteEntryKind.directory && LockService.instance.isLocked(e.path),
                           onOriginalTap: () => _tapEntry(e),
                           onLongPress: () => showPorteContextMenu(
                             context: context,
@@ -316,6 +332,12 @@ class _ExplorerPageState extends State<ExplorerPage> {
               onTap: () => Navigator.pop(ctx, 'mkdir'),
             ),
             ListTile(
+              leading: const Icon(Icons.lock_rounded, color: PorteColors.amberNeon),
+              title: const Text('Criar pasta protegida'),
+              subtitle: Text(_dir, maxLines: 1, overflow: TextOverflow.ellipsis),
+              onTap: () => Navigator.pop(ctx, 'mkdir_locked'),
+            ),
+            ListTile(
               leading: const Icon(Icons.terminal_rounded, color: PorteColors.amberNeon),
               title: const Text('Abrir pasta atual no terminal'),
               subtitle: Text(_dir, maxLines: 1, overflow: TextOverflow.ellipsis),
@@ -327,6 +349,8 @@ class _ExplorerPageState extends State<ExplorerPage> {
     );
     if (choice == 'mkdir') {
       await _onCreateFolder();
+    } else if (choice == 'mkdir_locked') {
+      await _onCreateProtectedFolder();
     } else if (choice == 'terminal') {
       await _onOpenTerminalHere();
     }
@@ -555,6 +579,28 @@ class _ExplorerPageState extends State<ExplorerPage> {
     try {
       await _files.createFolder(_dir, name);
       await _reload();
+    } catch (e) {
+      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
+    }
+  }
+
+  /// Cria a pasta já com senha: nome + senha + confirmação num diálogo só.
+  Future<void> _onCreateProtectedFolder() async {
+    final result = await showNewProtectedFolderDialog(context);
+    if (result == null) return;
+    final (name, pass) = result;
+    try {
+      await _files.createFolder(_dir, name);
+      await LockService.instance.protect(p.join(_dir, name), pass);
+      await _reload();
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            backgroundColor: PorteColors.ok,
+            content: Text('PASTA PROTEGIDA CRIADA', style: TextStyle(fontFamily: 'monospace')),
+          ),
+        );
+      }
     } catch (e) {
       if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
     }

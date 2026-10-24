@@ -26,6 +26,8 @@ class FileTile extends StatefulWidget {
   final FileEntry entry;
   final bool selected;
   final bool selectionMode;
+  /// Pasta protegida por senha (badge de cadeado).
+  final bool locked;
   /// Callback executado APÓS o preview ser fechado (navegar/abrir arquivo).
   final VoidCallback? onOriginalTap;
   final VoidCallback? onLongPress;
@@ -36,6 +38,7 @@ class FileTile extends StatefulWidget {
     required this.entry,
     this.selected = false,
     this.selectionMode = false,
+    this.locked = false,
     this.onOriginalTap,
     this.onLongPress,
     this.onSelected,
@@ -135,7 +138,16 @@ class _FileTileState extends State<FileTile> {
                 onChanged: (v) => widget.onSelected?.call(v ?? false),
               )
             : widget.entry.isDir
-                ? const Icon(Icons.chevron_right, color: PorteColors.amberNeon)
+                ? Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (widget.locked) ...[
+                        const Icon(Icons.lock_rounded, color: PorteColors.amberNeon, size: 14),
+                        const SizedBox(width: 4),
+                      ],
+                      const Icon(Icons.chevron_right, color: PorteColors.amberNeon),
+                    ],
+                  )
                 : const Icon(Icons.more_vert, color: PorteColors.textDim, size: 18),
         onTap: _handleTap,
         onLongPress: widget.onLongPress,

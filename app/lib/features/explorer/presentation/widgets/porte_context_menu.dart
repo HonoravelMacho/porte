@@ -1,8 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
+import 'package:path/path.dart' as p;
 import 'package:share_plus/share_plus.dart';
 import '../../../../core/theme/porte_colors.dart';
+import '../../../security/lock_dialogs.dart';
+import '../../../security/lock_service.dart';
 import '../../../terminal/terminal_dialogs.dart';
 import '../../services/file_service.dart';
 import '../../domain/file_entry.dart';
@@ -112,6 +115,8 @@ Future<void> showPorteContextMenu({
                 onChanged(); // o chamador navega via onChanged customizado
               },
             ),
+            if (!entry.name.startsWith('.') && entry.kind != PorteEntryKind.parent)
+              _protectionTile(sheetCtx: ctx, callerCtx: context, entry: entry, onChanged: onChanged),
           ],
           ListTile(
             leading: const Icon(Icons.drive_file_rename_outline_rounded),
@@ -133,6 +138,8 @@ Future<void> showPorteContextMenu({
               if (out != null && out.isNotEmpty && out != entry.name) {
                 try {
                   await files.rename(entry.path, out);
+                  // Mantém locks quando a pasta (ou ancestrais dela) muda de nome.
+                  await LockService.instance.rekey(entry.path, p.join(p.dirname(entry.path), out));
                   onChanged();
                 } catch (e) {
                   if (context.mounted) {
@@ -161,6 +168,8 @@ Future<void> showPorteContextMenu({
               if (ok == true) {
                 try {
                   await files.delete(entry.path);
+                  // A pasta não existe mais: lock morre junto.
+                  await LockService.instance.unprotect(entry.path);
                   onChanged();
                 } catch (e) {
                   if (context.mounted) {
@@ -180,5 +189,52 @@ Future<void> showPorteContextMenu({
         ],
       ),
     ),
+  );
+}
+
+/// Protege/desprotege a pasta. Pastas ocultas (.porte_*, sistema) e o
+/// próprio ".." não recebem lock.
+Widget _protectionTile({
+  required BuildContext sheetCtx,
+  required BuildContext callerCtx,
+  required FileEntry entry,
+  required VoidCallback onChanged,
+}) {
+  final locked = LockService.instance.isLocked(entry.path);
+  return ListTile(
+    leading: Icon(
+      locked ? Icons.lock_open_rounded : Icons.lock_rounded,
+      color: locked ? PorteColors.amberNeon : PorteColors.cyanNeon,
+    ),
+    title: Text(locked ? 'Remover proteção' : 'Proteger com senha'),
+    onTap: () async {
+      Navigator.pop(sheetCtx);
+      if (locked) {
+        final ok = await showUnlockGate(callerCtx, entry.path);
+        if (!ok) return;
+        await LockService.instance.unprotect(entry.path);
+        if (callerCtx.mounted) {
+          ScaffoldMessenger.of(callerCtx).showSnackBar(
+            const SnackBar(
+              backgroundColor: PorteColors.ok,
+              content: Text('PASTA DESPROTEGIDA', style: TextStyle(fontFamily: 'monospace')),
+            ),
+          );
+        }
+      } else {
+        final pass = await showProtectPasswordDialog(callerCtx);
+        if (pass == null) return;
+        await LockService.instance.protect(entry.path, pass);
+        if (callerCtx.mounted) {
+          ScaffoldMessenger.of(callerCtx).showSnackBar(
+            const SnackBar(
+              backgroundColor: PorteColors.ok,
+              content: Text('PASTA PROTEGIDA', style: TextStyle(fontFamily: 'monospace')),
+            ),
+          );
+        }
+      }
+      if (callerCtx.mounted) onChanged();
+    },
   );
 }

@@ -14,6 +14,8 @@ import 'file_tile.dart' show formatSize;
 class FileGridTile extends StatefulWidget {
   final FileEntry entry;
   final bool selected;
+  /// Pasta protegida por senha (badge de cadeado).
+  final bool locked;
   /// Callback executado APÓS o preview ser fechado (navegar/abrir arquivo).
   final VoidCallback? onOriginalTap;
   final VoidCallback? onLongPress;
@@ -22,6 +24,7 @@ class FileGridTile extends StatefulWidget {
     super.key,
     required this.entry,
     this.selected = false,
+    this.locked = false,
     this.onOriginalTap,
     this.onLongPress,
   });
@@ -158,31 +161,41 @@ class _FileGridTileState extends State<FileGridTile> {
               border: Border(),
             ),
             padding: const EdgeInsets.all(8),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
               children: [
-                Expanded(
-                  child: Center(
-                    child: SizedBox(
-                      width: 52,
-                      height: 52,
-                      child: PorteFileIcon(path: widget.entry.path, category: widget.entry.category, isDir: widget.entry.isDir),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: Center(
+                        child: SizedBox(
+                          width: 52,
+                          height: 52,
+                          child: PorteFileIcon(path: widget.entry.path, category: widget.entry.category, isDir: widget.entry.isDir),
+                        ),
+                      ),
                     ),
+                    const SizedBox(height: 6),
+                    Text(
+                      widget.entry.name,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      widget.entry.isDir ? 'PASTA' : formatSize(widget.entry.size),
+                      style: const TextStyle(color: PorteColors.textDim, fontFamily: 'monospace', fontSize: 10),
+                    ),
+                  ],
+                ),
+                if (widget.locked)
+                  const Positioned(
+                    top: 0,
+                    right: 0,
+                    child: Icon(Icons.lock_rounded, color: PorteColors.amberNeon, size: 14),
                   ),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  widget.entry.name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(fontFamily: 'monospace', fontSize: 11),
-                ),
-                const SizedBox(height: 2),
-                Text(
-                  widget.entry.isDir ? 'PASTA' : formatSize(widget.entry.size),
-                  style: const TextStyle(color: PorteColors.textDim, fontFamily: 'monospace', fontSize: 10),
-                ),
               ],
             ),
           ),
