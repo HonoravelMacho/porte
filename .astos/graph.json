@@ -222,7 +222,7 @@
    "todo_n": 0,
    "todo_ex": [],
    "entry": false,
-   "changed": true,
+   "changed": false,
    "deg": 15,
    "size": 24.5
   },
@@ -345,7 +345,7 @@
    "todo_n": 0,
    "todo_ex": [],
    "entry": false,
-   "changed": true,
+   "changed": false,
    "deg": 9,
    "size": 17.35
   },
@@ -466,7 +466,7 @@
    "todo_n": 0,
    "todo_ex": [],
    "entry": false,
-   "changed": true,
+   "changed": false,
    "deg": 8,
    "size": 17.45
   },
@@ -834,7 +834,7 @@
    "todo_n": 0,
    "todo_ex": [],
    "entry": false,
-   "changed": true,
+   "changed": false,
    "deg": 7,
    "size": 17.05
   },
@@ -2238,7 +2238,7 @@
    "todo_n": 0,
    "todo_ex": [],
    "entry": true,
-   "changed": true,
+   "changed": false,
    "deg": 1,
    "size": 9.9
   },
@@ -3724,16 +3724,10 @@
   ]
  },
  "changed": [
-  ".astos/city.html",
-  ".astos/graph.json",
-  ".astos/index.html",
-  ".astos/map.md",
-  "app/lib/features/explorer/presentation/explorer_page.dart",
-  "app/lib/features/explorer/presentation/widgets/file_grid_tile.dart",
-  "app/lib/features/explorer/presentation/widgets/file_tile.dart",
-  "app/lib/features/explorer/presentation/widgets/porte_context_menu.dart",
-  "app/lib/features/security/",
-  "app/test/lock_service_test.dart"
+  "app/.astos/graph.json",
+  "app/.astos/index.html",
+  "app/.astos/map.md",
+  "app/AGENTS.md"
  ],
  "fs_index": {
   "app/android/app/build.gradle.kts": {
@@ -9941,8 +9935,8 @@
   "files": 38,
   "edges": 66,
   "call_edges": 128,
-  "files_reused": 0,
-  "git_changed": 10,
+  "files_reused": 38,
+  "git_changed": 4,
   "langs": [
    "c",
    "dart",
@@ -9952,9 +9946,9 @@
   "supported": ".py, .c, .h, .cpp, .hpp, .cc, .cxx, .dart, .rs, .js, .jsx, .ts, .tsx, .java, .go, .cs, .kt",
   "fallback": false,
   "generic_truncated": false,
-  "generated_in_s": 3.55,
+  "generated_in_s": 1.56,
   "full_rescan": false,
   "out": "/home/tiagorabelo/porte/.astos",
-  "scanned_at": "2026-10-23T23:14:06+00:00"
+  "scanned_at": "2026-10-24T01:17:05+00:00"
  }
 }
