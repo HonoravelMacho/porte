@@ -1,0 +1,9900 @@
+{
+ "nodes": [
+  {
+   "id": "lib.features.explorer.presentation.explorer_page",
+   "label": "explorer_page.dart",
+   "file": "lib/features/explorer/presentation/explorer_page.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "package:package_info_plus/package_info_plus.dart",
+    "package:path/path.dart",
+    "package:path_provider/path_provider.dart",
+    "package:permission_handler/permission_handler.dart",
+    "../../../core/theme/porte_colors.dart",
+    "../../../core/widgets/hud_panel.dart",
+    "../domain/file_entry.dart",
+    "../services/file_service.dart",
+    "../../security/lock_dialogs.dart",
+    "../../security/lock_service.dart",
+    "../../terminal/terminal_dialogs.dart",
+    "category_page.dart",
+    "widgets/category_grid.dart",
+    "widgets/file_grid_tile.dart",
+    "widgets/file_tile.dart",
+    "widgets/path_bar.dart",
+    "widgets/porte_context_menu.dart",
+    "widgets/storage_carousel.dart",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 36,
+   "defs": [
+    {
+     "n": "ExplorerPage",
+     "k": "class",
+     "l": 25
+    },
+    {
+     "n": "createState",
+     "k": "func",
+     "l": 28
+    },
+    {
+     "n": "_ExplorerPageState",
+     "k": "class",
+     "l": 30
+    },
+    {
+     "n": "_buildAppBarTitle",
+     "k": "func",
+     "l": 41
+    },
+    {
+     "n": "initState",
+     "k": "func",
+     "l": 50
+    },
+    {
+     "n": "_init",
+     "k": "func",
+     "l": 54
+    },
+    {
+     "n": "_reload",
+     "k": "func",
+     "l": 79
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 81
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 91
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 96
+    },
+    {
+     "n": "_navigate",
+     "k": "func",
+     "l": 104
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 112
+    },
+    {
+     "n": "_tapEntry",
+     "k": "func",
+     "l": 115
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 118
+    },
+    {
+     "n": "_openEntry",
+     "k": "func",
+     "l": 125
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 143
+    },
+    {
+     "n": "Scaffold",
+     "k": "func",
+     "l": 144
+    },
+    {
+     "n": "PopupMenuItem",
+     "k": "func",
+     "l": 152
+    },
+    {
+     "n": "SliverToBoxAdapter",
+     "k": "func",
+     "l": 215
+    },
+    {
+     "n": "_onFabPressed",
+     "k": "func",
+     "l": 297
+    },
+    {
+     "n": "Padding",
+     "k": "func",
+     "l": 310
+    },
+    {
+     "n": "ListTile",
+     "k": "func",
+     "l": 334
+    },
+    {
+     "n": "ListTile",
+     "k": "func",
+     "l": 340
+    },
+    {
+     "n": "_onOpenTerminalHere",
+     "k": "func",
+     "l": 358
+    },
+    {
+     "n": "_onAnalyze",
+     "k": "func",
+     "l": 360
+    },
+    {
+     "n": "_onCategory",
+     "k": "func",
+     "l": 375
+    },
+    {
+     "n": "MaterialPageRoute",
+     "k": "func",
+     "l": 509
+    },
+    {
+     "n": "_onSearch",
+     "k": "func",
+     "l": 519
+    },
+    {
+     "n": "AlertDialog",
+     "k": "func",
+     "l": 525
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 530
+    },
+    {
+     "n": "showDialog",
+     "k": "func",
+     "l": 538
+    },
+    {
+     "n": "_onCreateFolder",
+     "k": "func",
+     "l": 562
+    },
+    {
+     "n": "AlertDialog",
+     "k": "func",
+     "l": 568
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 573
+    },
+    {
+     "n": "_onCreateProtectedFolder",
+     "k": "func",
+     "l": 588
+    },
+    {
+     "n": "_deleteSelected",
+     "k": "func",
+     "l": 608
+    }
+   ],
+   "caps": [
+    "camera"
+   ],
+   "loc": 620,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 15,
+   "size": 24.5
+  },
+  {
+   "id": "lib.core.theme.porte_colors",
+   "label": "porte_colors.dart",
+   "file": "lib/core/theme/porte_colors.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart"
+   ],
+   "externals": [],
+   "symbols": 0,
+   "defs": [],
+   "caps": [],
+   "loc": 24,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 12,
+   "size": 16.8
+  },
+  {
+   "id": "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "label": "porte_context_menu.dart",
+   "file": "lib/features/explorer/presentation/widgets/porte_context_menu.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "package:open_filex/open_filex.dart",
+    "package:path/path.dart",
+    "package:share_plus/share_plus.dart",
+    "../../../../core/theme/porte_colors.dart",
+    "../../../security/lock_dialogs.dart",
+    "../../../security/lock_service.dart",
+    "../../../terminal/terminal_dialogs.dart",
+    "../../services/file_service.dart",
+    "../../domain/file_entry.dart",
+    "../../../crypto/martelos_service.dart",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 13,
+   "defs": [
+    {
+     "n": "showModalBottomSheet",
+     "k": "func",
+     "l": 24
+    },
+    {
+     "n": "ListTile",
+     "k": "func",
+     "l": 30
+    },
+    {
+     "n": "ListTile",
+     "k": "func",
+     "l": 49
+    },
+    {
+     "n": "ListTile",
+     "k": "func",
+     "l": 57
+    },
+    {
+     "n": "ListTile",
+     "k": "func",
+     "l": 83
+    },
+    {
+     "n": "ListTile",
+     "k": "func",
+     "l": 110
+    },
+    {
+     "n": "_protectionTile",
+     "k": "func",
+     "l": 119
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 133
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 134
+    },
+    {
+     "n": "ListTile",
+     "k": "func",
+     "l": 152
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 163
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 164
+    },
+    {
+     "n": "ListTile",
+     "k": "func",
+     "l": 204
+    }
+   ],
+   "caps": [],
+   "loc": 241,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 9,
+   "size": 17.35
+  },
+  {
+   "id": "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "label": "file_grid_tile.dart",
+   "file": "lib/features/explorer/presentation/widgets/file_grid_tile.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "../../../../core/theme/porte_colors.dart",
+    "../../../../core/theme/chamfered.dart",
+    "../../services/icon_cache.dart",
+    "../../services/file_service.dart",
+    "../../domain/file_entry.dart",
+    "file_tile.dart",
+    "dart:async",
+    "dart:typed_data",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:async",
+    "dart:typed_data",
+    "dart:io"
+   ],
+   "symbols": 17,
+   "defs": [
+    {
+     "n": "FileGridTile",
+     "k": "class",
+     "l": 14
+    },
+    {
+     "n": "createState",
+     "k": "func",
+     "l": 33
+    },
+    {
+     "n": "_FileGridTileState",
+     "k": "class",
+     "l": 35
+    },
+    {
+     "n": "initState",
+     "k": "func",
+     "l": 43
+    },
+    {
+     "n": "_loadPreview",
+     "k": "func",
+     "l": 47
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 50
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 53
+    },
+    {
+     "n": "dispose",
+     "k": "func",
+     "l": 61
+    },
+    {
+     "n": "_handleTap",
+     "k": "func",
+     "l": 67
+    },
+    {
+     "n": "_showPreviewDialog",
+     "k": "func",
+     "l": 85
+    },
+    {
+     "n": "_showImagePreview",
+     "k": "func",
+     "l": 93
+    },
+    {
+     "n": "showDialog",
+     "k": "func",
+     "l": 96
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 111
+    },
+    {
+     "n": "_showTextPreview",
+     "k": "func",
+     "l": 119
+    },
+    {
+     "n": "showDialog",
+     "k": "func",
+     "l": 122
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 138
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 148
+    }
+   ],
+   "caps": [],
+   "loc": 206,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 8,
+   "size": 17.45
+  },
+  {
+   "id": "lib.features.explorer.services.file_service",
+   "label": "file_service.dart",
+   "file": "lib/features/explorer/services/file_service.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:path/path.dart",
+    "../domain/file_entry.dart",
+    "../services/thumbnail_service.dart",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 14,
+   "defs": [
+    {
+     "n": "FileOpException",
+     "k": "class",
+     "l": 9
+    },
+    {
+     "n": "toString",
+     "k": "func",
+     "l": 13
+    },
+    {
+     "n": "FileService",
+     "k": "class",
+     "l": 15
+    },
+    {
+     "n": "createFolder",
+     "k": "func",
+     "l": 51
+    },
+    {
+     "n": "createFile",
+     "k": "func",
+     "l": 57
+    },
+    {
+     "n": "rename",
+     "k": "func",
+     "l": 63
+    },
+    {
+     "n": "delete",
+     "k": "func",
+     "l": 77
+    },
+    {
+     "n": "copy",
+     "k": "func",
+     "l": 86
+    },
+    {
+     "n": "move",
+     "k": "func",
+     "l": 96
+    },
+    {
+     "n": "File",
+     "k": "func",
+     "l": 99
+    },
+    {
+     "n": "_copyDir",
+     "k": "func",
+     "l": 106
+    },
+    {
+     "n": "memoryUsagePct",
+     "k": "func",
+     "l": 202
+    },
+    {
+     "n": "getPreviewData",
+     "k": "func",
+     "l": 219
+    },
+    {
+     "n": "minBytesAndLength",
+     "k": "func",
+     "l": 229
+    }
+   ],
+   "caps": [],
+   "loc": 234,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 8,
+   "size": 16.7
+  },
+  {
+   "id": "lib.features.explorer.domain.file_entry",
+   "label": "file_entry.dart",
+   "file": "lib/features/explorer/domain/file_entry.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 3,
+   "defs": [
+    {
+     "n": "PorteEntryKind",
+     "k": "class",
+     "l": 5
+    },
+    {
+     "n": "FileEntry",
+     "k": "class",
+     "l": 6
+    },
+    {
+     "n": "compareTo",
+     "k": "func",
+     "l": 53
+    }
+   ],
+   "caps": [],
+   "loc": 58,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 7,
+   "size": 13.05
+  },
+  {
+   "id": "lib.features.explorer.presentation.category_page",
+   "label": "category_page.dart",
+   "file": "lib/features/explorer/presentation/category_page.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "package:open_filex/open_filex.dart",
+    "../../../../core/widgets/hud_panel.dart",
+    "../domain/file_entry.dart",
+    "../services/file_service.dart",
+    "widgets/file_grid_tile.dart",
+    "widgets/file_tile.dart",
+    "widgets/porte_context_menu.dart",
+    "dart:async",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:async",
+    "dart:io"
+   ],
+   "symbols": 13,
+   "defs": [
+    {
+     "n": "CategoryPage",
+     "k": "class",
+     "l": 16
+    },
+    {
+     "n": "createState",
+     "k": "func",
+     "l": 23
+    },
+    {
+     "n": "_CategoryPageState",
+     "k": "class",
+     "l": 25
+    },
+    {
+     "n": "initState",
+     "k": "func",
+     "l": 36
+    },
+    {
+     "n": "_load",
+     "k": "func",
+     "l": 40
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 42
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 49
+    },
+    {
+     "n": "_refresh",
+     "k": "func",
+     "l": 58
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 62
+    },
+    {
+     "n": "IconButton",
+     "k": "func",
+     "l": 71
+    },
+    {
+     "n": "IconButton",
+     "k": "func",
+     "l": 76
+    },
+    {
+     "n": "_open",
+     "k": "func",
+     "l": 133
+    },
+    {
+     "n": "_menu",
+     "k": "func",
+     "l": 141
+    }
+   ],
+   "caps": [],
+   "loc": 149,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 7,
+   "size": 15.55
+  },
+  {
+   "id": "lib.features.explorer.presentation.widgets.file_tile",
+   "label": "file_tile.dart",
+   "file": "lib/features/explorer/presentation/widgets/file_tile.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "../../../../core/theme/porte_colors.dart",
+    "../../services/icon_cache.dart",
+    "../../domain/file_entry.dart",
+    "../../services/file_service.dart",
+    "package:intl/intl.dart",
+    "dart:async",
+    "dart:typed_data",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:async",
+    "dart:typed_data",
+    "dart:io"
+   ],
+   "symbols": 19,
+   "defs": [
+    {
+     "n": "formatSize",
+     "k": "func",
+     "l": 10
+    },
+    {
+     "n": "FileTile",
+     "k": "class",
+     "l": 25
+    },
+    {
+     "n": "createState",
+     "k": "func",
+     "l": 48
+    },
+    {
+     "n": "_FileTileState",
+     "k": "class",
+     "l": 50
+    },
+    {
+     "n": "initState",
+     "k": "func",
+     "l": 58
+    },
+    {
+     "n": "_loadPreview",
+     "k": "func",
+     "l": 62
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 65
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 68
+    },
+    {
+     "n": "dispose",
+     "k": "func",
+     "l": 76
+    },
+    {
+     "n": "_handleTap",
+     "k": "func",
+     "l": 82
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 102
+    },
+    {
+     "n": "Container",
+     "k": "func",
+     "l": 106
+    },
+    {
+     "n": "_showPreviewDialog",
+     "k": "func",
+     "l": 157
+    },
+    {
+     "n": "_showImagePreview",
+     "k": "func",
+     "l": 165
+    },
+    {
+     "n": "showDialog",
+     "k": "func",
+     "l": 168
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 183
+    },
+    {
+     "n": "_showTextPreview",
+     "k": "func",
+     "l": 191
+    },
+    {
+     "n": "showDialog",
+     "k": "func",
+     "l": 194
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 210
+    }
+   ],
+   "caps": [],
+   "loc": 218,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 7,
+   "size": 17.05
+  },
+  {
+   "id": "lib.core.widgets.hud_panel",
+   "label": "hud_panel.dart",
+   "file": "lib/core/widgets/hud_panel.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "../theme/chamfered.dart",
+    "../theme/porte_colors.dart",
+    "../theme/porte_theme.dart"
+   ],
+   "externals": [],
+   "symbols": 8,
+   "defs": [
+    {
+     "n": "HudPanel",
+     "k": "class",
+     "l": 8
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 25
+    },
+    {
+     "n": "NeonButton",
+     "k": "class",
+     "l": 80
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 88
+    },
+    {
+     "n": "PorteAppBar",
+     "k": "class",
+     "l": 126
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 136
+    },
+    {
+     "n": "Container",
+     "k": "func",
+     "l": 137
+    },
+    {
+     "n": "IconButton",
+     "k": "func",
+     "l": 152
+    }
+   ],
+   "caps": [],
+   "loc": 181,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 6,
+   "size": 13.4
+  },
+  {
+   "id": "lib.core.theme.chamfered",
+   "label": "chamfered.dart",
+   "file": "lib/core/theme/chamfered.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart"
+   ],
+   "externals": [],
+   "symbols": 6,
+   "defs": [
+    {
+     "n": "ChamferedBorder",
+     "k": "class",
+     "l": 4
+    },
+    {
+     "n": "_path",
+     "k": "func",
+     "l": 11
+    },
+    {
+     "n": "scale",
+     "k": "func",
+     "l": 40
+    },
+    {
+     "n": "ChamferedClipper",
+     "k": "class",
+     "l": 44
+    },
+    {
+     "n": "getClip",
+     "k": "func",
+     "l": 49
+    },
+    {
+     "n": "shouldReclip",
+     "k": "func",
+     "l": 64
+    }
+   ],
+   "caps": [],
+   "loc": 66,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 4,
+   "size": 11.1
+  },
+  {
+   "id": "lib.core.theme.porte_theme",
+   "label": "porte_theme.dart",
+   "file": "lib/core/theme/porte_theme.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "porte_colors.dart",
+    "chamfered.dart"
+   ],
+   "externals": [],
+   "symbols": 1,
+   "defs": [
+    {
+     "n": "buildPorteTheme",
+     "k": "func",
+     "l": 7
+    }
+   ],
+   "caps": [],
+   "loc": 79,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 4,
+   "size": 9.85
+  },
+  {
+   "id": "lib.features.security.lock_dialogs",
+   "label": "lock_dialogs.dart",
+   "file": "lib/features/security/lock_dialogs.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "package:path/path.dart",
+    "../../core/theme/porte_colors.dart",
+    "lock_service.dart"
+   ],
+   "externals": [],
+   "symbols": 25,
+   "defs": [
+    {
+     "n": "showUnlockGate",
+     "k": "func",
+     "l": 11
+    },
+    {
+     "n": "StatefulBuilder",
+     "k": "func",
+     "l": 18
+    },
+    {
+     "n": "Icon",
+     "k": "func",
+     "l": 24
+    },
+    {
+     "n": "setDState",
+     "k": "func",
+     "l": 50
+    },
+    {
+     "n": "SizedBox",
+     "k": "func",
+     "l": 59
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 69
+    },
+    {
+     "n": "setDState",
+     "k": "func",
+     "l": 74
+    },
+    {
+     "n": "showProtectPasswordDialog",
+     "k": "func",
+     "l": 89
+    },
+    {
+     "n": "_ProtectDialog",
+     "k": "class",
+     "l": 100
+    },
+    {
+     "n": "createState",
+     "k": "func",
+     "l": 105
+    },
+    {
+     "n": "_ProtectDialogState",
+     "k": "class",
+     "l": 107
+    },
+    {
+     "n": "_try",
+     "k": "func",
+     "l": 112
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 114
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 127
+    },
+    {
+     "n": "SizedBox",
+     "k": "func",
+     "l": 145
+    },
+    {
+     "n": "_field",
+     "k": "func",
+     "l": 156
+    },
+    {
+     "n": "_NewProtectedFolderDialog",
+     "k": "class",
+     "l": 170
+    },
+    {
+     "n": "createState",
+     "k": "func",
+     "l": 175
+    },
+    {
+     "n": "_NewProtectedFolderDialogState",
+     "k": "class",
+     "l": 177
+    },
+    {
+     "n": "_try",
+     "k": "func",
+     "l": 183
+    },
+    {
+     "n": "setState",
+     "k": "func",
+     "l": 186
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 201
+    },
+    {
+     "n": "AlertDialog",
+     "k": "func",
+     "l": 202
+    },
+    {
+     "n": "SizedBox",
+     "k": "func",
+     "l": 227
+    },
+    {
+     "n": "_pass",
+     "k": "func",
+     "l": 238
+    }
+   ],
+   "caps": [],
+   "loc": 251,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 4,
+   "size": 14.6
+  },
+  {
+   "id": "lib.features.security.lock_service",
+   "label": "lock_service.dart",
+   "file": "lib/features/security/lock_service.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:crypto/crypto.dart",
+    "package:path/path.dart",
+    "package:path_provider/path_provider.dart",
+    "dart:convert",
+    "dart:io",
+    "dart:math"
+   ],
+   "externals": [
+    "dart:convert",
+    "dart:io",
+    "dart:math"
+   ],
+   "symbols": 17,
+   "defs": [
+    {
+     "n": "LockService",
+     "k": "class",
+     "l": 18
+    },
+    {
+     "n": "load",
+     "k": "func",
+     "l": 30
+    },
+    {
+     "n": "blockedBy",
+     "k": "func",
+     "l": 49
+    },
+    {
+     "n": "isLocked",
+     "k": "func",
+     "l": 60
+    },
+    {
+     "n": "verify",
+     "k": "func",
+     "l": 64
+    },
+    {
+     "n": "protect",
+     "k": "func",
+     "l": 70
+    },
+    {
+     "n": "unprotect",
+     "k": "func",
+     "l": 78
+    },
+    {
+     "n": "rekey",
+     "k": "func",
+     "l": 84
+    },
+    {
+     "n": "_norm",
+     "k": "func",
+     "l": 101
+    },
+    {
+     "n": "trimTrailingSep",
+     "k": "func",
+     "l": 103
+    },
+    {
+     "n": "_storeFile",
+     "k": "func",
+     "l": 110
+    },
+    {
+     "n": "_save",
+     "k": "func",
+     "l": 121
+    },
+    {
+     "n": "_LockRecord",
+     "k": "class",
+     "l": 136
+    },
+    {
+     "n": "digest",
+     "k": "func",
+     "l": 151
+    },
+    {
+     "n": "matches",
+     "k": "func",
+     "l": 154
+    },
+    {
+     "n": "toMap",
+     "k": "func",
+     "l": 156
+    },
+    {
+     "n": "fromMap",
+     "k": "func",
+     "l": 158
+    }
+   ],
+   "caps": [],
+   "loc": 166,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 4,
+   "size": 13.85
+  },
+  {
+   "id": "lib.main",
+   "label": "main.dart",
+   "file": "lib/main.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "core/theme/porte_colors.dart",
+    "core/theme/porte_theme.dart",
+    "features/explorer/presentation/explorer_page.dart",
+    "dart:async"
+   ],
+   "externals": [
+    "dart:async"
+   ],
+   "symbols": 6,
+   "defs": [
+    {
+     "n": "main",
+     "k": "func",
+     "l": 6
+    },
+    {
+     "n": "runZonedGuarded",
+     "k": "func",
+     "l": 8
+    },
+    {
+     "n": "PorteApp",
+     "k": "class",
+     "l": 18
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 23
+    },
+    {
+     "n": "PorteCrashScreen",
+     "k": "class",
+     "l": 35
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 40
+    }
+   ],
+   "caps": [],
+   "loc": 72,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": true,
+   "changed": false,
+   "deg": 4,
+   "size": 11.1
+  },
+  {
+   "id": "test.widget_test",
+   "label": "widget_test.dart",
+   "file": "test/widget_test.dart",
+   "lang": "dart",
+   "mod": "test",
+   "color": "#fbbf24",
+   "imports": [
+    "package:flutter_test/flutter_test.dart",
+    "package:porte/main.dart",
+    "package:porte/features/explorer/services/file_service.dart",
+    "package:porte/features/explorer/domain/file_entry.dart",
+    "package:porte/features/terminal/terminal_service.dart",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 11,
+   "defs": [
+    {
+     "n": "main",
+     "k": "func",
+     "l": 8
+    },
+    {
+     "n": "testWidgets",
+     "k": "func",
+     "l": 10
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 15
+    },
+    {
+     "n": "e",
+     "k": "func",
+     "l": 17
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 30
+    },
+    {
+     "n": "expect",
+     "k": "func",
+     "l": 37
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 44
+    },
+    {
+     "n": "expect",
+     "k": "func",
+     "l": 53
+    },
+    {
+     "n": "expect",
+     "k": "func",
+     "l": 54
+    },
+    {
+     "n": "expect",
+     "k": "func",
+     "l": 56
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 65
+    }
+   ],
+   "caps": [],
+   "loc": 80,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": true,
+   "changed": false,
+   "deg": 4,
+   "size": 12.35
+  },
+  {
+   "id": "lib.features.crypto.martelos_service",
+   "label": "martelos_service.dart",
+   "file": "lib/features/crypto/martelos_service.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "package:flutter/services.dart",
+    "package:path/path.dart",
+    "../../../core/theme/porte_colors.dart",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 20,
+   "defs": [
+    {
+     "n": "MartelosAlvo",
+     "k": "class",
+     "l": 10
+    },
+    {
+     "n": "MartelosService",
+     "k": "class",
+     "l": 16
+    },
+    {
+     "n": "_jniLibCandidates",
+     "k": "func",
+     "l": 37
+    },
+    {
+     "n": "_binaryPath",
+     "k": "func",
+     "l": 56
+    },
+    {
+     "n": "showNotInstalled",
+     "k": "func",
+     "l": 235
+    },
+    {
+     "n": "SnackBar",
+     "k": "func",
+     "l": 238
+    },
+    {
+     "n": "MartelosResult",
+     "k": "class",
+     "l": 255
+    },
+    {
+     "n": "setQtd",
+     "k": "func",
+     "l": 290
+    },
+    {
+     "n": "setSt",
+     "k": "func",
+     "l": 293
+    },
+    {
+     "n": "estilo",
+     "k": "func",
+     "l": 304
+    },
+    {
+     "n": "Text",
+     "k": "func",
+     "l": 331
+    },
+    {
+     "n": "Expanded",
+     "k": "func",
+     "l": 356
+    },
+    {
+     "n": "SizedBox",
+     "k": "func",
+     "l": 393
+    },
+    {
+     "n": "SizedBox",
+     "k": "func",
+     "l": 411
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 447
+    },
+    {
+     "n": "SizedBox",
+     "k": "func",
+     "l": 451
+    },
+    {
+     "n": "setSt",
+     "k": "func",
+     "l": 469
+    },
+    {
+     "n": "setSt",
+     "k": "func",
+     "l": 479
+    },
+    {
+     "n": "_alvoSugerido",
+     "k": "func",
+     "l": 494
+    },
+    {
+     "n": "_ffmpegPreflight",
+     "k": "func",
+     "l": 76
+    }
+   ],
+   "caps": [],
+   "loc": 506,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 3,
+   "size": 13.7
+  },
+  {
+   "id": "lib.features.explorer.presentation.widgets.category_grid",
+   "label": "category_grid.dart",
+   "file": "lib/features/explorer/presentation/widgets/category_grid.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "../../../../core/theme/porte_colors.dart",
+    "../../../../core/theme/chamfered.dart"
+   ],
+   "externals": [],
+   "symbols": 3,
+   "defs": [
+    {
+     "n": "CategoryGrid",
+     "k": "class",
+     "l": 7
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 23
+    },
+    {
+     "n": "ClipPath",
+     "k": "func",
+     "l": 38
+    }
+   ],
+   "caps": [],
+   "loc": 72,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 3,
+   "size": 9.45
+  },
+  {
+   "id": "lib.features.explorer.presentation.widgets.storage_carousel",
+   "label": "storage_carousel.dart",
+   "file": "lib/features/explorer/presentation/widgets/storage_carousel.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "../../../../core/theme/porte_colors.dart",
+    "../../../../core/widgets/hud_panel.dart",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 3,
+   "defs": [
+    {
+     "n": "StorageCarousel",
+     "k": "class",
+     "l": 8
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 27
+    },
+    {
+     "n": "fmt",
+     "k": "func",
+     "l": 110
+    }
+   ],
+   "caps": [],
+   "loc": 121,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 3,
+   "size": 9.45
+  },
+  {
+   "id": "lib.features.terminal.terminal_dialogs",
+   "label": "terminal_dialogs.dart",
+   "file": "lib/features/terminal/terminal_dialogs.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "package:flutter/services.dart",
+    "terminal_service.dart"
+   ],
+   "externals": [],
+   "symbols": 8,
+   "defs": [
+    {
+     "n": "handleTerminalRequest",
+     "k": "func",
+     "l": 9
+    },
+    {
+     "n": "showDialog",
+     "k": "func",
+     "l": 36
+    },
+    {
+     "n": "Text",
+     "k": "func",
+     "l": 45
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 69
+    },
+    {
+     "n": "showDialog",
+     "k": "func",
+     "l": 90
+    },
+    {
+     "n": "Text",
+     "k": "func",
+     "l": 99
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 121
+    },
+    {
+     "n": "TextButton",
+     "k": "func",
+     "l": 128
+    }
+   ],
+   "caps": [],
+   "loc": 133,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 3,
+   "size": 10.7
+  },
+  {
+   "id": "lib.features.explorer.presentation.widgets.path_bar",
+   "label": "path_bar.dart",
+   "file": "lib/features/explorer/presentation/widgets/path_bar.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "../../../../core/theme/porte_colors.dart"
+   ],
+   "externals": [],
+   "symbols": 4,
+   "defs": [
+    {
+     "n": "PathBar",
+     "k": "class",
+     "l": 5
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 11
+    },
+    {
+     "n": "_seg",
+     "k": "func",
+     "l": 37
+    },
+    {
+     "n": "Row",
+     "k": "func",
+     "l": 39
+    }
+   ],
+   "caps": [],
+   "loc": 65,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 2,
+   "size": 8.8
+  },
+  {
+   "id": "lib.features.explorer.services.icon_cache",
+   "label": "icon_cache.dart",
+   "file": "lib/features/explorer/services/icon_cache.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/material.dart",
+    "dart:async",
+    "dart:typed_data",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:async",
+    "dart:typed_data",
+    "dart:io"
+   ],
+   "symbols": 14,
+   "defs": [
+    {
+     "n": "iconFor",
+     "k": "func",
+     "l": 7
+    },
+    {
+     "n": "colorFor",
+     "k": "func",
+     "l": 18
+    },
+    {
+     "n": "PorteFileIcon",
+     "k": "class",
+     "l": 30
+    },
+    {
+     "n": "build",
+     "k": "func",
+     "l": 45
+    },
+    {
+     "n": "ClipRRect",
+     "k": "func",
+     "l": 58
+    },
+    {
+     "n": "_fallback",
+     "k": "func",
+     "l": 69
+    },
+    {
+     "n": "IconCache",
+     "k": "class",
+     "l": 78
+    },
+    {
+     "n": "get",
+     "k": "func",
+     "l": 86
+    },
+    {
+     "n": "put",
+     "k": "func",
+     "l": 88
+    },
+    {
+     "n": "putBytes",
+     "k": "func",
+     "l": 95
+    },
+    {
+     "n": "getBytes",
+     "k": "func",
+     "l": 100
+    },
+    {
+     "n": "invalidate",
+     "k": "func",
+     "l": 102
+    },
+    {
+     "n": "clear",
+     "k": "func",
+     "l": 108
+    },
+    {
+     "n": "_cleanIfNeeded",
+     "k": "func",
+     "l": 116
+    }
+   ],
+   "caps": [],
+   "loc": 129,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 2,
+   "size": 11.3
+  },
+  {
+   "id": "lib.features.terminal.terminal_service",
+   "label": "terminal_service.dart",
+   "file": "lib/features/terminal/terminal_service.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:flutter/foundation.dart",
+    "package:flutter/services.dart",
+    "package:url_launcher/url_launcher.dart",
+    "dart:async",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:async",
+    "dart:io"
+   ],
+   "symbols": 11,
+   "defs": [
+    {
+     "n": "TerminalOutcome",
+     "k": "class",
+     "l": 9
+    },
+    {
+     "n": "TerminalResult",
+     "k": "class",
+     "l": 18
+    },
+    {
+     "n": "TerminalService",
+     "k": "class",
+     "l": 38
+    },
+    {
+     "n": "_ensureHandler",
+     "k": "func",
+     "l": 42
+    },
+    {
+     "n": "openTerminal",
+     "k": "func",
+     "l": 59
+    },
+    {
+     "n": "_openAndroid",
+     "k": "func",
+     "l": 71
+    },
+    {
+     "n": "launchTermuxApp",
+     "k": "func",
+     "l": 97
+    },
+    {
+     "n": "_openStoreFallback",
+     "k": "func",
+     "l": 125
+    },
+    {
+     "n": "_openDesktop",
+     "k": "func",
+     "l": 137
+    },
+    {
+     "n": "unawaited",
+     "k": "func",
+     "l": 152
+    },
+    {
+     "n": "terminalVerdictFromMap",
+     "k": "func",
+     "l": 164
+    }
+   ],
+   "caps": [],
+   "loc": 182,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 2,
+   "size": 10.55
+  },
+  {
+   "id": "linux.flutter.generated_plugin_registrant~2",
+   "label": "generated_plugin_registrant.h",
+   "file": "linux/flutter/generated_plugin_registrant.h",
+   "lang": "c",
+   "mod": "linux",
+   "color": "#34d399",
+   "imports": [
+    "<flutter_linux/flutter_linux.h>"
+   ],
+   "externals": [
+    "<flutter_linux/flutter_linux.h>"
+   ],
+   "symbols": 0,
+   "defs": [],
+   "caps": [],
+   "loc": 16,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 2,
+   "size": 7.8
+  },
+  {
+   "id": "linux.runner.my_application",
+   "label": "my_application.cc",
+   "file": "linux/runner/my_application.cc",
+   "lang": "c",
+   "mod": "linux",
+   "color": "#34d399",
+   "imports": [
+    "my_application.h",
+    "flutter/generated_plugin_registrant.h",
+    "<flutter_linux/flutter_linux.h>",
+    "<gdk/gdkx.h>"
+   ],
+   "externals": [
+    "<flutter_linux/flutter_linux.h>",
+    "<gdk/gdkx.h>"
+   ],
+   "symbols": 9,
+   "defs": [
+    {
+     "n": "first_frame_cb",
+     "k": "func",
+     "l": 18
+    },
+    {
+     "n": "my_application_activate",
+     "k": "func",
+     "l": 23
+    },
+    {
+     "n": "my_application_local_command_line",
+     "k": "func",
+     "l": 82
+    },
+    {
+     "n": "my_application_startup",
+     "k": "func",
+     "l": 103
+    },
+    {
+     "n": "my_application_shutdown",
+     "k": "func",
+     "l": 112
+    },
+    {
+     "n": "my_application_dispose",
+     "k": "func",
+     "l": 121
+    },
+    {
+     "n": "my_application_class_init",
+     "k": "func",
+     "l": 127
+    },
+    {
+     "n": "my_application_init",
+     "k": "func",
+     "l": 136
+    },
+    {
+     "n": "my_application_new",
+     "k": "func",
+     "l": 138
+    }
+   ],
+   "caps": [],
+   "loc": 149,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 2,
+   "size": 10.05
+  },
+  {
+   "id": "linux.runner.my_application~2",
+   "label": "my_application.h",
+   "file": "linux/runner/my_application.h",
+   "lang": "c",
+   "mod": "linux",
+   "color": "#34d399",
+   "imports": [
+    "<gtk/gtk.h>"
+   ],
+   "externals": [
+    "<gtk/gtk.h>"
+   ],
+   "symbols": 0,
+   "defs": [],
+   "caps": [],
+   "loc": 22,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 2,
+   "size": 7.8
+  },
+  {
+   "id": "lib.features.explorer.services.thumbnail_service",
+   "label": "thumbnail_service.dart",
+   "file": "lib/features/explorer/services/thumbnail_service.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:path/path.dart",
+    "dart:async",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:async",
+    "dart:io"
+   ],
+   "symbols": 8,
+   "defs": [
+    {
+     "n": "ThumbnailService",
+     "k": "class",
+     "l": 9
+    },
+    {
+     "n": "CacheThumbnailService",
+     "k": "class",
+     "l": 19
+    },
+    {
+     "n": "getPreviewData",
+     "k": "func",
+     "l": 21
+    },
+    {
+     "n": "NativeThumbnailService",
+     "k": "class",
+     "l": 55
+    },
+    {
+     "n": "getPreviewData",
+     "k": "func",
+     "l": 57
+    },
+    {
+     "n": "_isVideoFile",
+     "k": "func",
+     "l": 75
+    },
+    {
+     "n": "_isImageFile",
+     "k": "func",
+     "l": 80
+    },
+    {
+     "n": "_tryFFmpegExtract",
+     "k": "func",
+     "l": 89
+    }
+   ],
+   "caps": [],
+   "loc": 113,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 1,
+   "size": 8.9
+  },
+  {
+   "id": "linux.flutter.generated_plugin_registrant",
+   "label": "generated_plugin_registrant.cc",
+   "file": "linux/flutter/generated_plugin_registrant.cc",
+   "lang": "c",
+   "mod": "linux",
+   "color": "#34d399",
+   "imports": [
+    "generated_plugin_registrant.h",
+    "<url_launcher_linux/url_launcher_plugin.h>"
+   ],
+   "externals": [
+    "<url_launcher_linux/url_launcher_plugin.h>"
+   ],
+   "symbols": 1,
+   "defs": [
+    {
+     "n": "fl_register_plugins",
+     "k": "func",
+     "l": 11
+    }
+   ],
+   "caps": [],
+   "loc": 16,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 1,
+   "size": 7.15
+  },
+  {
+   "id": "linux.runner.main",
+   "label": "main.cc",
+   "file": "linux/runner/main.cc",
+   "lang": "c",
+   "mod": "linux",
+   "color": "#34d399",
+   "imports": [
+    "my_application.h"
+   ],
+   "externals": [],
+   "symbols": 1,
+   "defs": [
+    {
+     "n": "main",
+     "k": "func",
+     "l": 3
+    }
+   ],
+   "caps": [],
+   "loc": 7,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": true,
+   "changed": false,
+   "deg": 1,
+   "size": 7.15
+  },
+  {
+   "id": "test.lock_service_test",
+   "label": "lock_service_test.dart",
+   "file": "test/lock_service_test.dart",
+   "lang": "dart",
+   "mod": "test",
+   "color": "#fbbf24",
+   "imports": [
+    "package:flutter_test/flutter_test.dart",
+    "package:path/path.dart",
+    "package:porte/features/security/lock_service.dart",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 12,
+   "defs": [
+    {
+     "n": "main",
+     "k": "func",
+     "l": 6
+    },
+    {
+     "n": "setUp",
+     "k": "func",
+     "l": 9
+    },
+    {
+     "n": "tearDown",
+     "k": "func",
+     "l": 13
+    },
+    {
+     "n": "make",
+     "k": "func",
+     "l": 17
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 19
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 31
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 39
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 52
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 66
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 77
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 96
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 106
+    }
+   ],
+   "caps": [],
+   "loc": 114,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": true,
+   "changed": false,
+   "deg": 1,
+   "size": 9.9
+  },
+  {
+   "id": "test.martelos_service_test",
+   "label": "martelos_service_test.dart",
+   "file": "test/martelos_service_test.dart",
+   "lang": "dart",
+   "mod": "test",
+   "color": "#fbbf24",
+   "imports": [
+    "package:flutter_test/flutter_test.dart",
+    "package:porte/features/crypto/martelos_service.dart",
+    "dart:io"
+   ],
+   "externals": [
+    "dart:io"
+   ],
+   "symbols": 10,
+   "defs": [
+    {
+     "n": "main",
+     "k": "func",
+     "l": 9
+    },
+    {
+     "n": "group",
+     "k": "func",
+     "l": 17
+    },
+    {
+     "n": "setUp",
+     "k": "func",
+     "l": 21
+    },
+    {
+     "n": "tearDown",
+     "k": "func",
+     "l": 27
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 31
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 81
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 100
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 126
+    },
+    {
+     "n": "test",
+     "k": "func",
+     "l": 145
+    },
+    {
+     "n": "_bmpFalso",
+     "k": "func",
+     "l": 172
+    }
+   ],
+   "caps": [],
+   "loc": 178,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": true,
+   "changed": false,
+   "deg": 1,
+   "size": 9.4
+  },
+  {
+   "id": "android.app.build.gradle",
+   "label": "build.gradle.kts",
+   "file": "android/app/build.gradle.kts",
+   "lang": "kotlin",
+   "mod": "android",
+   "color": "#22d3ee",
+   "imports": [
+    "java.util.Properties"
+   ],
+   "externals": [
+    "java.util.Properties"
+   ],
+   "symbols": 0,
+   "defs": [],
+   "caps": [],
+   "loc": 77,
+   "todo_n": 1,
+   "todo_ex": [
+    "TODO:L25 Specify your own unique Application ID (https://developer.android.com/studio/bui"
+   ],
+   "entry": false,
+   "changed": false,
+   "deg": 0,
+   "size": 6.0
+  },
+  {
+   "id": "android.app.src.main.java.io.flutter.plugins.GeneratedPluginRegistrant",
+   "label": "GeneratedPluginRegistrant.java",
+   "file": "android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java",
+   "lang": "java",
+   "mod": "android",
+   "color": "#22d3ee",
+   "imports": [
+    "androidx.annotation.Keep",
+    "androidx.annotation.NonNull",
+    "io.flutter.Log",
+    "io.flutter.embedding.engine.FlutterEngine"
+   ],
+   "externals": [],
+   "symbols": 2,
+   "defs": [
+    {
+     "n": "GeneratedPluginRegistrant",
+     "k": "class",
+     "l": 15
+    },
+    {
+     "n": "registerWith",
+     "k": "func",
+     "l": 17
+    }
+   ],
+   "caps": [],
+   "loc": 60,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 0,
+   "size": 6.5
+  },
+  {
+   "id": "android.app.src.main.kotlin.dev.porte.porte.MainActivity",
+   "label": "MainActivity.kt",
+   "file": "android/app/src/main/kotlin/dev/porte/porte/MainActivity.kt",
+   "lang": "kotlin",
+   "mod": "android",
+   "color": "#22d3ee",
+   "imports": [
+    "android.app.PendingIntent",
+    "android.content.Intent",
+    "android.content.pm.PackageManager",
+    "android.net.Uri",
+    "android.os.Build",
+    "android.os.Handler",
+    "android.os.Looper",
+    "androidx.core.app.ActivityCompat",
+    "androidx.core.content.ContextCompat",
+    "io.flutter.embedding.android.FlutterActivity",
+    "io.flutter.embedding.engine.FlutterEngine",
+    "io.flutter.plugin.common.MethodChannel"
+   ],
+   "externals": [],
+   "symbols": 5,
+   "defs": [
+    {
+     "n": "MainActivity",
+     "k": "class",
+     "l": 15
+    },
+    {
+     "n": "deliverResult",
+     "k": "func",
+     "l": 28
+    },
+    {
+     "n": "openTermux",
+     "k": "func",
+     "l": 112
+    },
+    {
+     "n": "openStore",
+     "k": "func",
+     "l": 152
+    },
+    {
+     "n": "launchTermux",
+     "k": "func",
+     "l": 163
+    }
+   ],
+   "caps": [],
+   "loc": 179,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": true,
+   "changed": false,
+   "deg": 0,
+   "size": 7.25
+  },
+  {
+   "id": "android.app.src.main.kotlin.dev.porte.porte.TermuxResultReceiver",
+   "label": "TermuxResultReceiver.kt",
+   "file": "android/app/src/main/kotlin/dev/porte/porte/TermuxResultReceiver.kt",
+   "lang": "kotlin",
+   "mod": "android",
+   "color": "#22d3ee",
+   "imports": [
+    "android.content.BroadcastReceiver",
+    "android.content.Context",
+    "android.content.Intent",
+    "android.os.Bundle"
+   ],
+   "externals": [],
+   "symbols": 1,
+   "defs": [
+    {
+     "n": "TermuxResultReceiver",
+     "k": "class",
+     "l": 14
+    }
+   ],
+   "caps": [],
+   "loc": 38,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 0,
+   "size": 6.25
+  },
+  {
+   "id": "android.build.gradle",
+   "label": "build.gradle.kts",
+   "file": "android/build.gradle.kts",
+   "lang": "kotlin",
+   "mod": "android",
+   "color": "#22d3ee",
+   "imports": [],
+   "externals": [],
+   "symbols": 0,
+   "defs": [],
+   "caps": [],
+   "loc": 25,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 0,
+   "size": 6.0
+  },
+  {
+   "id": "android.settings.gradle",
+   "label": "settings.gradle.kts",
+   "file": "android/settings.gradle.kts",
+   "lang": "kotlin",
+   "mod": "android",
+   "color": "#22d3ee",
+   "imports": [],
+   "externals": [],
+   "symbols": 0,
+   "defs": [],
+   "caps": [],
+   "loc": 27,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 0,
+   "size": 6.0
+  },
+  {
+   "id": "lib.features.crypto.vault_service",
+   "label": "vault_service.dart",
+   "file": "lib/features/crypto/vault_service.dart",
+   "lang": "dart",
+   "mod": "lib",
+   "color": "#f472b6",
+   "imports": [
+    "package:crypto/crypto.dart",
+    "package:encrypt/encrypt.dart",
+    "package:path/path.dart",
+    "dart:convert",
+    "dart:io",
+    "dart:typed_data"
+   ],
+   "externals": [
+    "dart:convert",
+    "dart:io",
+    "dart:typed_data"
+   ],
+   "symbols": 5,
+   "defs": [
+    {
+     "n": "VaultService",
+     "k": "class",
+     "l": 13
+    },
+    {
+     "n": "open",
+     "k": "func",
+     "l": 16
+    },
+    {
+     "n": "lock",
+     "k": "func",
+     "l": 27
+    },
+    {
+     "n": "unlock",
+     "k": "func",
+     "l": 41
+    },
+    {
+     "n": "_key",
+     "k": "func",
+     "l": 23
+    }
+   ],
+   "caps": [],
+   "loc": 56,
+   "todo_n": 0,
+   "todo_ex": [],
+   "entry": false,
+   "changed": false,
+   "deg": 0,
+   "size": 7.25
+  }
+ ],
+ "links": [
+  [
+   "lib.core.theme.porte_theme",
+   "lib.core.theme.porte_colors"
+  ],
+  [
+   "lib.core.theme.porte_theme",
+   "lib.core.theme.chamfered"
+  ],
+  [
+   "lib.core.widgets.hud_panel",
+   "lib.core.theme.chamfered"
+  ],
+  [
+   "lib.core.widgets.hud_panel",
+   "lib.core.theme.porte_colors"
+  ],
+  [
+   "lib.core.widgets.hud_panel",
+   "lib.core.theme.porte_theme"
+  ],
+  [
+   "lib.features.crypto.martelos_service",
+   "lib.core.theme.porte_colors"
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.core.widgets.hud_panel"
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.explorer.domain.file_entry"
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.explorer.services.file_service"
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.explorer.presentation.widgets.file_grid_tile"
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.explorer.presentation.widgets.file_tile"
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.explorer.presentation.widgets.porte_context_menu"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.core.theme.porte_colors"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.core.widgets.hud_panel"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.domain.file_entry"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.services.file_service"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.security.lock_dialogs"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.security.lock_service"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.terminal.terminal_dialogs"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.category_page"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.category_grid"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.file_grid_tile"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.file_tile"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.path_bar"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.porte_context_menu"
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.storage_carousel"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.category_grid",
+   "lib.core.theme.porte_colors"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.category_grid",
+   "lib.core.theme.chamfered"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.core.theme.porte_colors"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.core.theme.chamfered"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.features.explorer.services.icon_cache"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.features.explorer.services.file_service"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.features.explorer.domain.file_entry"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.features.explorer.presentation.widgets.file_tile"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "lib.core.theme.porte_colors"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "lib.features.explorer.services.icon_cache"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "lib.features.explorer.domain.file_entry"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "lib.features.explorer.services.file_service"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.path_bar",
+   "lib.core.theme.porte_colors"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.core.theme.porte_colors"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.security.lock_dialogs"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.security.lock_service"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.terminal.terminal_dialogs"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.explorer.services.file_service"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.explorer.domain.file_entry"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.crypto.martelos_service"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.storage_carousel",
+   "lib.core.theme.porte_colors"
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.storage_carousel",
+   "lib.core.widgets.hud_panel"
+  ],
+  [
+   "lib.features.explorer.services.file_service",
+   "lib.features.explorer.domain.file_entry"
+  ],
+  [
+   "lib.features.explorer.services.file_service",
+   "lib.features.explorer.services.thumbnail_service"
+  ],
+  [
+   "lib.features.security.lock_dialogs",
+   "lib.core.theme.porte_colors"
+  ],
+  [
+   "lib.features.security.lock_dialogs",
+   "lib.features.security.lock_service"
+  ],
+  [
+   "lib.features.terminal.terminal_dialogs",
+   "lib.features.terminal.terminal_service"
+  ],
+  [
+   "lib.main",
+   "lib.core.theme.porte_colors"
+  ],
+  [
+   "lib.main",
+   "lib.core.theme.porte_theme"
+  ],
+  [
+   "lib.main",
+   "lib.features.explorer.presentation.explorer_page"
+  ],
+  [
+   "linux.flutter.generated_plugin_registrant",
+   "linux.flutter.generated_plugin_registrant~2"
+  ],
+  [
+   "linux.runner.main",
+   "linux.runner.my_application~2"
+  ],
+  [
+   "linux.runner.my_application",
+   "linux.runner.my_application~2"
+  ],
+  [
+   "linux.runner.my_application",
+   "linux.flutter.generated_plugin_registrant~2"
+  ],
+  [
+   "test.lock_service_test",
+   "lib.features.security.lock_service"
+  ],
+  [
+   "test.martelos_service_test",
+   "lib.features.crypto.martelos_service"
+  ],
+  [
+   "test.widget_test",
+   "lib.main"
+  ],
+  [
+   "test.widget_test",
+   "lib.features.explorer.services.file_service"
+  ],
+  [
+   "test.widget_test",
+   "lib.features.explorer.domain.file_entry"
+  ],
+  [
+   "test.widget_test",
+   "lib.features.terminal.terminal_service"
+  ]
+ ],
+ "call_edges": [
+  [
+   "android.app.src.main.kotlin.dev.porte.porte.TermuxResultReceiver",
+   "android.app.src.main.kotlin.dev.porte.porte.MainActivity",
+   "deliverResult",
+   26
+  ],
+  [
+   "lib.core.theme.porte_theme",
+   "lib.core.theme.chamfered",
+   "ChamferedBorder",
+   8
+  ],
+  [
+   "lib.core.widgets.hud_panel",
+   "lib.features.explorer.presentation.widgets.category_grid",
+   "ClipPath",
+   27
+  ],
+  [
+   "lib.core.widgets.hud_panel",
+   "lib.core.theme.chamfered",
+   "ChamferedClipper",
+   28
+  ],
+  [
+   "lib.core.widgets.hud_panel",
+   "lib.features.explorer.presentation.widgets.path_bar",
+   "Row",
+   99
+  ],
+  [
+   "lib.core.widgets.hud_panel",
+   "lib.features.security.lock_dialogs",
+   "Icon",
+   103
+  ],
+  [
+   "lib.core.widgets.hud_panel",
+   "lib.features.crypto.martelos_service",
+   "Expanded",
+   162
+  ],
+  [
+   "lib.features.crypto.martelos_service",
+   "lib.features.explorer.services.file_service",
+   "File",
+   66
+  ],
+  [
+   "lib.features.crypto.martelos_service",
+   "lib.features.explorer.services.file_service",
+   "toString",
+   86
+  ],
+  [
+   "lib.features.crypto.martelos_service",
+   "test.martelos_service_test",
+   "group",
+   188
+  ],
+  [
+   "lib.features.crypto.martelos_service",
+   "lib.features.security.lock_dialogs",
+   "StatefulBuilder",
+   318
+  ],
+  [
+   "lib.features.crypto.martelos_service",
+   "lib.features.explorer.presentation.explorer_page",
+   "Padding",
+   340
+  ],
+  [
+   "lib.features.crypto.martelos_service",
+   "lib.features.explorer.presentation.widgets.path_bar",
+   "Row",
+   349
+  ],
+  [
+   "lib.features.crypto.martelos_service",
+   "lib.features.security.lock_dialogs",
+   "Icon",
+   352
+  ],
+  [
+   "lib.features.crypto.vault_service",
+   "lib.features.explorer.services.file_service",
+   "toString",
+   29
+  ],
+  [
+   "lib.features.crypto.vault_service",
+   "lib.features.explorer.services.file_service",
+   "File",
+   35
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.explorer.services.file_service",
+   "FileService",
+   27
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.explorer.services.file_service",
+   "memoryUsagePct",
+   45
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.explorer.presentation.explorer_page",
+   "Scaffold",
+   67
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.core.widgets.hud_panel",
+   "PorteAppBar",
+   68
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.security.lock_dialogs",
+   "Icon",
+   72
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "FileGridTile",
+   99
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "FileTile",
+   107
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.core.widgets.hud_panel",
+   "HudPanel",
+   115
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "formatSize",
+   124
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.crypto.vault_service",
+   "open",
+   139
+  ],
+  [
+   "lib.features.explorer.presentation.category_page",
+   "lib.features.explorer.services.file_service",
+   "File",
+   146
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.services.file_service",
+   "FileService",
+   32
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.security.lock_service",
+   "load",
+   73
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.domain.file_entry",
+   "compareTo",
+   89
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.services.icon_cache",
+   "clear",
+   93
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.security.lock_service",
+   "blockedBy",
+   106
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.security.lock_dialogs",
+   "showUnlockGate",
+   108
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.core.widgets.hud_panel",
+   "PorteAppBar",
+   145
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.security.lock_dialogs",
+   "Icon",
+   149
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.storage_carousel",
+   "StorageCarousel",
+   191
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.core.widgets.hud_panel",
+   "HudPanel",
+   204
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.category_grid",
+   "CategoryGrid",
+   206
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.path_bar",
+   "PathBar",
+   212
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "FileGridTile",
+   234
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.security.lock_service",
+   "isLocked",
+   237
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "FileTile",
+   255
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.path_bar",
+   "Row",
+   312
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.terminal.terminal_dialogs",
+   "handleTerminalRequest",
+   359
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.crypto.martelos_service",
+   "SnackBar",
+   363
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "formatSize",
+   368
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.presentation.category_page",
+   "CategoryPage",
+   511
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.services.file_service",
+   "createFolder",
+   580
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.security.lock_service",
+   "protect",
+   594
+  ],
+  [
+   "lib.features.explorer.presentation.explorer_page",
+   "lib.features.explorer.services.file_service",
+   "delete",
+   612
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.category_grid",
+   "lib.core.theme.chamfered",
+   "ChamferedClipper",
+   39
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.category_grid",
+   "lib.features.security.lock_dialogs",
+   "Icon",
+   50
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.features.explorer.services.file_service",
+   "FileService",
+   37
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.features.security.lock_dialogs",
+   "Icon",
+   107
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.features.explorer.services.icon_cache",
+   "colorFor",
+   149
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.features.explorer.presentation.widgets.category_grid",
+   "ClipPath",
+   150
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.core.theme.chamfered",
+   "ChamferedClipper",
+   151
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.features.crypto.martelos_service",
+   "Expanded",
+   169
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.features.explorer.services.icon_cache",
+   "PorteFileIcon",
+   174
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_grid_tile",
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "formatSize",
+   188
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "lib.features.explorer.services.file_service",
+   "FileService",
+   52
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "lib.features.explorer.services.icon_cache",
+   "PorteFileIcon",
+   122
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "lib.features.explorer.presentation.widgets.path_bar",
+   "Row",
+   141
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.file_tile",
+   "lib.features.security.lock_dialogs",
+   "Icon",
+   145
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.security.lock_dialogs",
+   "Icon",
+   31
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.terminal.terminal_dialogs",
+   "handleTerminalRequest",
+   37
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.crypto.vault_service",
+   "open",
+   46
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.crypto.martelos_service",
+   "SnackBar",
+   70
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.explorer.services.file_service",
+   "rename",
+   140
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.security.lock_service",
+   "rekey",
+   142
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.explorer.services.file_service",
+   "delete",
+   170
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.security.lock_service",
+   "unprotect",
+   172
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.security.lock_service",
+   "isLocked",
+   203
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.security.lock_dialogs",
+   "showUnlockGate",
+   213
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.security.lock_dialogs",
+   "showProtectPasswordDialog",
+   225
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.porte_context_menu",
+   "lib.features.security.lock_service",
+   "protect",
+   227
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.storage_carousel",
+   "lib.core.widgets.hud_panel",
+   "HudPanel",
+   28
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.storage_carousel",
+   "lib.features.explorer.presentation.widgets.path_bar",
+   "Row",
+   30
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.storage_carousel",
+   "lib.features.crypto.martelos_service",
+   "Expanded",
+   70
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.storage_carousel",
+   "lib.features.explorer.presentation.explorer_page",
+   "Padding",
+   75
+  ],
+  [
+   "lib.features.explorer.presentation.widgets.storage_carousel",
+   "lib.core.widgets.hud_panel",
+   "NeonButton",
+   88
+  ],
+  [
+   "lib.features.explorer.services.file_service",
+   "lib.features.explorer.domain.file_entry",
+   "FileEntry",
+   46
+  ],
+  [
+   "lib.features.explorer.services.file_service",
+   "lib.features.explorer.services.thumbnail_service",
+   "NativeThumbnailService",
+   221
+  ],
+  [
+   "lib.features.explorer.services.file_service",
+   "lib.features.explorer.services.thumbnail_service",
+   "CacheThumbnailService",
+   226
+  ],
+  [
+   "lib.features.explorer.services.icon_cache",
+   "lib.features.explorer.services.file_service",
+   "File",
+   52
+  ],
+  [
+   "lib.features.explorer.services.icon_cache",
+   "lib.features.security.lock_dialogs",
+   "Icon",
+   70
+  ],
+  [
+   "lib.features.explorer.services.thumbnail_service",
+   "lib.features.explorer.services.file_service",
+   "File",
+   23
+  ],
+  [
+   "lib.features.security.lock_dialogs",
+   "lib.features.explorer.presentation.widgets.path_bar",
+   "Row",
+   22
+  ],
+  [
+   "lib.features.security.lock_dialogs",
+   "lib.features.security.lock_service",
+   "trimTrailingSep",
+   34
+  ],
+  [
+   "lib.features.security.lock_dialogs",
+   "lib.features.security.lock_service",
+   "verify",
+   47
+  ],
+  [
+   "lib.features.security.lock_service",
+   "lib.features.explorer.services.file_service",
+   "File",
+   114
+  ],
+  [
+   "lib.features.security.lock_service",
+   "lib.features.explorer.services.file_service",
+   "rename",
+   132
+  ],
+  [
+   "lib.features.security.lock_service",
+   "lib.features.explorer.services.file_service",
+   "toString",
+   153
+  ],
+  [
+   "lib.features.terminal.terminal_dialogs",
+   "lib.features.terminal.terminal_service",
+   "TerminalService",
+   10
+  ],
+  [
+   "lib.features.terminal.terminal_dialogs",
+   "lib.features.terminal.terminal_service",
+   "openTerminal",
+   11
+  ],
+  [
+   "lib.features.terminal.terminal_dialogs",
+   "lib.features.crypto.martelos_service",
+   "SnackBar",
+   25
+  ],
+  [
+   "lib.features.terminal.terminal_dialogs",
+   "lib.features.terminal.terminal_service",
+   "launchTermuxApp",
+   60
+  ],
+  [
+   "lib.features.terminal.terminal_service",
+   "lib.features.explorer.services.file_service",
+   "toString",
+   173
+  ],
+  [
+   "lib.main",
+   "lib.features.explorer.services.file_service",
+   "toString",
+   12
+  ],
+  [
+   "lib.main",
+   "lib.core.theme.porte_theme",
+   "buildPorteTheme",
+   27
+  ],
+  [
+   "lib.main",
+   "lib.features.explorer.presentation.explorer_page",
+   "ExplorerPage",
+   28
+  ],
+  [
+   "lib.main",
+   "lib.features.explorer.presentation.explorer_page",
+   "Scaffold",
+   42
+  ],
+  [
+   "lib.main",
+   "lib.features.explorer.presentation.explorer_page",
+   "Padding",
+   44
+  ],
+  [
+   "lib.main",
+   "lib.features.crypto.martelos_service",
+   "Expanded",
+   55
+  ],
+  [
+   "linux.runner.main",
+   "linux.runner.my_application",
+   "my_application_new",
+   4
+  ],
+  [
+   "linux.runner.my_application",
+   "linux.flutter.generated_plugin_registrant",
+   "fl_register_plugins",
+   76
+  ],
+  [
+   "test.lock_service_test",
+   "lib.features.explorer.services.file_service",
+   "delete",
+   15
+  ],
+  [
+   "test.lock_service_test",
+   "lib.features.security.lock_service",
+   "LockService",
+   18
+  ],
+  [
+   "test.lock_service_test",
+   "lib.features.security.lock_service",
+   "load",
+   22
+  ],
+  [
+   "test.lock_service_test",
+   "test.widget_test",
+   "expect",
+   24
+  ],
+  [
+   "test.lock_service_test",
+   "lib.features.security.lock_service",
+   "isLocked",
+   24
+  ],
+  [
+   "test.lock_service_test",
+   "lib.features.security.lock_service",
+   "protect",
+   26
+  ],
+  [
+   "test.lock_service_test",
+   "lib.features.security.lock_service",
+   "verify",
+   28
+  ],
+  [
+   "test.lock_service_test",
+   "lib.features.security.lock_service",
+   "blockedBy",
+   59
+  ],
+  [
+   "test.lock_service_test",
+   "lib.features.security.lock_service",
+   "unprotect",
+   74
+  ],
+  [
+   "test.lock_service_test",
+   "lib.features.security.lock_service",
+   "rekey",
+   87
+  ],
+  [
+   "test.lock_service_test",
+   "lib.features.explorer.services.file_service",
+   "File",
+   108
+  ],
+  [
+   "test.martelos_service_test",
+   "lib.features.explorer.services.file_service",
+   "File",
+   12
+  ],
+  [
+   "test.martelos_service_test",
+   "lib.features.crypto.martelos_service",
+   "MartelosService",
+   18
+  ],
+  [
+   "test.martelos_service_test",
+   "test.widget_test",
+   "expect",
+   43
+  ],
+  [
+   "test.widget_test",
+   "lib.main",
+   "PorteApp",
+   11
+  ],
+  [
+   "test.widget_test",
+   "lib.features.explorer.domain.file_entry",
+   "FileEntry",
+   17
+  ],
+  [
+   "test.widget_test",
+   "lib.features.explorer.services.file_service",
+   "FileService",
+   32
+  ],
+  [
+   "test.widget_test",
+   "lib.features.explorer.services.file_service",
+   "createFolder",
+   35
+  ],
+  [
+   "test.widget_test",
+   "lib.features.explorer.services.file_service",
+   "rename",
+   38
+  ],
+  [
+   "test.widget_test",
+   "lib.features.explorer.services.file_service",
+   "delete",
+   39
+  ],
+  [
+   "test.widget_test",
+   "lib.features.explorer.services.file_service",
+   "File",
+   49
+  ],
+  [
+   "test.widget_test",
+   "lib.features.terminal.terminal_service",
+   "terminalVerdictFromMap",
+   66
+  ]
+ ],
+ "mods": {
+  "android": "#22d3ee",
+  "lib": "#f472b6",
+  "linux": "#34d399",
+  "test": "#fbbf24"
+ },
+ "capabilities": {
+  "camera": [
+   "lib/features/explorer/presentation/explorer_page.dart"
+  ],
+  "network": [
+   "manifest:android/app/src/debug/AndroidManifest.xml[INTERNET]",
+   "manifest:android/app/src/main/AndroidManifest.xml[INTERNET]",
+   "manifest:android/app/src/profile/AndroidManifest.xml[INTERNET]"
+  ],
+  "storage": [
+   "manifest:android/app/src/main/AndroidManifest.xml[MANAGE_EXTERNAL_STORAGE]",
+   "manifest:android/app/src/main/AndroidManifest.xml[READ_EXTERNAL_STORAGE]",
+   "manifest:android/app/src/main/AndroidManifest.xml[WRITE_EXTERNAL_STORAGE]"
+  ]
+ },
+ "manifest_files": [
+  "pubspec.yaml",
+  "android/build.gradle.kts",
+  "android/app/build.gradle.kts",
+  "android/app/src/debug/AndroidManifest.xml",
+  "android/app/src/main/AndroidManifest.xml",
+  "android/app/src/profile/AndroidManifest.xml"
+ ],
+ "risks": {
+  "gods": [
+   {
+    "file": "lib/features/explorer/presentation/explorer_page.dart",
+    "loc": 620,
+    "symbols": 36,
+    "deg": 15,
+    "score": 6.35
+   },
+   {
+    "file": "lib/core/theme/porte_colors.dart",
+    "loc": 24,
+    "symbols": 0,
+    "deg": 12,
+    "score": 2.46
+   }
+  ],
+  "fan_out": [
+   {
+    "file": "lib/features/explorer/presentation/explorer_page.dart",
+    "n": 14
+   }
+  ],
+  "fan_in": [
+   {
+    "file": "lib/core/theme/porte_colors.dart",
+    "n": 12
+   }
+  ],
+  "cycles": [],
+  "todos": [
+   {
+    "file": "android/app/build.gradle.kts",
+    "n": 1,
+    "ex": [
+     "TODO:L25 Specify your own unique Application ID (https://developer.android.com/studio/bui"
+    ]
+   }
+  ],
+  "todo_total": 1,
+  "entries": [
+   "lib/main.dart",
+   "test/widget_test.dart",
+   "linux/runner/main.cc",
+   "test/lock_service_test.dart",
+   "test/martelos_service_test.dart",
+   "android/app/src/main/kotlin/dev/porte/porte/MainActivity.kt"
+  ],
+  "orphans": [
+   "android/app/build.gradle.kts",
+   "android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java",
+   "android/app/src/main/kotlin/dev/porte/porte/TermuxResultReceiver.kt",
+   "android/build.gradle.kts",
+   "android/settings.gradle.kts",
+   "lib/features/crypto/vault_service.dart"
+  ]
+ },
+ "changed": [
+  "README.md",
+  "app/pubspec.yaml"
+ ],
+ "fs_index": {
+  "android/app/build.gradle.kts": {
+   "m": 1792281250,
+   "s": 2599,
+   "lang": "kotlin",
+   "rec": {
+    "id": "android.app.build.gradle",
+    "rel": "android/app/build.gradle.kts",
+    "lang": "kotlin",
+    "imports_raw": [],
+    "externals": [
+     "java.util.Properties"
+    ],
+    "defs": [],
+    "calls": [],
+    "tops": [],
+    "caps": [],
+    "loc": 77,
+    "todos": [
+     {
+      "t": "TODO",
+      "l": 25,
+      "x": "Specify your own unique Application ID (https://developer.android.com/studio/bui"
+     }
+    ],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java": {
+   "m": 1792036356,
+   "s": 2531,
+   "lang": "java",
+   "rec": {
+    "id": "android.app.src.main.java.io.flutter.plugins.GeneratedPluginRegistrant",
+    "rel": "android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java",
+    "lang": "java",
+    "imports_raw": [
+     "androidx.annotation.Keep",
+     "androidx.annotation.NonNull",
+     "io.flutter.Log",
+     "io.flutter.embedding.engine.FlutterEngine"
+    ],
+    "externals": [],
+    "defs": [
+     {
+      "n": "GeneratedPluginRegistrant",
+      "k": "class",
+      "l": 15
+     },
+     {
+      "n": "registerWith",
+      "k": "func",
+      "l": 17
+     }
+    ],
+    "calls": [
+     [
+      "getPlugins",
+      19
+     ],
+     [
+      "add",
+      19
+     ],
+     [
+      "DeviceInfoPlusPlugin",
+      19
+     ],
+     [
+      "JniPlugin",
+      24
+     ],
+     [
+      "JniFlutterPlugin",
+      29
+     ],
+     [
+      "OpenFilePlugin",
+      34
+     ],
+     [
+      "PackageInfoPlugin",
+      39
+     ],
+     [
+      "PermissionHandlerPlugin",
+      44
+     ],
+     [
+      "SharePlusPlugin",
+      49
+     ],
+     [
+      "UrlLauncherPlugin",
+      54
+     ]
+    ],
+    "tops": [
+     "GeneratedPluginRegistrant",
+     "registerWith"
+    ],
+    "caps": [],
+    "loc": 60,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "android/app/src/main/kotlin/dev/porte/porte/MainActivity.kt": {
+   "m": 1792279103,
+   "s": 7717,
+   "lang": "kotlin",
+   "rec": {
+    "id": "android.app.src.main.kotlin.dev.porte.porte.MainActivity",
+    "rel": "android/app/src/main/kotlin/dev/porte/porte/MainActivity.kt",
+    "lang": "kotlin",
+    "imports_raw": [
+     "android.app.PendingIntent",
+     "android.content.Intent",
+     "android.content.pm.PackageManager",
+     "android.net.Uri",
+     "android.os.Build",
+     "android.os.Handler",
+     "android.os.Looper",
+     "androidx.core.app.ActivityCompat",
+     "androidx.core.content.ContextCompat",
+     "io.flutter.embedding.android.FlutterActivity",
+     "io.flutter.embedding.engine.FlutterEngine",
+     "io.flutter.plugin.common.MethodChannel"
+    ],
+    "externals": [],
+    "defs": [
+     {
+      "n": "MainActivity",
+      "k": "class",
+      "l": 15
+     },
+     {
+      "n": "deliverResult",
+      "k": "func",
+      "l": 28
+     },
+     {
+      "n": "openTermux",
+      "k": "func",
+      "l": 112
+     },
+     {
+      "n": "openStore",
+      "k": "func",
+      "l": 152
+     },
+     {
+      "n": "launchTermux",
+      "k": "func",
+      "l": 163
+     }
+    ],
+    "calls": [
+     [
+      "FlutterActivity",
+      16
+     ],
+     [
+      "Termux",
+      27
+     ],
+     [
+      "Handler",
+      30
+     ],
+     [
+      "getMainLooper",
+      30
+     ],
+     [
+      "invokeMethod",
+      32
+     ],
+     [
+      "configureFlutterEngine",
+      39
+     ],
+     [
+      "MethodChannel",
+      41
+     ],
+     [
+      "checkSelfPermission",
+      48
+     ],
+     [
+      "success",
+      51
+     ],
+     [
+      "requestPermissions",
+      55
+     ],
+     [
+      "arrayOf",
+      55
+     ],
+     [
+      "binários",
+      61
+     ],
+     [
+      "mapOf",
+      64
+     ],
+     [
+      "joinToString",
+      66
+     ],
+     [
+      "notImplemented",
+      70
+     ],
+     [
+      "onRequestPermissionsResult",
+      75
+     ],
+     [
+      "isNotEmpty",
+      85
+     ],
+     [
+      "permRunCommand",
+      88
+     ],
+     [
+      "oficial",
+      95
+     ],
+     [
+      "direto",
+      103
+     ],
+     [
+      "startForegroundService",
+      105
+     ],
+     [
+      "falhar",
+      108
+     ],
+     [
+      "Intent",
+      113
+     ],
+     [
+      "setClassName",
+      114
+     ],
+     [
+      "putExtra",
+      115
+     ],
+     [
+      "veredito",
+      119
+     ],
+     [
+      "chamada",
+      120
+     ],
+     [
+      "getBroadcast",
+      124
+     ],
+     [
+      "moderno",
+      127
+     ],
+     [
+      "Suppress",
+      138
+     ],
+     [
+      "startService",
+      139
+     ],
+     [
+      "null",
+      142
+     ],
+     [
+      "Droid",
+      151
+     ],
+     [
+      "startActivity",
+      154
+     ],
+     [
+      "parse",
+      154
+     ],
+     [
+      "inicial",
+      159
+     ],
+     [
+      "getLaunchIntentForPackage",
+      165
+     ],
+     [
+      "addFlags",
+      170
+     ]
+    ],
+    "tops": [
+     "MainActivity",
+     "deliverResult",
+     "launchTermux",
+     "openStore",
+     "openTermux"
+    ],
+    "caps": [],
+    "loc": 179,
+    "todos": [],
+    "entry": true,
+    "pkg": ""
+   }
+  },
+  "android/app/src/main/kotlin/dev/porte/porte/TermuxResultReceiver.kt": {
+   "m": 1792069487,
+   "s": 1404,
+   "lang": "kotlin",
+   "rec": {
+    "id": "android.app.src.main.kotlin.dev.porte.porte.TermuxResultReceiver",
+    "rel": "android/app/src/main/kotlin/dev/porte/porte/TermuxResultReceiver.kt",
+    "lang": "kotlin",
+    "imports_raw": [
+     "android.content.BroadcastReceiver",
+     "android.content.Context",
+     "android.content.Intent",
+     "android.os.Bundle"
+    ],
+    "externals": [],
+    "defs": [
+     {
+      "n": "TermuxResultReceiver",
+      "k": "class",
+      "l": 14
+     }
+    ],
+    "calls": [
+     [
+      "Termux",
+      9
+     ],
+     [
+      "TermuxConstants",
+      10
+     ],
+     [
+      "BroadcastReceiver",
+      14
+     ],
+     [
+      "onReceive",
+      16
+     ],
+     [
+      "getBundleExtra",
+      18
+     ],
+     [
+      "getString",
+      21
+     ],
+     [
+      "take",
+      21
+     ],
+     [
+      "containsKey",
+      23
+     ],
+     [
+      "getInt",
+      23
+     ],
+     [
+      "deliverResult",
+      26
+     ],
+     [
+      "mapOf",
+      29
+     ]
+    ],
+    "tops": [
+     "TermuxResultReceiver"
+    ],
+    "caps": [],
+    "loc": 38,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "android/build.gradle.kts": {
+   "m": 1792032115,
+   "s": 537,
+   "lang": "kotlin",
+   "rec": {
+    "id": "android.build.gradle",
+    "rel": "android/build.gradle.kts",
+    "lang": "kotlin",
+    "imports_raw": [],
+    "externals": [],
+    "defs": [],
+    "calls": [],
+    "tops": [],
+    "caps": [],
+    "loc": 25,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "android/settings.gradle.kts": {
+   "m": 1792032115,
+   "s": 771,
+   "lang": "kotlin",
+   "rec": {
+    "id": "android.settings.gradle",
+    "rel": "android/settings.gradle.kts",
+    "lang": "kotlin",
+    "imports_raw": [],
+    "externals": [],
+    "defs": [],
+    "calls": [],
+    "tops": [],
+    "caps": [],
+    "loc": 27,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/core/theme/chamfered.dart": {
+   "m": 1792032403,
+   "s": 1961,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.core.theme.chamfered",
+    "rel": "lib/core/theme/chamfered.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart"
+    ],
+    "externals": [],
+    "defs": [
+     {
+      "n": "ChamferedBorder",
+      "k": "class",
+      "l": 4
+     },
+     {
+      "n": "_path",
+      "k": "func",
+      "l": 11
+     },
+     {
+      "n": "scale",
+      "k": "func",
+      "l": 40
+     },
+     {
+      "n": "ChamferedClipper",
+      "k": "class",
+      "l": 44
+     },
+     {
+      "n": "getClip",
+      "k": "func",
+      "l": 49
+     },
+     {
+      "n": "shouldReclip",
+      "k": "func",
+      "l": 64
+     }
+    ],
+    "calls": [
+     [
+      "chanfrado",
+      3
+     ],
+     [
+      "copyWith",
+      9
+     ],
+     [
+      "clamp",
+      13
+     ],
+     [
+      "toDouble",
+      13
+     ],
+     [
+      "Path",
+      14
+     ],
+     [
+      "moveTo",
+      15
+     ],
+     [
+      "lineTo",
+      16
+     ],
+     [
+      "close",
+      23
+     ],
+     [
+      "getInnerPath",
+      27
+     ],
+     [
+      "deflate",
+      28
+     ],
+     [
+      "getOuterPath",
+      31
+     ],
+     [
+      "paint",
+      34
+     ],
+     [
+      "drawPath",
+      36
+     ],
+     [
+      "toPaint",
+      36
+     ]
+    ],
+    "tops": [
+     "ChamferedBorder",
+     "ChamferedClipper",
+     "_path",
+     "getClip",
+     "scale",
+     "shouldReclip"
+    ],
+    "caps": [],
+    "loc": 66,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/core/theme/porte_colors.dart": {
+   "m": 1792032145,
+   "s": 818,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.core.theme.porte_colors",
+    "rel": "lib/core/theme/porte_colors.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart"
+    ],
+    "externals": [],
+    "defs": [],
+    "calls": [],
+    "tops": [],
+    "caps": [],
+    "loc": 24,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/core/theme/porte_theme.dart": {
+   "m": 1792032164,
+   "s": 2646,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.core.theme.porte_theme",
+    "rel": "lib/core/theme/porte_theme.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "porte_colors.dart",
+     "chamfered.dart"
+    ],
+    "externals": [],
+    "defs": [
+     {
+      "n": "buildPorteTheme",
+      "k": "func",
+      "l": 7
+     }
+    ],
+    "calls": [
+     [
+      "tátil",
+      6
+     ],
+     [
+      "ChamferedBorder",
+      8
+     ],
+     [
+      "BorderSide",
+      10
+     ],
+     [
+      "dark",
+      12
+     ],
+     [
+      "copyWith",
+      13
+     ],
+     [
+      "AppBarTheme",
+      21
+     ],
+     [
+      "TextStyle",
+      25
+     ],
+     [
+      "CardThemeData",
+      33
+     ],
+     [
+      "withValues",
+      34
+     ],
+     [
+      "all",
+      35
+     ],
+     [
+      "ListTileThemeData",
+      39
+     ],
+     [
+      "DialogThemeData",
+      43
+     ],
+     [
+      "BottomSheetThemeData",
+      47
+     ],
+     [
+      "RoundedRectangleBorder",
+      49
+     ],
+     [
+      "SnackBarThemeData",
+      51
+     ],
+     [
+      "apply",
+      55
+     ],
+     [
+      "hudDecoration",
+      64
+     ],
+     [
+      "BoxDecoration",
+      66
+     ],
+     [
+      "LinearGradient",
+      67
+     ],
+     [
+      "Color",
+      70
+     ],
+     [
+      "BoxShadow",
+      74
+     ],
+     [
+      "Offset",
+      75
+     ]
+    ],
+    "tops": [
+     "buildPorteTheme"
+    ],
+    "caps": [],
+    "loc": 79,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/core/widgets/hud_panel.dart": {
+   "m": 1792032466,
+   "s": 5770,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.core.widgets.hud_panel",
+    "rel": "lib/core/widgets/hud_panel.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "../theme/chamfered.dart",
+     "../theme/porte_colors.dart",
+     "../theme/porte_theme.dart"
+    ],
+    "externals": [],
+    "defs": [
+     {
+      "n": "HudPanel",
+      "k": "class",
+      "l": 8
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 25
+     },
+     {
+      "n": "NeonButton",
+      "k": "class",
+      "l": 80
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 88
+     },
+     {
+      "n": "PorteAppBar",
+      "k": "class",
+      "l": 126
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 136
+     },
+     {
+      "n": "Container",
+      "k": "func",
+      "l": 137
+     },
+     {
+      "n": "IconButton",
+      "k": "func",
+      "l": 152
+     }
+    ],
+    "calls": [
+     [
+      "all",
+      20
+     ],
+     [
+      "ClipPath",
+      27
+     ],
+     [
+      "ChamferedClipper",
+      28
+     ],
+     [
+      "hudDecoration",
+      30
+     ],
+     [
+      "Column",
+      31
+     ],
+     [
+      "symmetric",
+      37
+     ],
+     [
+      "BoxDecoration",
+      38
+     ],
+     [
+      "LinearGradient",
+      39
+     ],
+     [
+      "withValues",
+      41
+     ],
+     [
+      "Border",
+      45
+     ],
+     [
+      "BorderSide",
+      45
+     ],
+     [
+      "Text",
+      47
+     ],
+     [
+      "TextStyle",
+      49
+     ],
+     [
+      "táteis",
+      59
+     ],
+     [
+      "chanfrado",
+      79
+     ],
+     [
+      "Material",
+      92
+     ],
+     [
+      "InkWell",
+      94
+     ],
+     [
+      "Row",
+      99
+     ],
+     [
+      "Icon",
+      103
+     ],
+     [
+      "SizedBox",
+      104
+     ],
+     [
+      "toUpperCase",
+      107
+     ],
+     [
+      "fromHeight",
+      133
+     ],
+     [
+      "BoxShadow",
+      142
+     ],
+     [
+      "Color",
+      142
+     ],
+     [
+      "SafeArea",
+      145
+     ],
+     [
+      "Builder",
+      149
+     ],
+     [
+      "of",
+      151
+     ],
+     [
+      "canPop",
+      151
+     ],
+     [
+      "maybePop",
+      154
+     ],
+     [
+      "shrink",
+      157
+     ],
+     [
+      "Expanded",
+      162
+     ]
+    ],
+    "tops": [
+     "Container",
+     "HudPanel",
+     "IconButton",
+     "NeonButton",
+     "PorteAppBar",
+     "build"
+    ],
+    "caps": [],
+    "loc": 181,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/crypto/martelos_service.dart": {
+   "m": 1792323996,
+   "s": 22176,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.crypto.martelos_service",
+    "rel": "lib/features/crypto/martelos_service.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "package:flutter/services.dart",
+     "package:path/path.dart",
+     "../../../core/theme/porte_colors.dart"
+    ],
+    "externals": [
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "MartelosAlvo",
+      "k": "class",
+      "l": 10
+     },
+     {
+      "n": "MartelosService",
+      "k": "class",
+      "l": 16
+     },
+     {
+      "n": "_jniLibCandidates",
+      "k": "func",
+      "l": 37
+     },
+     {
+      "n": "_binaryPath",
+      "k": "func",
+      "l": 56
+     },
+     {
+      "n": "showNotInstalled",
+      "k": "func",
+      "l": 235
+     },
+     {
+      "n": "SnackBar",
+      "k": "func",
+      "l": 238
+     },
+     {
+      "n": "MartelosResult",
+      "k": "class",
+      "l": 255
+     },
+     {
+      "n": "setQtd",
+      "k": "func",
+      "l": 290
+     },
+     {
+      "n": "setSt",
+      "k": "func",
+      "l": 293
+     },
+     {
+      "n": "estilo",
+      "k": "func",
+      "l": 304
+     },
+     {
+      "n": "Text",
+      "k": "func",
+      "l": 331
+     },
+     {
+      "n": "Expanded",
+      "k": "func",
+      "l": 356
+     },
+     {
+      "n": "SizedBox",
+      "k": "func",
+      "l": 393
+     },
+     {
+      "n": "SizedBox",
+      "k": "func",
+      "l": 411
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 447
+     },
+     {
+      "n": "SizedBox",
+      "k": "func",
+      "l": 451
+     },
+     {
+      "n": "setSt",
+      "k": "func",
+      "l": 469
+     },
+     {
+      "n": "setSt",
+      "k": "func",
+      "l": 479
+     },
+     {
+      "n": "_alvoSugerido",
+      "k": "func",
+      "l": 494
+     },
+     {
+      "n": "_ffmpegPreflight",
+      "k": "func",
+      "l": 76
+     }
+    ],
+    "calls": [
+     [
+      "martelos",
+      8
+     ],
+     [
+      "APK",
+      14
+     ],
+     [
+      "usado",
+      17
+     ],
+     [
+      "jniLibs",
+      31
+     ],
+     [
+      "Termux",
+      33
+     ],
+     [
+      "app",
+      34
+     ],
+     [
+      "MethodChannel",
+      36
+     ],
+     [
+      "split",
+      41
+     ],
+     [
+      "add",
+      42
+     ],
+     [
+      "contains",
+      49
+     ],
+     [
+      "run",
+      62
+     ],
+     [
+      "File",
+      66
+     ],
+     [
+      "exists",
+      67
+     ],
+     [
+      "verdade",
+      73
+     ],
+     [
+      "existsSync",
+      83
+     ],
+     [
+      "nld",
+      83
+     ],
+     [
+      "executa",
+      86
+     ],
+     [
+      "toString",
+      86
+     ],
+     [
+      "trim",
+      86
+     ],
+     [
+      "senhas",
+      100
+     ],
+     [
+      "criptografia",
+      101
+     ],
+     [
+      "saída",
+      103
+     ],
+     [
+      "process",
+      104
+     ],
+     [
+      "testes",
+      111
+     ],
+     [
+      "dirname",
+      131
+     ],
+     [
+      "basename",
+      132
+     ],
+     [
+      "mídia",
+      134
+     ],
+     [
+      "join",
+      150
+     ],
+     [
+      "replaceAll",
+      161
+     ],
+     [
+      "RegExp",
+      187
+     ],
+     [
+      "firstMatch",
+      187
+     ],
+     [
+      "group",
+      188
+     ],
+     [
+      "isAbsolute",
+      189
+     ],
+     [
+      "deleteSync",
+      212
+     ],
+     [
+      "of",
+      237
+     ],
+     [
+      "showSnackBar",
+      237
+     ],
+     [
+      "TextStyle",
+      243
+     ],
+     [
+      "Duration",
+      245
+     ],
+     [
+      "SnackBarAction",
+      246
+     ],
+     [
+      "showMartelosDialog",
+      275
+     ],
+     [
+      "TextEditingController",
+      280
+     ],
+     [
+      "clamp",
+      292
+     ],
+     [
+      "removeLast",
+      300
+     ],
+     [
+      "dispose",
+      300
+     ],
+     [
+      "InputDecoration",
+      305
+     ],
+     [
+      "OutlineInputBorder",
+      310
+     ],
+     [
+      "BorderSide",
+      310
+     ],
+     [
+      "symmetric",
+      312
+     ],
+     [
+      "StatefulBuilder",
+      318
+     ],
+     [
+      "AlertDialog",
+      319
+     ],
+     [
+      "SingleChildScrollView",
+      327
+     ],
+     [
+      "Column",
+      328
+     ],
+     [
+      "Padding",
+      340
+     ],
+     [
+      "only",
+      341
+     ],
+     [
+      "Row",
+      349
+     ],
+     [
+      "outlined",
+      351
+     ],
+     [
+      "Icon",
+      352
+     ],
+     [
+      "TextField",
+      357
+     ],
+     [
+      "tryParse",
+      365
+     ],
+     [
+      "map",
+      401
+     ],
+     [
+      "DropdownMenuItem",
+      401
+     ],
+     [
+      "toList",
+      401
+     ],
+     [
+      "arquivo",
+      419
+     ],
+     [
+      "imagem",
+      420
+     ],
+     [
+      "audio",
+      421
+     ],
+     [
+      "video",
+      422
+     ],
+     [
+      "SAÍDA",
+      434
+     ],
+     [
+      "pop",
+      448
+     ],
+     [
+      "ElevatedButton",
+      452
+     ],
+     [
+      "styleFrom",
+      453
+     ],
+     [
+      "where",
+      460
+     ],
+     [
+      "CircularProgressIndicator",
+      483
+     ],
+     [
+      "extension",
+      497
+     ],
+     [
+      "toLowerCase",
+      497
+     ],
+     [
+      "basenameWithoutExtension",
+      499
+     ]
+    ],
+    "tops": [
+     "Expanded",
+     "MartelosAlvo",
+     "MartelosResult",
+     "MartelosService",
+     "SizedBox",
+     "SnackBar",
+     "Text",
+     "TextButton",
+     "_alvoSugerido",
+     "_binaryPath",
+     "_ffmpegPreflight",
+     "_jniLibCandidates",
+     "estilo",
+     "setQtd",
+     "setSt",
+     "showNotInstalled"
+    ],
+    "caps": [],
+    "loc": 506,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/crypto/vault_service.dart": {
+   "m": 1792032294,
+   "s": 2284,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.crypto.vault_service",
+    "rel": "lib/features/crypto/vault_service.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:crypto/crypto.dart",
+     "package:encrypt/encrypt.dart",
+     "package:path/path.dart"
+    ],
+    "externals": [
+     "dart:convert",
+     "dart:io",
+     "dart:typed_data"
+    ],
+    "defs": [
+     {
+      "n": "VaultService",
+      "k": "class",
+      "l": 13
+     },
+     {
+      "n": "open",
+      "k": "func",
+      "l": 16
+     },
+     {
+      "n": "lock",
+      "k": "func",
+      "l": 27
+     },
+     {
+      "n": "unlock",
+      "k": "func",
+      "l": 41
+     },
+     {
+      "n": "_key",
+      "k": "func",
+      "l": 23
+     }
+    ],
+    "calls": [
+     [
+      "PORTE",
+      8
+     ],
+     [
+      "CBC",
+      10
+     ],
+     [
+      "Directory",
+      18
+     ],
+     [
+      "join",
+      18
+     ],
+     [
+      "exists",
+      19
+     ],
+     [
+      "create",
+      19
+     ],
+     [
+      "convert",
+      24
+     ],
+     [
+      "encode",
+      24
+     ],
+     [
+      "Key",
+      25
+     ],
+     [
+      "fromList",
+      25
+     ],
+     [
+      "now",
+      29
+     ],
+     [
+      "toString",
+      29
+     ],
+     [
+      "fromSecureRandom",
+      31
+     ],
+     [
+      "Encrypter",
+      32
+     ],
+     [
+      "AES",
+      32
+     ],
+     [
+      "readAsBytes",
+      33
+     ],
+     [
+      "encryptBytes",
+      34
+     ],
+     [
+      "File",
+      35
+     ],
+     [
+      "basename",
+      35
+     ],
+     [
+      "writeAsBytes",
+      38
+     ],
+     [
+      "decode",
+      45
+     ],
+     [
+      "sublist",
+      45
+     ],
+     [
+      "IV",
+      46
+     ],
+     [
+      "decryptBytes",
+      50
+     ],
+     [
+      "Encrypted",
+      50
+     ]
+    ],
+    "tops": [
+     "VaultService",
+     "_key",
+     "lock",
+     "open",
+     "unlock"
+    ],
+    "caps": [],
+    "loc": 56,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/explorer/domain/file_entry.dart": {
+   "m": 1792032183,
+   "s": 2156,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.explorer.domain.file_entry",
+    "rel": "lib/features/explorer/domain/file_entry.dart",
+    "lang": "dart",
+    "imports_raw": [],
+    "externals": [
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "PorteEntryKind",
+      "k": "class",
+      "l": 5
+     },
+     {
+      "n": "FileEntry",
+      "k": "class",
+      "l": 6
+     },
+     {
+      "n": "compareTo",
+      "k": "func",
+      "l": 53
+     }
+    ],
+    "calls": [
+     [
+      "fromEntity",
+      26
+     ],
+     [
+      "statSync",
+      27
+     ],
+     [
+      "split",
+      28
+     ],
+     [
+      "lastWhere",
+      28
+     ],
+     [
+      "contains",
+      32
+     ],
+     [
+      "toLowerCase",
+      32
+     ]
+    ],
+    "tops": [
+     "FileEntry",
+     "PorteEntryKind",
+     "compareTo"
+    ],
+    "caps": [],
+    "loc": 58,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/explorer/presentation/category_page.dart": {
+   "m": 1792091368,
+   "s": 5237,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.explorer.presentation.category_page",
+    "rel": "lib/features/explorer/presentation/category_page.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "package:open_filex/open_filex.dart",
+     "../../../../core/widgets/hud_panel.dart",
+     "../domain/file_entry.dart",
+     "../services/file_service.dart",
+     "widgets/file_grid_tile.dart",
+     "widgets/file_tile.dart",
+     "widgets/porte_context_menu.dart"
+    ],
+    "externals": [
+     "dart:async",
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "CategoryPage",
+      "k": "class",
+      "l": 16
+     },
+     {
+      "n": "createState",
+      "k": "func",
+      "l": 23
+     },
+     {
+      "n": "_CategoryPageState",
+      "k": "class",
+      "l": 25
+     },
+     {
+      "n": "initState",
+      "k": "func",
+      "l": 36
+     },
+     {
+      "n": "_load",
+      "k": "func",
+      "l": 40
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 42
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 49
+     },
+     {
+      "n": "_refresh",
+      "k": "func",
+      "l": 58
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 62
+     },
+     {
+      "n": "IconButton",
+      "k": "func",
+      "l": 71
+     },
+     {
+      "n": "IconButton",
+      "k": "func",
+      "l": 76
+     },
+     {
+      "n": "_open",
+      "k": "func",
+      "l": 133
+     },
+     {
+      "n": "_menu",
+      "k": "func",
+      "l": 141
+     }
+    ],
+    "calls": [
+     [
+      "extensão",
+      13
+     ],
+     [
+      "FileService",
+      27
+     ],
+     [
+      "byCategory",
+      43
+     ],
+     [
+      "fileCountByCategory",
+      44
+     ],
+     [
+      "memoryUsagePct",
+      45
+     ],
+     [
+      "take",
+      47
+     ],
+     [
+      "toList",
+      47
+     ],
+     [
+      "toUpperCase",
+      65
+     ],
+     [
+      "split",
+      66
+     ],
+     [
+      "Scaffold",
+      67
+     ],
+     [
+      "PorteAppBar",
+      68
+     ],
+     [
+      "title",
+      69
+     ],
+     [
+      "toStringAsFixed",
+      69
+     ],
+     [
+      "Icon",
+      72
+     ],
+     [
+      "Color",
+      73
+     ],
+     [
+      "Center",
+      83
+     ],
+     [
+      "CircularProgressIndicator",
+      83
+     ],
+     [
+      "Text",
+      86
+     ],
+     [
+      "TextStyle",
+      87
+     ],
+     [
+      "builder",
+      90
+     ],
+     [
+      "all",
+      91
+     ],
+     [
+      "SliverGridDelegateWithFixedCrossAxisCount",
+      92
+     ],
+     [
+      "FileGridTile",
+      99
+     ],
+     [
+      "FileTile",
+      107
+     ],
+     [
+      "categoria",
+      113
+     ],
+     [
+      "HudPanel",
+      115
+     ],
+     [
+      "Preview",
+      116
+     ],
+     [
+      "ListTile",
+      120
+     ],
+     [
+      "formatSize",
+      124
+     ],
+     [
+      "pop",
+      136
+     ],
+     [
+      "open",
+      139
+     ],
+     [
+      "showPorteContextMenu",
+      142
+     ],
+     [
+      "File",
+      146
+     ]
+    ],
+    "tops": [
+     "CategoryPage",
+     "IconButton",
+     "_CategoryPageState",
+     "_load",
+     "_menu",
+     "_open",
+     "_refresh",
+     "build",
+     "createState",
+     "initState",
+     "setState"
+    ],
+    "caps": [],
+    "loc": 149,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/explorer/presentation/explorer_page.dart": {
+   "m": 1792796452,
+   "s": 21455,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.explorer.presentation.explorer_page",
+    "rel": "lib/features/explorer/presentation/explorer_page.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "package:package_info_plus/package_info_plus.dart",
+     "package:path/path.dart",
+     "package:path_provider/path_provider.dart",
+     "package:permission_handler/permission_handler.dart",
+     "../../../core/theme/porte_colors.dart",
+     "../../../core/widgets/hud_panel.dart",
+     "../domain/file_entry.dart",
+     "../services/file_service.dart",
+     "../../security/lock_dialogs.dart",
+     "../../security/lock_service.dart",
+     "../../terminal/terminal_dialogs.dart",
+     "category_page.dart",
+     "widgets/category_grid.dart",
+     "widgets/file_grid_tile.dart",
+     "widgets/file_tile.dart",
+     "widgets/path_bar.dart",
+     "widgets/porte_context_menu.dart",
+     "widgets/storage_carousel.dart"
+    ],
+    "externals": [
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "ExplorerPage",
+      "k": "class",
+      "l": 25
+     },
+     {
+      "n": "createState",
+      "k": "func",
+      "l": 28
+     },
+     {
+      "n": "_ExplorerPageState",
+      "k": "class",
+      "l": 30
+     },
+     {
+      "n": "_buildAppBarTitle",
+      "k": "func",
+      "l": 41
+     },
+     {
+      "n": "initState",
+      "k": "func",
+      "l": 50
+     },
+     {
+      "n": "_init",
+      "k": "func",
+      "l": 54
+     },
+     {
+      "n": "_reload",
+      "k": "func",
+      "l": 79
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 81
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 91
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 96
+     },
+     {
+      "n": "_navigate",
+      "k": "func",
+      "l": 104
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 112
+     },
+     {
+      "n": "_tapEntry",
+      "k": "func",
+      "l": 115
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 118
+     },
+     {
+      "n": "_openEntry",
+      "k": "func",
+      "l": 125
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 143
+     },
+     {
+      "n": "Scaffold",
+      "k": "func",
+      "l": 144
+     },
+     {
+      "n": "PopupMenuItem",
+      "k": "func",
+      "l": 152
+     },
+     {
+      "n": "SliverToBoxAdapter",
+      "k": "func",
+      "l": 215
+     },
+     {
+      "n": "_onFabPressed",
+      "k": "func",
+      "l": 297
+     },
+     {
+      "n": "Padding",
+      "k": "func",
+      "l": 310
+     },
+     {
+      "n": "ListTile",
+      "k": "func",
+      "l": 334
+     },
+     {
+      "n": "ListTile",
+      "k": "func",
+      "l": 340
+     },
+     {
+      "n": "_onOpenTerminalHere",
+      "k": "func",
+      "l": 358
+     },
+     {
+      "n": "_onAnalyze",
+      "k": "func",
+      "l": 360
+     },
+     {
+      "n": "_onCategory",
+      "k": "func",
+      "l": 375
+     },
+     {
+      "n": "MaterialPageRoute",
+      "k": "func",
+      "l": 509
+     },
+     {
+      "n": "_onSearch",
+      "k": "func",
+      "l": 519
+     },
+     {
+      "n": "AlertDialog",
+      "k": "func",
+      "l": 525
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 530
+     },
+     {
+      "n": "showDialog",
+      "k": "func",
+      "l": 538
+     },
+     {
+      "n": "_onCreateFolder",
+      "k": "func",
+      "l": 562
+     },
+     {
+      "n": "AlertDialog",
+      "k": "func",
+      "l": 568
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 573
+     },
+     {
+      "n": "_onCreateProtectedFolder",
+      "k": "func",
+      "l": 588
+     },
+     {
+      "n": "_deleteSelected",
+      "k": "func",
+      "l": 608
+     }
+    ],
+    "calls": [
+     [
+      "armazenamento",
+      23
+     ],
+     [
+      "arquivos",
+      24
+     ],
+     [
+      "FileService",
+      32
+     ],
+     [
+      "request",
+      58
+     ],
+     [
+      "Directory",
+      61
+     ],
+     [
+      "exists",
+      61
+     ],
+     [
+      "getApplicationDocumentsDirectory",
+      66
+     ],
+     [
+      "listagem",
+      72
+     ],
+     [
+      "load",
+      73
+     ],
+     [
+      "list",
+      86
+     ],
+     [
+      "sort",
+      89
+     ],
+     [
+      "compareTo",
+      89
+     ],
+     [
+      "clear",
+      93
+     ],
+     [
+      "destino",
+      102
+     ],
+     [
+      "senha",
+      103
+     ],
+     [
+      "blockedBy",
+      106
+     ],
+     [
+      "showUnlockGate",
+      108
+     ],
+     [
+      "contains",
+      119
+     ],
+     [
+      "remove",
+      119
+     ],
+     [
+      "add",
+      119
+     ],
+     [
+      "showPorteContextMenu",
+      132
+     ],
+     [
+      "PorteAppBar",
+      145
+     ],
+     [
+      "Icon",
+      149
+     ],
+     [
+      "Text",
+      154
+     ],
+     [
+      "TextStyle",
+      154
+     ],
+     [
+      "Recent",
+      158
+     ],
+     [
+      "IconButton",
+      166
+     ],
+     [
+      "Center",
+      182
+     ],
+     [
+      "CircularProgressIndicator",
+      182
+     ],
+     [
+      "RefreshIndicator",
+      183
+     ],
+     [
+      "CustomScrollView",
+      186
+     ],
+     [
+      "all",
+      190
+     ],
+     [
+      "StorageCarousel",
+      191
+     ],
+     [
+      "symmetric",
+      203
+     ],
+     [
+      "HudPanel",
+      204
+     ],
+     [
+      "CategoryGrid",
+      206
+     ],
+     [
+      "SizedBox",
+      210
+     ],
+     [
+      "PathBar",
+      212
+     ],
+     [
+      "SliverPadding",
+      222
+     ],
+     [
+      "builder",
+      224
+     ],
+     [
+      "SliverGridDelegateWithFixedCrossAxisCount",
+      225
+     ],
+     [
+      "FileGridTile",
+      234
+     ],
+     [
+      "isLocked",
+      237
+     ],
+     [
+      "FileTile",
+      255
+     ],
+     [
+      "extended",
+      279
+     ],
+     [
+      "EXCLUIR",
+      283
+     ],
+     [
+      "FloatingActionButton",
+      285
+     ],
+     [
+      "PORTE",
+      295
+     ],
+     [
+      "fromPlatform",
+      300
+     ],
+     [
+      "SafeArea",
+      306
+     ],
+     [
+      "Column",
+      307
+     ],
+     [
+      "fromLTRB",
+      311
+     ],
+     [
+      "Row",
+      312
+     ],
+     [
+      "pop",
+      332
+     ],
+     [
+      "handleTerminalRequest",
+      359
+     ],
+     [
+      "of",
+      362
+     ],
+     [
+      "showSnackBar",
+      362
+     ],
+     [
+      "SnackBar",
+      363
+     ],
+     [
+      "dirSize",
+      365
+     ],
+     [
+      "formatSize",
+      368
+     ],
+     [
+      "create",
+      412
+     ],
+     [
+      "push",
+      508
+     ],
+     [
+      "CategoryPage",
+      511
+     ],
+     [
+      "toUpperCase",
+      513
+     ],
+     [
+      "TextEditingController",
+      524
+     ],
+     [
+      "TextField",
+      527
+     ],
+     [
+      "InputDecoration",
+      527
+     ],
+     [
+      "search",
+      536
+     ],
+     [
+      "RESULTADOS",
+      541
+     ],
+     [
+      "trim",
+      573
+     ],
+     [
+      "createFolder",
+      580
+     ],
+     [
+      "showNewProtectedFolderDialog",
+      589
+     ],
+     [
+      "protect",
+      594
+     ],
+     [
+      "join",
+      594
+     ],
+     [
+      "toList",
+      610
+     ],
+     [
+      "delete",
+      612
+     ]
+    ],
+    "tops": [
+     "AlertDialog",
+     "ExplorerPage",
+     "ListTile",
+     "MaterialPageRoute",
+     "Padding",
+     "PopupMenuItem",
+     "Scaffold",
+     "SliverToBoxAdapter",
+     "TextButton",
+     "_ExplorerPageState",
+     "_buildAppBarTitle",
+     "_deleteSelected",
+     "_init",
+     "_navigate",
+     "_onAnalyze",
+     "_onCategory",
+     "_onCreateFolder",
+     "_onCreateProtectedFolder",
+     "_onFabPressed",
+     "_onOpenTerminalHere",
+     "_onSearch",
+     "_openEntry",
+     "_reload",
+     "_tapEntry",
+     "build",
+     "createState",
+     "initState",
+     "setState",
+     "showDialog"
+    ],
+    "caps": [
+     "camera"
+    ],
+    "loc": 620,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/explorer/presentation/widgets/category_grid.dart": {
+   "m": 1792032247,
+   "s": 2584,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.explorer.presentation.widgets.category_grid",
+    "rel": "lib/features/explorer/presentation/widgets/category_grid.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "../../../../core/theme/porte_colors.dart",
+     "../../../../core/theme/chamfered.dart"
+    ],
+    "externals": [],
+    "defs": [
+     {
+      "n": "CategoryGrid",
+      "k": "class",
+      "l": 7
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 23
+     },
+     {
+      "n": "ClipPath",
+      "k": "func",
+      "l": 38
+     }
+    ],
+    "calls": [
+     [
+      "builder",
+      24
+     ],
+     [
+      "NeverScrollableScrollPhysics",
+      26
+     ],
+     [
+      "SliverGridDelegateWithFixedCrossAxisCount",
+      27
+     ],
+     [
+      "ChamferedClipper",
+      39
+     ],
+     [
+      "Material",
+      40
+     ],
+     [
+      "withValues",
+      41
+     ],
+     [
+      "InkWell",
+      42
+     ],
+     [
+      "onOpen",
+      43
+     ],
+     [
+      "Container",
+      44
+     ],
+     [
+      "BoxDecoration",
+      45
+     ],
+     [
+      "all",
+      45
+     ],
+     [
+      "symmetric",
+      46
+     ],
+     [
+      "Column",
+      47
+     ],
+     [
+      "Icon",
+      50
+     ],
+     [
+      "SizedBox",
+      51
+     ],
+     [
+      "Text",
+      52
+     ],
+     [
+      "TextStyle",
+      54
+     ]
+    ],
+    "tops": [
+     "CategoryGrid",
+     "ClipPath",
+     "build"
+    ],
+    "caps": [],
+    "loc": 72,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/explorer/presentation/widgets/file_grid_tile.dart": {
+   "m": 1792796475,
+   "s": 7008,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.explorer.presentation.widgets.file_grid_tile",
+    "rel": "lib/features/explorer/presentation/widgets/file_grid_tile.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "../../../../core/theme/porte_colors.dart",
+     "../../../../core/theme/chamfered.dart",
+     "../../services/icon_cache.dart",
+     "../../services/file_service.dart",
+     "../../domain/file_entry.dart",
+     "file_tile.dart"
+    ],
+    "externals": [
+     "dart:async",
+     "dart:typed_data",
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "FileGridTile",
+      "k": "class",
+      "l": 14
+     },
+     {
+      "n": "createState",
+      "k": "func",
+      "l": 33
+     },
+     {
+      "n": "_FileGridTileState",
+      "k": "class",
+      "l": 35
+     },
+     {
+      "n": "initState",
+      "k": "func",
+      "l": 43
+     },
+     {
+      "n": "_loadPreview",
+      "k": "func",
+      "l": 47
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 50
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 53
+     },
+     {
+      "n": "dispose",
+      "k": "func",
+      "l": 61
+     },
+     {
+      "n": "_handleTap",
+      "k": "func",
+      "l": 67
+     },
+     {
+      "n": "_showPreviewDialog",
+      "k": "func",
+      "l": 85
+     },
+     {
+      "n": "_showImagePreview",
+      "k": "func",
+      "l": 93
+     },
+     {
+      "n": "showDialog",
+      "k": "func",
+      "l": 96
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 111
+     },
+     {
+      "n": "_showTextPreview",
+      "k": "func",
+      "l": 119
+     },
+     {
+      "n": "showDialog",
+      "k": "func",
+      "l": 122
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 138
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 148
+     }
+    ],
+    "calls": [
+     [
+      "senha",
+      17
+     ],
+     [
+      "fechado",
+      19
+     ],
+     [
+      "FileService",
+      37
+     ],
+     [
+      "getPreviewData",
+      51
+     ],
+     [
+      "primeiro",
+      68
+     ],
+     [
+      "AlertDialog",
+      98
+     ],
+     [
+      "Center",
+      100
+     ],
+     [
+      "Text",
+      100
+     ],
+     [
+      "TextStyle",
+      100
+     ],
+     [
+      "SizedBox",
+      101
+     ],
+     [
+      "of",
+      102
+     ],
+     [
+      "memory",
+      104
+     ],
+     [
+      "fromList",
+      105
+     ],
+     [
+      "Icon",
+      107
+     ],
+     [
+      "pop",
+      112
+     ],
+     [
+      "SingleChildScrollView",
+      127
+     ],
+     [
+      "ConstrainedBox",
+      129
+     ],
+     [
+      "BoxConstraints",
+      130
+     ],
+     [
+      "SelectableText",
+      131
+     ],
+     [
+      "colorFor",
+      149
+     ],
+     [
+      "ClipPath",
+      150
+     ],
+     [
+      "ChamferedClipper",
+      151
+     ],
+     [
+      "Material",
+      152
+     ],
+     [
+      "withValues",
+      154
+     ],
+     [
+      "InkWell",
+      156
+     ],
+     [
+      "Container",
+      159
+     ],
+     [
+      "BoxDecoration",
+      160
+     ],
+     [
+      "Border",
+      161
+     ],
+     [
+      "all",
+      163
+     ],
+     [
+      "Stack",
+      164
+     ],
+     [
+      "Column",
+      166
+     ],
+     [
+      "Expanded",
+      169
+     ],
+     [
+      "PorteFileIcon",
+      174
+     ],
+     [
+      "formatSize",
+      188
+     ],
+     [
+      "Positioned",
+      194
+     ]
+    ],
+    "tops": [
+     "FileGridTile",
+     "TextButton",
+     "_FileGridTileState",
+     "_handleTap",
+     "_loadPreview",
+     "_showImagePreview",
+     "_showPreviewDialog",
+     "_showTextPreview",
+     "build",
+     "createState",
+     "dispose",
+     "initState",
+     "setState",
+     "showDialog"
+    ],
+    "caps": [],
+    "loc": 206,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/explorer/presentation/widgets/file_tile.dart": {
+   "m": 1792796463,
+   "s": 7393,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.explorer.presentation.widgets.file_tile",
+    "rel": "lib/features/explorer/presentation/widgets/file_tile.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "../../../../core/theme/porte_colors.dart",
+     "../../services/icon_cache.dart",
+     "../../domain/file_entry.dart",
+     "../../services/file_service.dart",
+     "package:intl/intl.dart"
+    ],
+    "externals": [
+     "dart:async",
+     "dart:typed_data",
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "formatSize",
+      "k": "func",
+      "l": 10
+     },
+     {
+      "n": "FileTile",
+      "k": "class",
+      "l": 25
+     },
+     {
+      "n": "createState",
+      "k": "func",
+      "l": 48
+     },
+     {
+      "n": "_FileTileState",
+      "k": "class",
+      "l": 50
+     },
+     {
+      "n": "initState",
+      "k": "func",
+      "l": 58
+     },
+     {
+      "n": "_loadPreview",
+      "k": "func",
+      "l": 62
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 65
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 68
+     },
+     {
+      "n": "dispose",
+      "k": "func",
+      "l": 76
+     },
+     {
+      "n": "_handleTap",
+      "k": "func",
+      "l": 82
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 102
+     },
+     {
+      "n": "Container",
+      "k": "func",
+      "l": 106
+     },
+     {
+      "n": "_showPreviewDialog",
+      "k": "func",
+      "l": 157
+     },
+     {
+      "n": "_showImagePreview",
+      "k": "func",
+      "l": 165
+     },
+     {
+      "n": "showDialog",
+      "k": "func",
+      "l": 168
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 183
+     },
+     {
+      "n": "_showTextPreview",
+      "k": "func",
+      "l": 191
+     },
+     {
+      "n": "showDialog",
+      "k": "func",
+      "l": 194
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 210
+     }
+    ],
+    "calls": [
+     [
+      "toStringAsFixed",
+      20
+     ],
+     [
+      "senha",
+      29
+     ],
+     [
+      "fechado",
+      31
+     ],
+     [
+      "FileService",
+      52
+     ],
+     [
+      "getPreviewData",
+      66
+     ],
+     [
+      "DateFormat",
+      104
+     ],
+     [
+      "format",
+      104
+     ],
+     [
+      "symmetric",
+      107
+     ],
+     [
+      "BoxDecoration",
+      108
+     ],
+     [
+      "withValues",
+      109
+     ],
+     [
+      "all",
+      110
+     ],
+     [
+      "BoxShadow",
+      114
+     ],
+     [
+      "Color",
+      114
+     ],
+     [
+      "ListTile",
+      117
+     ],
+     [
+      "SizedBox",
+      119
+     ],
+     [
+      "PorteFileIcon",
+      122
+     ],
+     [
+      "Text",
+      124
+     ],
+     [
+      "TextStyle",
+      128
+     ],
+     [
+      "Checkbox",
+      135
+     ],
+     [
+      "call",
+      138
+     ],
+     [
+      "Row",
+      141
+     ],
+     [
+      "Icon",
+      145
+     ],
+     [
+      "AlertDialog",
+      170
+     ],
+     [
+      "Center",
+      172
+     ],
+     [
+      "of",
+      174
+     ],
+     [
+      "memory",
+      176
+     ],
+     [
+      "fromList",
+      177
+     ],
+     [
+      "pop",
+      184
+     ],
+     [
+      "SingleChildScrollView",
+      199
+     ],
+     [
+      "ConstrainedBox",
+      201
+     ],
+     [
+      "BoxConstraints",
+      202
+     ],
+     [
+      "SelectableText",
+      203
+     ]
+    ],
+    "tops": [
+     "Container",
+     "FileTile",
+     "TextButton",
+     "_FileTileState",
+     "_handleTap",
+     "_loadPreview",
+     "_showImagePreview",
+     "_showPreviewDialog",
+     "_showTextPreview",
+     "build",
+     "createState",
+     "dispose",
+     "formatSize",
+     "initState",
+     "setState",
+     "showDialog"
+    ],
+    "caps": [],
+    "loc": 218,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/explorer/presentation/widgets/path_bar.dart": {
+   "m": 1792032421,
+   "s": 2106,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.explorer.presentation.widgets.path_bar",
+    "rel": "lib/features/explorer/presentation/widgets/path_bar.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "../../../../core/theme/porte_colors.dart"
+    ],
+    "externals": [],
+    "defs": [
+     {
+      "n": "PathBar",
+      "k": "class",
+      "l": 5
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 11
+     },
+     {
+      "n": "_seg",
+      "k": "func",
+      "l": 37
+     },
+     {
+      "n": "Row",
+      "k": "func",
+      "l": 39
+     }
+    ],
+    "calls": [
+     [
+      "original",
+      4
+     ],
+     [
+      "split",
+      12
+     ],
+     [
+      "where",
+      12
+     ],
+     [
+      "toList",
+      12
+     ],
+     [
+      "Container",
+      13
+     ],
+     [
+      "symmetric",
+      14
+     ],
+     [
+      "BoxDecoration",
+      15
+     ],
+     [
+      "Color",
+      16
+     ],
+     [
+      "Border",
+      17
+     ],
+     [
+      "BorderSide",
+      17
+     ],
+     [
+      "SingleChildScrollView",
+      19
+     ],
+     [
+      "toUpperCase",
+      28
+     ],
+     [
+      "sublist",
+      29
+     ],
+     [
+      "join",
+      29
+     ],
+     [
+      "Text",
+      42
+     ],
+     [
+      "TextStyle",
+      42
+     ],
+     [
+      "TextButton",
+      43
+     ],
+     [
+      "styleFrom",
+      44
+     ],
+     [
+      "onNavigate",
+      49
+     ]
+    ],
+    "tops": [
+     "PathBar",
+     "Row",
+     "_seg",
+     "build"
+    ],
+    "caps": [],
+    "loc": 65,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/explorer/presentation/widgets/porte_context_menu.dart": {
+   "m": 1792796513,
+   "s": 9502,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.explorer.presentation.widgets.porte_context_menu",
+    "rel": "lib/features/explorer/presentation/widgets/porte_context_menu.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "package:open_filex/open_filex.dart",
+     "package:path/path.dart",
+     "package:share_plus/share_plus.dart",
+     "../../../../core/theme/porte_colors.dart",
+     "../../../security/lock_dialogs.dart",
+     "../../../security/lock_service.dart",
+     "../../../terminal/terminal_dialogs.dart",
+     "../../services/file_service.dart",
+     "../../domain/file_entry.dart",
+     "../../../crypto/martelos_service.dart"
+    ],
+    "externals": [
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "showModalBottomSheet",
+      "k": "func",
+      "l": 24
+     },
+     {
+      "n": "ListTile",
+      "k": "func",
+      "l": 30
+     },
+     {
+      "n": "ListTile",
+      "k": "func",
+      "l": 49
+     },
+     {
+      "n": "ListTile",
+      "k": "func",
+      "l": 57
+     },
+     {
+      "n": "ListTile",
+      "k": "func",
+      "l": 83
+     },
+     {
+      "n": "ListTile",
+      "k": "func",
+      "l": 110
+     },
+     {
+      "n": "_protectionTile",
+      "k": "func",
+      "l": 119
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 133
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 134
+     },
+     {
+      "n": "ListTile",
+      "k": "func",
+      "l": 152
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 163
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 164
+     },
+     {
+      "n": "ListTile",
+      "k": "func",
+      "l": 204
+     }
+    ],
+    "calls": [
+     [
+      "showPorteContextMenu",
+      16
+     ],
+     [
+      "SafeArea",
+      26
+     ],
+     [
+      "Column",
+      27
+     ],
+     [
+      "Icon",
+      31
+     ],
+     [
+      "Text",
+      32
+     ],
+     [
+      "pop",
+      35
+     ],
+     [
+      "handleTerminalRequest",
+      37
+     ],
+     [
+      "open",
+      46
+     ],
+     [
+      "share",
+      54
+     ],
+     [
+      "ShareParams",
+      54
+     ],
+     [
+      "XFile",
+      54
+     ],
+     [
+      "showMartelosDialog",
+      62
+     ],
+     [
+      "of",
+      69
+     ],
+     [
+      "showSnackBar",
+      69
+     ],
+     [
+      "SnackBar",
+      70
+     ],
+     [
+      "TextStyle",
+      74
+     ],
+     [
+      "Duration",
+      76
+     ],
+     [
+      "onChanged",
+      79
+     ],
+     [
+      "startsWith",
+      118
+     ],
+     [
+      "TextEditingController",
+      126
+     ],
+     [
+      "AlertDialog",
+      129
+     ],
+     [
+      "TextField",
+      131
+     ],
+     [
+      "trim",
+      134
+     ],
+     [
+      "rename",
+      140
+     ],
+     [
+      "pasta",
+      141
+     ],
+     [
+      "rekey",
+      142
+     ],
+     [
+      "join",
+      142
+     ],
+     [
+      "dirname",
+      142
+     ],
+     [
+      "delete",
+      170
+     ],
+     [
+      "unprotect",
+      172
+     ],
+     [
+      "ocultas",
+      195
+     ],
+     [
+      "isLocked",
+      203
+     ],
+     [
+      "showUnlockGate",
+      213
+     ],
+     [
+      "showProtectPasswordDialog",
+      225
+     ],
+     [
+      "protect",
+      227
+     ]
+    ],
+    "tops": [
+     "ListTile",
+     "TextButton",
+     "_protectionTile",
+     "showModalBottomSheet"
+    ],
+    "caps": [],
+    "loc": 241,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/explorer/presentation/widgets/storage_carousel.dart": {
+   "m": 1792032242,
+   "s": 4318,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.explorer.presentation.widgets.storage_carousel",
+    "rel": "lib/features/explorer/presentation/widgets/storage_carousel.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "../../../../core/theme/porte_colors.dart",
+     "../../../../core/widgets/hud_panel.dart"
+    ],
+    "externals": [
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "StorageCarousel",
+      "k": "class",
+      "l": 8
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 27
+     },
+     {
+      "n": "fmt",
+      "k": "func",
+      "l": 110
+     }
+    ],
+    "calls": [
+     [
+      "HudPanel",
+      28
+     ],
+     [
+      "Row",
+      30
+     ],
+     [
+      "SizedBox",
+      32
+     ],
+     [
+      "Stack",
+      35
+     ],
+     [
+      "CircularProgressIndicator",
+      41
+     ],
+     [
+      "clamp",
+      42
+     ],
+     [
+      "AlwaysStoppedAnimation",
+      45
+     ],
+     [
+      "Column",
+      48
+     ],
+     [
+      "Text",
+      51
+     ],
+     [
+      "toStringAsFixed",
+      52
+     ],
+     [
+      "TextStyle",
+      53
+     ],
+     [
+      "Expanded",
+      70
+     ],
+     [
+      "Padding",
+      75
+     ],
+     [
+      "symmetric",
+      76
+     ],
+     [
+      "toUpperCase",
+      80
+     ],
+     [
+      "NeonButton",
+      88
+     ],
+     [
+      "raiz",
+      97
+     ],
+     [
+      "fromDirectory",
+      98
+     ],
+     [
+      "dir",
+      99
+     ],
+     [
+      "StatFs",
+      100
+     ],
+     [
+      "statvfs",
+      100
+     ],
+     [
+      "Directory",
+      104
+     ],
+     [
+      "list",
+      104
+     ],
+     [
+      "length",
+      106
+     ],
+     [
+      "split",
+      112
+     ]
+    ],
+    "tops": [
+     "StorageCarousel",
+     "build",
+     "fmt"
+    ],
+    "caps": [],
+    "loc": 121,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/explorer/services/file_service.dart": {
+   "m": 1792092115,
+   "s": 9039,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.explorer.services.file_service",
+    "rel": "lib/features/explorer/services/file_service.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:path/path.dart",
+     "../domain/file_entry.dart",
+     "../services/thumbnail_service.dart"
+    ],
+    "externals": [
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "FileOpException",
+      "k": "class",
+      "l": 9
+     },
+     {
+      "n": "toString",
+      "k": "func",
+      "l": 13
+     },
+     {
+      "n": "FileService",
+      "k": "class",
+      "l": 15
+     },
+     {
+      "n": "createFolder",
+      "k": "func",
+      "l": 51
+     },
+     {
+      "n": "createFile",
+      "k": "func",
+      "l": 57
+     },
+     {
+      "n": "rename",
+      "k": "func",
+      "l": 63
+     },
+     {
+      "n": "delete",
+      "k": "func",
+      "l": 77
+     },
+     {
+      "n": "copy",
+      "k": "func",
+      "l": 86
+     },
+     {
+      "n": "move",
+      "k": "func",
+      "l": 96
+     },
+     {
+      "n": "File",
+      "k": "func",
+      "l": 99
+     },
+     {
+      "n": "_copyDir",
+      "k": "func",
+      "l": 106
+     },
+     {
+      "n": "memoryUsagePct",
+      "k": "func",
+      "l": 202
+     },
+     {
+      "n": "getPreviewData",
+      "k": "func",
+      "l": 219
+     },
+     {
+      "n": "minBytesAndLength",
+      "k": "func",
+      "l": 229
+     }
+    ],
+    "calls": [
+     [
+      "arquivo",
+      6
+     ],
+     [
+      "categoria",
+      17
+     ],
+     [
+      "ordena",
+      25
+     ],
+     [
+      "list",
+      26
+     ],
+     [
+      "Directory",
+      27
+     ],
+     [
+      "exists",
+      28
+     ],
+     [
+      "basename",
+      32
+     ],
+     [
+      "startsWith",
+      33
+     ],
+     [
+      "add",
+      35
+     ],
+     [
+      "fromEntity",
+      35
+     ],
+     [
+      "dirPath",
+      39
+     ],
+     [
+      "sort",
+      41
+     ],
+     [
+      "insert",
+      44
+     ],
+     [
+      "FileEntry",
+      46
+     ],
+     [
+      "now",
+      46
+     ],
+     [
+      "join",
+      53
+     ],
+     [
+      "create",
+      55
+     ],
+     [
+      "dirname",
+      65
+     ],
+     [
+      "type",
+      67
+     ],
+     [
+      "catchError",
+      99
+     ],
+     [
+      "recursivo",
+      119
+     ],
+     [
+      "dirSize",
+      122
+     ],
+     [
+      "truncate",
+      127
+     ],
+     [
+      "clamp",
+      128
+     ],
+     [
+      "length",
+      134
+     ],
+     [
+      "search",
+      142
+     ],
+     [
+      "toLowerCase",
+      143
+     ],
+     [
+      "contains",
+      148
+     ],
+     [
+      "byCategory",
+      161
+     ],
+     [
+      "lastIndexOf",
+      170
+     ],
+     [
+      "substring",
+      172
+     ],
+     [
+      "fileCountByCategory",
+      183
+     ],
+     [
+      "disponível",
+      201
+     ],
+     [
+      "run",
+      204
+     ],
+     [
+      "MemAvailable",
+      206
+     ],
+     [
+      "split",
+      207
+     ],
+     [
+      "firstWhere",
+      207
+     ],
+     [
+      "trim",
+      207
+     ],
+     [
+      "replaceAll",
+      207
+     ],
+     [
+      "parse",
+      209
+     ],
+     [
+      "imagem",
+      216
+     ],
+     [
+      "texto",
+      217
+     ],
+     [
+      "nativo",
+      220
+     ],
+     [
+      "NativeThumbnailService",
+      221
+     ],
+     [
+      "puro",
+      225
+     ],
+     [
+      "CacheThumbnailService",
+      226
+     ]
+    ],
+    "tops": [
+     "File",
+     "FileOpException",
+     "FileService",
+     "_copyDir",
+     "copy",
+     "createFile",
+     "createFolder",
+     "delete",
+     "getPreviewData",
+     "memoryUsagePct",
+     "minBytesAndLength",
+     "move",
+     "rename",
+     "toString"
+    ],
+    "caps": [],
+    "loc": 234,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/explorer/services/icon_cache.dart": {
+   "m": 1792089851,
+   "s": 3676,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.explorer.services.icon_cache",
+    "rel": "lib/features/explorer/services/icon_cache.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart"
+    ],
+    "externals": [
+     "dart:async",
+     "dart:typed_data",
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "iconFor",
+      "k": "func",
+      "l": 7
+     },
+     {
+      "n": "colorFor",
+      "k": "func",
+      "l": 18
+     },
+     {
+      "n": "PorteFileIcon",
+      "k": "class",
+      "l": 30
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 45
+     },
+     {
+      "n": "ClipRRect",
+      "k": "func",
+      "l": 58
+     },
+     {
+      "n": "_fallback",
+      "k": "func",
+      "l": 69
+     },
+     {
+      "n": "IconCache",
+      "k": "class",
+      "l": 78
+     },
+     {
+      "n": "get",
+      "k": "func",
+      "l": 86
+     },
+     {
+      "n": "put",
+      "k": "func",
+      "l": 88
+     },
+     {
+      "n": "putBytes",
+      "k": "func",
+      "l": 95
+     },
+     {
+      "n": "getBytes",
+      "k": "func",
+      "l": 100
+     },
+     {
+      "n": "invalidate",
+      "k": "func",
+      "l": 102
+     },
+     {
+      "n": "clear",
+      "k": "func",
+      "l": 108
+     },
+     {
+      "n": "_cleanIfNeeded",
+      "k": "func",
+      "l": 116
+     }
+    ],
+    "calls": [
+     [
+      "Color",
+      20
+     ],
+     [
+      "arquivo",
+      33
+     ],
+     [
+      "circular",
+      48
+     ],
+     [
+      "Image",
+      48
+     ],
+     [
+      "value",
+      52
+     ],
+     [
+      "File",
+      52
+     ],
+     [
+      "existsSync",
+      55
+     ],
+     [
+      "FileImage",
+      56
+     ],
+     [
+      "Icon",
+      70
+     ],
+     [
+      "now",
+      93
+     ],
+     [
+      "remove",
+      97
+     ],
+     [
+      "antigas",
+      115
+     ],
+     [
+      "where",
+      120
+     ],
+     [
+      "difference",
+      120
+     ],
+     [
+      "take",
+      121
+     ],
+     [
+      "map",
+      122
+     ],
+     [
+      "toList",
+      123
+     ]
+    ],
+    "tops": [
+     "ClipRRect",
+     "IconCache",
+     "PorteFileIcon",
+     "_cleanIfNeeded",
+     "_fallback",
+     "build",
+     "clear",
+     "colorFor",
+     "get",
+     "getBytes",
+     "iconFor",
+     "invalidate",
+     "put",
+     "putBytes"
+    ],
+    "caps": [],
+    "loc": 129,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/explorer/services/thumbnail_service.dart": {
+   "m": 1792092096,
+   "s": 4240,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.explorer.services.thumbnail_service",
+    "rel": "lib/features/explorer/services/thumbnail_service.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:path/path.dart"
+    ],
+    "externals": [
+     "dart:async",
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "ThumbnailService",
+      "k": "class",
+      "l": 9
+     },
+     {
+      "n": "CacheThumbnailService",
+      "k": "class",
+      "l": 19
+     },
+     {
+      "n": "getPreviewData",
+      "k": "func",
+      "l": 21
+     },
+     {
+      "n": "NativeThumbnailService",
+      "k": "class",
+      "l": 55
+     },
+     {
+      "n": "getPreviewData",
+      "k": "func",
+      "l": 57
+     },
+     {
+      "n": "_isVideoFile",
+      "k": "func",
+      "l": 75
+     },
+     {
+      "n": "_isImageFile",
+      "k": "func",
+      "l": 80
+     },
+     {
+      "n": "_tryFFmpegExtract",
+      "k": "func",
+      "l": 89
+     }
+    ],
+    "calls": [
+     [
+      "existente",
+      7
+     ],
+     [
+      "tipo",
+      11
+     ],
+     [
+      "extension",
+      22
+     ],
+     [
+      "toLowerCase",
+      22
+     ],
+     [
+      "File",
+      23
+     ],
+     [
+      "exists",
+      24
+     ],
+     [
+      "bytes",
+      26
+     ],
+     [
+      "contains",
+      27
+     ],
+     [
+      "readAsBytes",
+      29
+     ],
+     [
+      "sublist",
+      32
+     ],
+     [
+      "readAsString",
+      41
+     ],
+     [
+      "substring",
+      42
+     ],
+     [
+      "cache",
+      60
+     ],
+     [
+      "fallback",
+      71
+     ],
+     [
+      "miniatura",
+      88
+     ],
+     [
+      "run",
+      91
+     ]
+    ],
+    "tops": [
+     "CacheThumbnailService",
+     "NativeThumbnailService",
+     "ThumbnailService",
+     "_isImageFile",
+     "_isVideoFile",
+     "_tryFFmpegExtract",
+     "getPreviewData"
+    ],
+    "caps": [],
+    "loc": 113,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/security/lock_dialogs.dart": {
+   "m": 1792796415,
+   "s": 9033,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.security.lock_dialogs",
+    "rel": "lib/features/security/lock_dialogs.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "package:path/path.dart",
+     "../../core/theme/porte_colors.dart",
+     "lock_service.dart"
+    ],
+    "externals": [],
+    "defs": [
+     {
+      "n": "showUnlockGate",
+      "k": "func",
+      "l": 11
+     },
+     {
+      "n": "StatefulBuilder",
+      "k": "func",
+      "l": 18
+     },
+     {
+      "n": "Icon",
+      "k": "func",
+      "l": 24
+     },
+     {
+      "n": "setDState",
+      "k": "func",
+      "l": 50
+     },
+     {
+      "n": "SizedBox",
+      "k": "func",
+      "l": 59
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 69
+     },
+     {
+      "n": "setDState",
+      "k": "func",
+      "l": 74
+     },
+     {
+      "n": "showProtectPasswordDialog",
+      "k": "func",
+      "l": 89
+     },
+     {
+      "n": "_ProtectDialog",
+      "k": "class",
+      "l": 100
+     },
+     {
+      "n": "createState",
+      "k": "func",
+      "l": 105
+     },
+     {
+      "n": "_ProtectDialogState",
+      "k": "class",
+      "l": 107
+     },
+     {
+      "n": "_try",
+      "k": "func",
+      "l": 112
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 114
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 127
+     },
+     {
+      "n": "SizedBox",
+      "k": "func",
+      "l": 145
+     },
+     {
+      "n": "_field",
+      "k": "func",
+      "l": 156
+     },
+     {
+      "n": "_NewProtectedFolderDialog",
+      "k": "class",
+      "l": 170
+     },
+     {
+      "n": "createState",
+      "k": "func",
+      "l": 175
+     },
+     {
+      "n": "_NewProtectedFolderDialogState",
+      "k": "class",
+      "l": 177
+     },
+     {
+      "n": "_try",
+      "k": "func",
+      "l": 183
+     },
+     {
+      "n": "setState",
+      "k": "func",
+      "l": 186
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 201
+     },
+     {
+      "n": "AlertDialog",
+      "k": "func",
+      "l": 202
+     },
+     {
+      "n": "SizedBox",
+      "k": "func",
+      "l": 227
+     },
+     {
+      "n": "_pass",
+      "k": "func",
+      "l": 238
+     }
+    ],
+    "calls": [
+     [
+      "TextStyle",
+      7
+     ],
+     [
+      "TextEditingController",
+      16
+     ],
+     [
+      "RoundedRectangleBorder",
+      21
+     ],
+     [
+      "circular",
+      21
+     ],
+     [
+      "Row",
+      22
+     ],
+     [
+      "Text",
+      26
+     ],
+     [
+      "Column",
+      29
+     ],
+     [
+      "basename",
+      34
+     ],
+     [
+      "trimTrailingSep",
+      34
+     ],
+     [
+      "copyWith",
+      37
+     ],
+     [
+      "TextField",
+      40
+     ],
+     [
+      "verify",
+      47
+     ],
+     [
+      "pop",
+      48
+     ],
+     [
+      "InputDecoration",
+      53
+     ],
+     [
+      "senha",
+      87
+     ],
+     [
+      "devolve",
+      94
+     ],
+     [
+      "showNewProtectedFolderDialog",
+      95
+     ],
+     [
+      "trim",
+      185
+     ]
+    ],
+    "tops": [
+     "AlertDialog",
+     "Icon",
+     "SizedBox",
+     "StatefulBuilder",
+     "TextButton",
+     "_NewProtectedFolderDialog",
+     "_NewProtectedFolderDialogState",
+     "_ProtectDialog",
+     "_ProtectDialogState",
+     "_field",
+     "_pass",
+     "_try",
+     "build",
+     "createState",
+     "setDState",
+     "setState",
+     "showProtectPasswordDialog",
+     "showUnlockGate"
+    ],
+    "caps": [],
+    "loc": 251,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/security/lock_service.dart": {
+   "m": 1792796929,
+   "s": 5281,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.security.lock_service",
+    "rel": "lib/features/security/lock_service.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:crypto/crypto.dart",
+     "package:path/path.dart",
+     "package:path_provider/path_provider.dart"
+    ],
+    "externals": [
+     "dart:convert",
+     "dart:io",
+     "dart:math"
+    ],
+    "defs": [
+     {
+      "n": "LockService",
+      "k": "class",
+      "l": 18
+     },
+     {
+      "n": "load",
+      "k": "func",
+      "l": 30
+     },
+     {
+      "n": "blockedBy",
+      "k": "func",
+      "l": 49
+     },
+     {
+      "n": "isLocked",
+      "k": "func",
+      "l": 60
+     },
+     {
+      "n": "verify",
+      "k": "func",
+      "l": 64
+     },
+     {
+      "n": "protect",
+      "k": "func",
+      "l": 70
+     },
+     {
+      "n": "unprotect",
+      "k": "func",
+      "l": 78
+     },
+     {
+      "n": "rekey",
+      "k": "func",
+      "l": 84
+     },
+     {
+      "n": "_norm",
+      "k": "func",
+      "l": 101
+     },
+     {
+      "n": "trimTrailingSep",
+      "k": "func",
+      "l": 103
+     },
+     {
+      "n": "_storeFile",
+      "k": "func",
+      "l": 110
+     },
+     {
+      "n": "_save",
+      "k": "func",
+      "l": 121
+     },
+     {
+      "n": "_LockRecord",
+      "k": "class",
+      "l": 136
+     },
+     {
+      "n": "digest",
+      "k": "func",
+      "l": 151
+     },
+     {
+      "n": "matches",
+      "k": "func",
+      "l": 154
+     },
+     {
+      "n": "toMap",
+      "k": "func",
+      "l": 156
+     },
+     {
+      "n": "fromMap",
+      "k": "func",
+      "l": 158
+     }
+    ],
+    "calls": [
+     [
+      "senha",
+      9
+     ],
+     [
+      "sha256",
+      10
+     ],
+     [
+      "app",
+      11
+     ],
+     [
+      "protegidas",
+      13
+     ],
+     [
+      "MARTELOS",
+      17
+     ],
+     [
+      "disco",
+      28
+     ],
+     [
+      "protegido",
+      29
+     ],
+     [
+      "exists",
+      34
+     ],
+     [
+      "jsonDecode",
+      36
+     ],
+     [
+      "readAsString",
+      36
+     ],
+     [
+      "forEach",
+      38
+     ],
+     [
+      "from",
+      40
+     ],
+     [
+      "próximo",
+      48
+     ],
+     [
+      "isWithin",
+      54
+     ],
+     [
+      "containsKey",
+      61
+     ],
+     [
+      "fresh",
+      72
+     ],
+     [
+      "proteção",
+      77
+     ],
+     [
+      "remove",
+      79
+     ],
+     [
+      "movidas",
+      83
+     ],
+     [
+      "normalize",
+      93
+     ],
+     [
+      "join",
+      93
+     ],
+     [
+      "relative",
+      93
+     ],
+     [
+      "addAll",
+      96
+     ],
+     [
+      "endsWith",
+      105
+     ],
+     [
+      "substring",
+      106
+     ],
+     [
+      "File",
+      114
+     ],
+     [
+      "getApplicationSupportDirectory",
+      115
+     ],
+     [
+      "create",
+      126
+     ],
+     [
+      "writeAsString",
+      128
+     ],
+     [
+      "jsonEncode",
+      128
+     ],
+     [
+      "rename",
+      132
+     ],
+     [
+      "secure",
+      143
+     ],
+     [
+      "generate",
+      146
+     ],
+     [
+      "nextInt",
+      146
+     ],
+     [
+      "map",
+      147
+     ],
+     [
+      "toRadixString",
+      147
+     ],
+     [
+      "padLeft",
+      147
+     ],
+     [
+      "convert",
+      153
+     ],
+     [
+      "encode",
+      153
+     ],
+     [
+      "toString",
+      153
+     ]
+    ],
+    "tops": [
+     "LockService",
+     "_LockRecord",
+     "_norm",
+     "_save",
+     "_storeFile",
+     "blockedBy",
+     "digest",
+     "fromMap",
+     "isLocked",
+     "load",
+     "matches",
+     "protect",
+     "rekey",
+     "toMap",
+     "trimTrailingSep",
+     "unprotect",
+     "verify"
+    ],
+    "caps": [],
+    "loc": 166,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/terminal/terminal_dialogs.dart": {
+   "m": 1792071831,
+   "s": 4796,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.terminal.terminal_dialogs",
+    "rel": "lib/features/terminal/terminal_dialogs.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "package:flutter/services.dart",
+     "terminal_service.dart"
+    ],
+    "externals": [],
+    "defs": [
+     {
+      "n": "handleTerminalRequest",
+      "k": "func",
+      "l": 9
+     },
+     {
+      "n": "showDialog",
+      "k": "func",
+      "l": 36
+     },
+     {
+      "n": "Text",
+      "k": "func",
+      "l": 45
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 69
+     },
+     {
+      "n": "showDialog",
+      "k": "func",
+      "l": 90
+     },
+     {
+      "n": "Text",
+      "k": "func",
+      "l": 99
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 121
+     },
+     {
+      "n": "TextButton",
+      "k": "func",
+      "l": 128
+     }
+    ],
+    "calls": [
+     [
+      "Termux",
+      5
+     ],
+     [
+      "TerminalService",
+      10
+     ],
+     [
+      "openTerminal",
+      11
+     ],
+     [
+      "showTerminalFailure",
+      14
+     ],
+     [
+      "waitForVerdict",
+      17
+     ],
+     [
+      "of",
+      24
+     ],
+     [
+      "showSnackBar",
+      24
+     ],
+     [
+      "SnackBar",
+      25
+     ],
+     [
+      "showTerminalNoVerdict",
+      29
+     ],
+     [
+      "AlertDialog",
+      38
+     ],
+     [
+      "SingleChildScrollView",
+      40
+     ],
+     [
+      "Column",
+      41
+     ],
+     [
+      "SizedBox",
+      46
+     ],
+     [
+      "SelectableText",
+      47
+     ],
+     [
+      "Irrestrita",
+      51
+     ],
+     [
+      "launchTermuxApp",
+      60
+     ],
+     [
+      "pop",
+      69
+     ],
+     [
+      "COPIAR",
+      76
+     ],
+     [
+      "TERMUX",
+      76
+     ],
+     [
+      "novo",
+      104
+     ],
+     [
+      "setData",
+      123
+     ],
+     [
+      "ClipboardData",
+      123
+     ]
+    ],
+    "tops": [
+     "Text",
+     "TextButton",
+     "handleTerminalRequest",
+     "showDialog"
+    ],
+    "caps": [],
+    "loc": 133,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/features/terminal/terminal_service.dart": {
+   "m": 1792077066,
+   "s": 7029,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.features.terminal.terminal_service",
+    "rel": "lib/features/terminal/terminal_service.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/foundation.dart",
+     "package:flutter/services.dart",
+     "package:url_launcher/url_launcher.dart"
+    ],
+    "externals": [
+     "dart:async",
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "TerminalOutcome",
+      "k": "class",
+      "l": 9
+     },
+     {
+      "n": "TerminalResult",
+      "k": "class",
+      "l": 18
+     },
+     {
+      "n": "TerminalService",
+      "k": "class",
+      "l": 38
+     },
+     {
+      "n": "_ensureHandler",
+      "k": "func",
+      "l": 42
+     },
+     {
+      "n": "openTerminal",
+      "k": "func",
+      "l": 59
+     },
+     {
+      "n": "_openAndroid",
+      "k": "func",
+      "l": 71
+     },
+     {
+      "n": "launchTermuxApp",
+      "k": "func",
+      "l": 97
+     },
+     {
+      "n": "_openStoreFallback",
+      "k": "func",
+      "l": 125
+     },
+     {
+      "n": "_openDesktop",
+      "k": "func",
+      "l": 137
+     },
+     {
+      "n": "unawaited",
+      "k": "func",
+      "l": 152
+     },
+     {
+      "n": "terminalVerdictFromMap",
+      "k": "func",
+      "l": 164
+     }
+    ],
+    "calls": [
+     [
+      "técnico",
+      8
+     ],
+     [
+      "interface",
+      17
+     ],
+     [
+      "aparelho",
+      22
+     ],
+     [
+      "disparo",
+      25
+     ],
+     [
+      "falha",
+      28
+     ],
+     [
+      "MethodChannel",
+      34
+     ],
+     [
+      "setMethodCallHandler",
+      46
+     ],
+     [
+      "complete",
+      51
+     ],
+     [
+      "from",
+      51
+     ],
+     [
+      "encontrado",
+      65
+     ],
+     [
+      "indexOf",
+      78
+     ],
+     [
+      "substring",
+      79
+     ],
+     [
+      "trim",
+      79
+     ],
+     [
+      "debugPrint",
+      89
+     ],
+     [
+      "Termux",
+      94
+     ],
+     [
+      "timeout",
+      109
+     ],
+     [
+      "waitForVerdict",
+      110
+     ],
+     [
+      "Duration",
+      110
+     ],
+     [
+      "launchUrl",
+      127
+     ],
+     [
+      "parse",
+      127
+     ],
+     [
+      "Desktop",
+      136
+     ],
+     [
+      "sublist",
+      148
+     ],
+     [
+      "start",
+      149
+     ],
+     [
+      "catchError",
+      152
+     ],
+     [
+      "pura",
+      163
+     ],
+     [
+      "resultado",
+      168
+     ],
+     [
+      "toInt",
+      171
+     ],
+     [
+      "toString",
+      173
+     ],
+     [
+      "ok",
+      175
+     ]
+    ],
+    "tops": [
+     "TerminalOutcome",
+     "TerminalResult",
+     "TerminalService",
+     "_ensureHandler",
+     "_openAndroid",
+     "_openDesktop",
+     "_openStoreFallback",
+     "launchTermuxApp",
+     "openTerminal",
+     "terminalVerdictFromMap",
+     "unawaited"
+    ],
+    "caps": [],
+    "loc": 182,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "lib/main.dart": {
+   "m": 1792036341,
+   "s": 2255,
+   "lang": "dart",
+   "rec": {
+    "id": "lib.main",
+    "rel": "lib/main.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter/material.dart",
+     "core/theme/porte_colors.dart",
+     "core/theme/porte_theme.dart",
+     "features/explorer/presentation/explorer_page.dart"
+    ],
+    "externals": [
+     "dart:async"
+    ],
+    "defs": [
+     {
+      "n": "main",
+      "k": "func",
+      "l": 6
+     },
+     {
+      "n": "runZonedGuarded",
+      "k": "func",
+      "l": 8
+     },
+     {
+      "n": "PorteApp",
+      "k": "class",
+      "l": 18
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 23
+     },
+     {
+      "n": "PorteCrashScreen",
+      "k": "class",
+      "l": 35
+     },
+     {
+      "n": "build",
+      "k": "func",
+      "l": 40
+     }
+    ],
+    "calls": [
+     [
+      "presentError",
+      10
+     ],
+     [
+      "toString",
+      12
+     ],
+     [
+      "runApp",
+      13
+     ],
+     [
+      "debugPrint",
+      15
+     ],
+     [
+      "MaterialApp",
+      24
+     ],
+     [
+      "buildPorteTheme",
+      27
+     ],
+     [
+      "ExplorerPage",
+      28
+     ],
+     [
+      "legível",
+      33
+     ],
+     [
+      "reportar",
+      34
+     ],
+     [
+      "Scaffold",
+      42
+     ],
+     [
+      "Padding",
+      44
+     ],
+     [
+      "all",
+      45
+     ],
+     [
+      "Column",
+      46
+     ],
+     [
+      "Text",
+      50
+     ],
+     [
+      "TextStyle",
+      52
+     ],
+     [
+      "SizedBox",
+      54
+     ],
+     [
+      "Expanded",
+      55
+     ],
+     [
+      "SingleChildScrollView",
+      56
+     ],
+     [
+      "SelectableText",
+      57
+     ]
+    ],
+    "tops": [
+     "PorteApp",
+     "PorteCrashScreen",
+     "build",
+     "main",
+     "runZonedGuarded"
+    ],
+    "caps": [],
+    "loc": 72,
+    "todos": [],
+    "entry": true,
+    "pkg": ""
+   }
+  },
+  "linux/flutter/generated_plugin_registrant.cc": {
+   "m": 1792032366,
+   "s": 434,
+   "lang": "c",
+   "rec": {
+    "id": "linux.flutter.generated_plugin_registrant",
+    "rel": "linux/flutter/generated_plugin_registrant.cc",
+    "lang": "c",
+    "imports_raw": [
+     "generated_plugin_registrant.h"
+    ],
+    "externals": [
+     "<url_launcher_linux/url_launcher_plugin.h>"
+    ],
+    "defs": [
+     {
+      "n": "fl_register_plugins",
+      "k": "func",
+      "l": 11
+     }
+    ],
+    "calls": [
+     [
+      "g_autoptr",
+      12
+     ],
+     [
+      "fl_plugin_registry_get_registrar_for_plugin",
+      13
+     ],
+     [
+      "url_launcher_plugin_register_with_registrar",
+      14
+     ]
+    ],
+    "tops": [
+     "fl_register_plugins"
+    ],
+    "caps": [],
+    "loc": 16,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "linux/flutter/generated_plugin_registrant.h": {
+   "m": 1792032119,
+   "s": 303,
+   "lang": "c",
+   "rec": {
+    "id": "linux.flutter.generated_plugin_registrant~2",
+    "rel": "linux/flutter/generated_plugin_registrant.h",
+    "lang": "c",
+    "imports_raw": [],
+    "externals": [
+     "<flutter_linux/flutter_linux.h>"
+    ],
+    "defs": [],
+    "calls": [],
+    "tops": [],
+    "caps": [],
+    "loc": 16,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "linux/runner/main.cc": {
+   "m": 1792032115,
+   "s": 180,
+   "lang": "c",
+   "rec": {
+    "id": "linux.runner.main",
+    "rel": "linux/runner/main.cc",
+    "lang": "c",
+    "imports_raw": [
+     "my_application.h"
+    ],
+    "externals": [],
+    "defs": [
+     {
+      "n": "main",
+      "k": "func",
+      "l": 3
+     }
+    ],
+    "calls": [
+     [
+      "g_autoptr",
+      4
+     ],
+     [
+      "my_application_new",
+      4
+     ],
+     [
+      "g_application_run",
+      5
+     ],
+     [
+      "G_APPLICATION",
+      5
+     ]
+    ],
+    "tops": [
+     "main"
+    ],
+    "caps": [],
+    "loc": 7,
+    "todos": [],
+    "entry": true,
+    "pkg": ""
+   }
+  },
+  "linux/runner/my_application.cc": {
+   "m": 1792032115,
+   "s": 5449,
+   "lang": "c",
+   "rec": {
+    "id": "linux.runner.my_application",
+    "rel": "linux/runner/my_application.cc",
+    "lang": "c",
+    "imports_raw": [
+     "my_application.h",
+     "flutter/generated_plugin_registrant.h"
+    ],
+    "externals": [
+     "<flutter_linux/flutter_linux.h>",
+     "<gdk/gdkx.h>"
+    ],
+    "defs": [
+     {
+      "n": "first_frame_cb",
+      "k": "func",
+      "l": 18
+     },
+     {
+      "n": "my_application_activate",
+      "k": "func",
+      "l": 23
+     },
+     {
+      "n": "my_application_local_command_line",
+      "k": "func",
+      "l": 82
+     },
+     {
+      "n": "my_application_startup",
+      "k": "func",
+      "l": 103
+     },
+     {
+      "n": "my_application_shutdown",
+      "k": "func",
+      "l": 112
+     },
+     {
+      "n": "my_application_dispose",
+      "k": "func",
+      "l": 121
+     },
+     {
+      "n": "my_application_class_init",
+      "k": "func",
+      "l": 127
+     },
+     {
+      "n": "my_application_init",
+      "k": "func",
+      "l": 136
+     },
+     {
+      "n": "my_application_new",
+      "k": "func",
+      "l": 138
+     }
+    ],
+    "calls": [
+     [
+      "G_DEFINE_TYPE",
+      15
+     ],
+     [
+      "gtk_widget_show",
+      19
+     ],
+     [
+      "gtk_widget_get_toplevel",
+      19
+     ],
+     [
+      "GTK_WIDGET",
+      19
+     ],
+     [
+      "MY_APPLICATION",
+      24
+     ],
+     [
+      "GTK_WINDOW",
+      26
+     ],
+     [
+      "gtk_application_window_new",
+      26
+     ],
+     [
+      "GTK_APPLICATION",
+      26
+     ],
+     [
+      "using",
+      29
+     ],
+     [
+      "work",
+      33
+     ],
+     [
+      "gtk_window_get_screen",
+      37
+     ],
+     [
+      "GDK_IS_X11_SCREEN",
+      38
+     ],
+     [
+      "gdk_x11_screen_get_window_manager_name",
+      39
+     ],
+     [
+      "g_strcmp0",
+      40
+     ],
+     [
+      "GTK_HEADER_BAR",
+      46
+     ],
+     [
+      "gtk_header_bar_new",
+      46
+     ],
+     [
+      "gtk_header_bar_set_title",
+      48
+     ],
+     [
+      "gtk_header_bar_set_show_close_button",
+      49
+     ],
+     [
+      "gtk_window_set_titlebar",
+      50
+     ],
+     [
+      "gtk_window_set_title",
+      52
+     ],
+     [
+      "gtk_window_set_default_size",
+      55
+     ],
+     [
+      "g_autoptr",
+      57
+     ],
+     [
+      "fl_dart_project_new",
+      57
+     ],
+     [
+      "fl_dart_project_set_dart_entrypoint_arguments",
+      58
+     ],
+     [
+      "fl_view_new",
+      61
+     ],
+     [
+      "gdk_rgba_parse",
+      65
+     ],
+     [
+      "fl_view_set_background_color",
+      66
+     ],
+     [
+      "gtk_container_add",
+      68
+     ],
+     [
+      "GTK_CONTAINER",
+      68
+     ],
+     [
+      "g_signal_connect_swapped",
+      72
+     ],
+     [
+      "G_CALLBACK",
+      72
+     ],
+     [
+      "gtk_widget_realize",
+      74
+     ],
+     [
+      "fl_register_plugins",
+      76
+     ],
+     [
+      "FL_PLUGIN_REGISTRY",
+      76
+     ],
+     [
+      "gtk_widget_grab_focus",
+      78
+     ],
+     [
+      "g_strdupv",
+      87
+     ],
+     [
+      "g_application_register",
+      90
+     ],
+     [
+      "g_warning",
+      91
+     ],
+     [
+      "g_application_activate",
+      96
+     ],
+     [
+      "G_APPLICATION_CLASS",
+      108
+     ],
+     [
+      "startup",
+      108
+     ],
+     [
+      "shutdown",
+      117
+     ],
+     [
+      "g_clear_pointer",
+      123
+     ],
+     [
+      "G_OBJECT_CLASS",
+      124
+     ],
+     [
+      "dispose",
+      124
+     ],
+     [
+      "g_set_prgname",
+      143
+     ],
+     [
+      "g_object_new",
+      145
+     ],
+     [
+      "my_application_get_type",
+      145
+     ]
+    ],
+    "tops": [
+     "first_frame_cb",
+     "my_application_activate",
+     "my_application_class_init",
+     "my_application_dispose",
+     "my_application_init",
+     "my_application_local_command_line",
+     "my_application_new",
+     "my_application_shutdown",
+     "my_application_startup"
+    ],
+    "caps": [],
+    "loc": 149,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "linux/runner/my_application.h": {
+   "m": 1792032115,
+   "s": 451,
+   "lang": "c",
+   "rec": {
+    "id": "linux.runner.my_application~2",
+    "rel": "linux/runner/my_application.h",
+    "lang": "c",
+    "imports_raw": [],
+    "externals": [
+     "<gtk/gtk.h>"
+    ],
+    "defs": [],
+    "calls": [],
+    "tops": [],
+    "caps": [],
+    "loc": 22,
+    "todos": [],
+    "entry": false,
+    "pkg": ""
+   }
+  },
+  "test/lock_service_test.dart": {
+   "m": 1792796530,
+   "s": 3457,
+   "lang": "dart",
+   "rec": {
+    "id": "test.lock_service_test",
+    "rel": "test/lock_service_test.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter_test/flutter_test.dart",
+     "package:path/path.dart",
+     "package:porte/features/security/lock_service.dart"
+    ],
+    "externals": [
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "main",
+      "k": "func",
+      "l": 6
+     },
+     {
+      "n": "setUp",
+      "k": "func",
+      "l": 9
+     },
+     {
+      "n": "tearDown",
+      "k": "func",
+      "l": 13
+     },
+     {
+      "n": "make",
+      "k": "func",
+      "l": 17
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 19
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 31
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 39
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 52
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 66
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 77
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 96
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 106
+     }
+    ],
+    "calls": [
+     [
+      "createTemp",
+      11
+     ],
+     [
+      "delete",
+      15
+     ],
+     [
+      "LockService",
+      18
+     ],
+     [
+      "join",
+      18
+     ],
+     [
+      "load",
+      22
+     ],
+     [
+      "expect",
+      24
+     ],
+     [
+      "isLocked",
+      24
+     ],
+     [
+      "protect",
+      26
+     ],
+     [
+      "verify",
+      28
+     ],
+     [
+      "instâncias",
+      40
+     ],
+     [
+      "blockedBy",
+      59
+     ],
+     [
+      "unprotect",
+      74
+     ],
+     [
+      "rekey",
+      87
+     ],
+     [
+      "idempotente",
+      97
+     ],
+     [
+      "explode",
+      107
+     ],
+     [
+      "File",
+      108
+     ],
+     [
+      "writeAsString",
+      108
+     ]
+    ],
+    "tops": [
+     "main",
+     "make",
+     "setUp",
+     "tearDown",
+     "test"
+    ],
+    "caps": [],
+    "loc": 114,
+    "todos": [],
+    "entry": true,
+    "pkg": ""
+   }
+  },
+  "test/martelos_service_test.dart": {
+   "m": 1792290544,
+   "s": 7407,
+   "lang": "dart",
+   "rec": {
+    "id": "test.martelos_service_test",
+    "rel": "test/martelos_service_test.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter_test/flutter_test.dart",
+     "package:porte/features/crypto/martelos_service.dart"
+    ],
+    "externals": [
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "main",
+      "k": "func",
+      "l": 9
+     },
+     {
+      "n": "group",
+      "k": "func",
+      "l": 17
+     },
+     {
+      "n": "setUp",
+      "k": "func",
+      "l": 21
+     },
+     {
+      "n": "tearDown",
+      "k": "func",
+      "l": 27
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 31
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 81
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 100
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 126
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 145
+     },
+     {
+      "n": "_bmpFalso",
+      "k": "func",
+      "l": 172
+     }
+    ],
+    "calls": [
+     [
+      "real",
+      5
+     ],
+     [
+      "pulado",
+      8
+     ],
+     [
+      "fromUri",
+      10
+     ],
+     [
+      "parse",
+      10
+     ],
+     [
+      "endsWith",
+      11
+     ],
+     [
+      "File",
+      12
+     ],
+     [
+      "existsSync",
+      14
+     ],
+     [
+      "MartelosService",
+      18
+     ],
+     [
+      "createTempSync",
+      23
+     ],
+     [
+      "writeAsStringSync",
+      25
+     ],
+     [
+      "now",
+      25
+     ],
+     [
+      "deleteSync",
+      29
+     ],
+     [
+      "senhas",
+      32
+     ],
+     [
+      "process",
+      36
+     ],
+     [
+      "readAsStringSync",
+      42
+     ],
+     [
+      "expect",
+      43
+     ],
+     [
+      "lengthSync",
+      47
+     ],
+     [
+      "greaterThan",
+      47
+     ],
+     [
+      "original",
+      61
+     ],
+     [
+      "toList",
+      65
+     ],
+     [
+      "Timeout",
+      80
+     ],
+     [
+      "Duration",
+      80
+     ],
+     [
+      "senha",
+      82
+     ],
+     [
+      "PATH",
+      101
+     ],
+     [
+      "FALHA",
+      127
+     ],
+     [
+      "ffmpeg",
+      130
+     ],
+     [
+      "writeAsBytesSync",
+      132
+     ],
+     [
+      "filled",
+      132
+     ],
+     [
+      "concluir",
+      141
+     ],
+     [
+      "honrado",
+      146
+     ]
+    ],
+    "tops": [
+     "_bmpFalso",
+     "group",
+     "main",
+     "setUp",
+     "tearDown",
+     "test"
+    ],
+    "caps": [],
+    "loc": 178,
+    "todos": [],
+    "entry": true,
+    "pkg": ""
+   }
+  },
+  "test/widget_test.dart": {
+   "m": 1792077139,
+   "s": 3103,
+   "lang": "dart",
+   "rec": {
+    "id": "test.widget_test",
+    "rel": "test/widget_test.dart",
+    "lang": "dart",
+    "imports_raw": [
+     "package:flutter_test/flutter_test.dart",
+     "package:porte/main.dart",
+     "package:porte/features/explorer/services/file_service.dart",
+     "package:porte/features/explorer/domain/file_entry.dart",
+     "package:porte/features/terminal/terminal_service.dart"
+    ],
+    "externals": [
+     "dart:io"
+    ],
+    "defs": [
+     {
+      "n": "main",
+      "k": "func",
+      "l": 8
+     },
+     {
+      "n": "testWidgets",
+      "k": "func",
+      "l": 10
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 15
+     },
+     {
+      "n": "e",
+      "k": "func",
+      "l": 17
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 30
+     },
+     {
+      "n": "expect",
+      "k": "func",
+      "l": 37
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 44
+     },
+     {
+      "n": "expect",
+      "k": "func",
+      "l": 53
+     },
+     {
+      "n": "expect",
+      "k": "func",
+      "l": 54
+     },
+     {
+      "n": "expect",
+      "k": "func",
+      "l": 56
+     },
+     {
+      "n": "test",
+      "k": "func",
+      "l": 65
+     }
+    ],
+    "calls": [
+     [
+      "pumpWidget",
+      11
+     ],
+     [
+      "PorteApp",
+      11
+     ],
+     [
+      "pump",
+      12
+     ],
+     [
+      "textContaining",
+      13
+     ],
+     [
+      "FileEntry",
+      17
+     ],
+     [
+      "DateTime",
+      22
+     ],
+     [
+      "split",
+      23
+     ],
+     [
+      "FileService",
+      32
+     ],
+     [
+      "createTempSync",
+      33
+     ],
+     [
+      "createFolder",
+      35
+     ],
+     [
+      "list",
+      36
+     ],
+     [
+      "any",
+      37
+     ],
+     [
+      "rename",
+      38
+     ],
+     [
+      "delete",
+      39
+     ],
+     [
+      "File",
+      49
+     ],
+     [
+      "writeAsBytes",
+      49
+     ],
+     [
+      "byCategory",
+      52
+     ],
+     [
+      "map",
+      53
+     ],
+     [
+      "contains",
+      53
+     ],
+     [
+      "isNot",
+      54
+     ],
+     [
+      "teste",
+      64
+     ],
+     [
+      "terminalVerdictFromMap",
+      66
+     ]
+    ],
+    "tops": [
+     "e",
+     "expect",
+     "main",
+     "test",
+     "testWidgets"
+    ],
+    "caps": [],
+    "loc": 80,
+    "todos": [],
+    "entry": true,
+    "pkg": ""
+   }
+  }
+ },
+ "meta": {
+  "root": "/home/tiagorabelo/porte/app",
+  "files": 37,
+  "edges": 66,
+  "call_edges": 128,
+  "files_reused": 0,
+  "git_changed": 2,
+  "langs": [
+   "c",
+   "dart",
+   "java",
+   "kotlin"
+  ],
+  "supported": ".py, .c, .h, .cpp, .hpp, .cc, .cxx, .dart, .rs, .js, .jsx, .ts, .tsx, .java, .go, .cs, .kt",
+  "fallback": false,
+  "generic_truncated": false,
+  "generated_in_s": 1.68,
+  "full_rescan": true,
+  "out": "/home/tiagorabelo/porte/app/.astos",
+  "scanned_at": "2026-10-24T01:16:32+00:00"
+ }
+}

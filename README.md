@@ -29,9 +29,11 @@ flutter run          # Android/Linux
 
 ## Releases de teste (calma, passo a passo)
 
-Versão atual: **0.2.5** — fix: motor arm64/arm32 do APK com o patch completo de descoberta de
-`libffmpeg.so` (a v0.2.4 saiu com o arm64 desatualizado) + preflight que valida o ffmpeg embutido
-antes de rodar e explica o problema real se faltar.
+Versão atual: **0.3.0** — novidade: pastas protegidas por senha. Cadeado nas pastas
+protegidas, pedido de senha ao entrar (inclusive subpastas via PathBar/busca),
+"Criar pasta protegida" no botão + e "Proteger com senha" no menu de contexto.
+Proteção é barreira de UI (senha + salt em arquivo privado do app) — criptografia
+real de conteúdo segue no cofre/MARTELOS.
 
 ```bash
 git tag v0.2.1
