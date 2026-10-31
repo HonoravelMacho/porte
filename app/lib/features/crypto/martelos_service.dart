@@ -215,9 +215,14 @@ class MartelosService {
       }
       // Primeira linha com "[❌ ...]" (e continuação indentada) explica a falha real.
       final falha = RegExp(r'\[❌\][^\n]*(?:\n    [^\n]*)*').firstMatch(detalhes);
+      final explicacao = falha?.group(0)?.replaceAll('\n', '  ');
       return MartelosResult(
         ok: false,
-        message: falha?.group(0)?.replaceAll('\n', '  ') ?? 'Falha no motor martelos (exit ${result.exitCode}).',
+        message: explicacao ??
+            (detalhes.isNotEmpty
+                ? 'Falha no motor martelos (exit ${result.exitCode}): '
+                    '${detalhes.length > 300 ? '${detalhes.substring(0, 300)}…' : detalhes}'
+                : 'Falha no motor martelos (exit ${result.exitCode}).'),
         details: detalhes,
       );
     } on ProcessException catch (e) {
@@ -280,7 +285,7 @@ Future<MartelosResult?> showMartelosDialog({
   final ncSenhas = TextEditingController(text: '1');
   final ctrlSaida = TextEditingController();
   String constante = _constantes.first;
-  MartelosAlvo alvo = _alvoSugerido(inputPath, encrypt);
+  MartelosAlvo alvo = alvoPorCaminho(inputPath, encrypt);
   int qtd = 1;
   List<TextEditingController> passCtrls = [
     TextEditingController(),
@@ -490,16 +495,28 @@ Future<MartelosResult?> showMartelosDialog({
   return result;
 }
 
-/// Sugere um alvo pela extensão do arquivo escolhido.
-MartelosAlvo _alvoSugerido(String path, bool encrypt) {
-  if (encrypt) return MartelosAlvo.arquivo;
-  // Na descriptografia, o arquivo pode ser um .martelos ou um artefato de chiado.
+/// Sugere o alvo pela extensão do arquivo — ao CRIPTOGRAFAR e ao
+/// DESCRIPTOGRAFAR.
+///
+/// - Cripto: uma foto/áudio/vídeo entra direto no modo de transmutação
+///   (imagem/audio/video); qualquer outra coisa no modo genérico (-m).
+/// - Descripto: artefatos de chiado (.bmp/.wav/.avi) voltam pelo mesmo alvo
+///   usado na criptografia; .martelos e o resto vão no modo genérico (o
+///   cabeçalho do motor recupera o nome e a extensão originais).
+/// O usuário pode trocar o alvo no dropdown do dialog.
+MartelosAlvo alvoPorCaminho(String path, bool encrypt) {
   final e = p.extension(path).toLowerCase();
-  final e2 = e == '.martelos' || e == ''
-      ? p.extension(p.basenameWithoutExtension(path)).toLowerCase()
-      : e;
-  if (e2 == '.bmp') return MartelosAlvo.imagem;
-  if (e2 == '.wav') return MartelosAlvo.audio;
-  if (e2 == '.avi') return MartelosAlvo.video;
+  if (encrypt) {
+    const imagens = {'.bmp', '.jpg', '.jpeg', '.png', '.gif', '.webp'};
+    const audios = {'.wav', '.mp3', '.flac', '.ogg', '.m4a', '.aac', '.opus'};
+    const videos = {'.avi', '.mp4', '.mkv', '.mov', '.webm', '.3gp'};
+    if (imagens.contains(e)) return MartelosAlvo.imagem;
+    if (audios.contains(e)) return MartelosAlvo.audio;
+    if (videos.contains(e)) return MartelosAlvo.video;
+    return MartelosAlvo.arquivo;
+  }
+  if (e == '.bmp') return MartelosAlvo.imagem;
+  if (e == '.wav') return MartelosAlvo.audio;
+  if (e == '.avi') return MartelosAlvo.video;
   return MartelosAlvo.arquivo;
 }

@@ -29,11 +29,22 @@ flutter run          # Android/Linux
 
 ## Releases de teste (calma, passo a passo)
 
-Versão atual: **0.3.0** — novidade: pastas protegidas por senha. Cadeado nas pastas
-protegidas, pedido de senha ao entrar (inclusive subpastas via PathBar/busca),
-"Criar pasta protegida" no botão + e "Proteger com senha" no menu de contexto.
-Proteção é barreira de UI (senha + salt em arquivo privado do app) — criptografia
-real de conteúdo segue no cofre/MARTELOS.
+Versão atual: **0.3.4** — novidades:
+
+- 0.3.0 trouxe pastas protegidas por senha: cadeado nas pastas protegidas,
+  pedido de senha ao entrar (inclusive subpastas via PathBar/busca), "Criar
+  pasta protegida" no botão + e "Proteger com senha" no menu de contexto.
+
+- **M.A.R.T.E.L.O.S. de imagem/áudio/vídeo dentro do app** (bug de navegação nas
+  categorias corrigido: IMAGENS agora abre diretamente a câmera/Pictures e
+  AUDIO/VÍDEO/DOCUMENTOS/PACOTES acham suas pastas no Android).
+- Ao criptografar, o dialog M.A.R.T.E.L.O.S. já sugere o alvo pela extensão
+  (foto → imagem, música → audio, vídeo → video); artefatos de chiado (.bmp/
+  .wav/.avi) sugerem o mesmo alvo na descriptografia.
+- Diagnóstico de falhas do motor exibido direto no aviso do app.
+- Motor M.A.R.T.E.L.O.S. **v6.3.7** embutido em todas as ABIs (arm64 e x86_64
+  já com ffmpeg/ffprobe; armeabi-v7a segue sem ffmpeg — o modo genérico de
+  arquivo funciona normal).
 
 ```bash
 git tag v0.2.1

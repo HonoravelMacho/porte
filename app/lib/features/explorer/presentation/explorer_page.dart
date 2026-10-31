@@ -419,7 +419,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
     // Categorias com navegação automática para pastas de mídia típicas
     if (key == 'imagens') {
       // Tenta DCIM/Camera primeiro, depois Pictures, depois root/DCIM
-      for (final d in ['${home}sepDCIM${sep}Camera', '${home}sepPictures', home]) {
+      for (final d in ['$home${sep}DCIM${sep}Camera', '$home${sep}Pictures', home]) {
         final directory = Directory(d);
         if (await directory.exists()) {
           _navigate(d);
@@ -435,7 +435,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
     }
     if (key == 'audio') {
       // Tenta pastas de áudio típicas
-      for (final d in ['${home}sepMusic', '${home}sepAudio', '${home}sepMP3']) {
+      for (final d in ['$home${sep}Music', '$home${sep}Audio', '$home${sep}MP3']) {
         final directory = Directory(d);
         if (await directory.exists()) {
           _navigate(d);
@@ -451,7 +451,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
     }
     if (key == 'video') {
       // Tenta pastas de vídeo típicas
-      for (final d in ['${home}sepVideo', '${home}sepMovies']) {
+      for (final d in ['$home${sep}Video', '$home${sep}Movies']) {
         final directory = Directory(d);
         if (await directory.exists()) {
           _navigate(d);
@@ -467,7 +467,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
     }
     if (key == 'docs') {
       // Tenta pastas de documentos
-      for (final d in ['${home}sepDocs', '${home}sepDocuments']) {
+      for (final d in ['$home${sep}Docs', '$home${sep}Documents']) {
         final directory = Directory(d);
         if (await directory.exists()) {
           _navigate(d);
@@ -483,7 +483,7 @@ class _ExplorerPageState extends State<ExplorerPage> {
     }
     if (key == 'pacotes') {
       // Tenta pastas de pacotes/APKs
-      for (final d in ['${home}sepDownload', '${home}sepApk']) {
+      for (final d in ['$home${sep}Download', '$home${sep}Apk']) {
         final directory = Directory(d);
         if (await directory.exists()) {
           _navigate(d);

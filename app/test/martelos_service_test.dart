@@ -15,6 +15,18 @@ void main() {
   if (motor != null) MartelosService.debugBinaryPath = motor.path;
   final ciSemMotor = motor == null;
 
+  // Modos de mídia (imagem/audio/video) exigem ffmpeg+ffprobe executáveis.
+  bool temProg(String prog) {
+    try {
+      final r = Process.runSync('which', [prog]);
+      return r.exitCode == 0 && (r.stdout as String).trim().isNotEmpty;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  final temFfmpeg = temProg('ffmpeg') && temProg('ffprobe');
+
   group('MartelosService (motor real)', () {
     late Directory tmp;
     late File entrada;
@@ -165,7 +177,61 @@ void main() {
       expect(d.ok, isTrue, reason: 'detalhes: ${d.details}');
       expect(File(d.outputPath ?? '').readAsStringSync(), orig);
     }, timeout: const Timeout(Duration(minutes: 2)));
+
+    test('roundtrip IMAGEM (png -> .bmp de chiado -> _fix.bmp)', () async {
+      if (ciSemMotor || !temFfmpeg) return;
+      // Fixture real e determinístico, commitado no repositório.
+      final fixture = Directory.current.path.endsWith('/app')
+          ? File('${Directory.current.path}/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png')
+          : File('${Directory.current.path}/app/android/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png');
+      if (!fixture.existsSync()) return;
+      final copia = File('${tmp.path}/icone_porte.png');
+      copia.writeAsBytesSync(fixture.readAsBytesSync());
+
+      final c = await MartelosService.process(
+        inputPath: copia.path,
+        encrypt: true,
+        passphrases: ['abc'],
+        constante: 'pi',
+        alvo: MartelosAlvo.imagem,
+      );
+      expect(c.ok, isTrue, reason: 'cripto imagem: ${c.details ?? c.message}');
+      final glitch = File(c.outputPath ?? '');
+      expect(glitch.existsSync(), isTrue);
+      expect(glitch.path.endsWith('_glitch.bmp'), isTrue, reason: 'chiado fora do padrão: ${glitch.path}');
+
+      final d = await MartelosService.process(
+        inputPath: glitch.path,
+        encrypt: false,
+        passphrases: ['abc'],
+        constante: 'pi',
+        alvo: MartelosAlvo.imagem,
+      );
+      expect(d.ok, isTrue, reason: 'descripto imagem: ${d.details ?? d.message}');
+      final fix = File(d.outputPath ?? '');
+      expect(fix.existsSync(), isTrue);
+      expect(fix.path.endsWith('_fix.bmp'), isTrue, reason: 'restauração fora do padrão: ${fix.path}');
+    }, timeout: const Timeout(Duration(minutes: 2)));
   }, skip: ciSemMotor ? 'binário empacotado do motor ausente' : false);
+
+  group('alvoPorCaminho (sugestao de alvo por extensao)', () {
+    test('cripto: mídia entra direto no modo de transmutação; resto no genérico', () {
+      expect(alvoPorCaminho('/sdcard/Pictures/foto.jpg', true), MartelosAlvo.imagem);
+      expect(alvoPorCaminho('/sdcard/Pictures/foto.png', true), MartelosAlvo.imagem);
+      expect(alvoPorCaminho('/sdcard/Music/podcast.mp3', true), MartelosAlvo.audio);
+      expect(alvoPorCaminho('/sdcard/Movies/aula.mp4', true), MartelosAlvo.video);
+      expect(alvoPorCaminho('/sdcard/Docs/relatorio.pdf', true), MartelosAlvo.arquivo);
+      expect(alvoPorCaminho('/tmp/cofre.zip', true), MartelosAlvo.arquivo);
+    });
+
+    test('descripto: artefatos de chiado voltam pelo alvo; .martelos no genérico', () {
+      expect(alvoPorCaminho('/sdcard/Pictures/foto_glitch.bmp', false), MartelosAlvo.imagem);
+      expect(alvoPorCaminho('/sdcard/Music/podcast_glitch.wav', false), MartelosAlvo.audio);
+      expect(alvoPorCaminho('/sdcard/Movies/aula_glitch.avi', false), MartelosAlvo.video);
+      expect(alvoPorCaminho('/sdcard/Docs/relatorio.pdf.martelos', false), MartelosAlvo.arquivo);
+      expect(alvoPorCaminho('/tmp/cofre.zip', false), MartelosAlvo.arquivo);
+    });
+  });
 }
 
 /// Cabeçalho BMP 1x1 mínimo para os testes.

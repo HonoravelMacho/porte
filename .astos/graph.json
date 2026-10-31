@@ -3724,10 +3724,14 @@
   ]
  },
  "changed": [
-  "app/.astos/graph.json",
-  "app/.astos/index.html",
-  "app/.astos/map.md",
-  "app/AGENTS.md"
+  ".astos/graph.json",
+  ".astos/map.md",
+  "app/android/app/src/main/jniLibs/arm64-v8a/libffmpeg.so",
+  "app/android/app/src/main/jniLibs/arm64-v8a/libffprobe.so",
+  "app/android/app/src/main/jniLibs/arm64-v8a/libmartelos.so",
+  "app/android/app/src/main/jniLibs/armeabi-v7a/libmartelos.so",
+  "app/android/app/src/main/jniLibs/x86_64/libmartelos.so",
+  "packaging/binaries/x86_64/martelos"
  ],
  "fs_index": {
   "app/android/app/build.gradle.kts": {
@@ -9936,7 +9940,7 @@
   "edges": 66,
   "call_edges": 128,
   "files_reused": 38,
-  "git_changed": 4,
+  "git_changed": 8,
   "langs": [
    "c",
    "dart",
@@ -9946,9 +9950,9 @@
   "supported": ".py, .c, .h, .cpp, .hpp, .cc, .cxx, .dart, .rs, .js, .jsx, .ts, .tsx, .java, .go, .cs, .kt",
   "fallback": false,
   "generic_truncated": false,
-  "generated_in_s": 1.56,
+  "generated_in_s": 2.82,
   "full_rescan": false,
   "out": "/home/tiagorabelo/porte/.astos",
-  "scanned_at": "2026-10-24T01:17:05+00:00"
+  "scanned_at": "2026-10-25T11:37:06+00:00"
  }
 }
